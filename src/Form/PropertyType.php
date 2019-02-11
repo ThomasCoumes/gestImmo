@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Equipment;
 use App\Entity\Property;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -40,7 +41,16 @@ class PropertyType extends AbstractType
             ])
             ->add('numberOfPiece', IntegerType::class, ['required' => true, 'label' => 'Nombre de pièces'])
             ->add('description', TextType::class, ['required' => false, 'label' => 'Description'])
-            ->add('equipment')
+            ->add('equipment', EntityType::class, [
+                'required' => false,
+                'label' => 'Equipements',
+                [
+                    'class' => Equipment::class,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'choice_label' => 'name'
+                ]
+            ])
             ->add('rentalType', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
