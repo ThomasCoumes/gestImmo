@@ -12,13 +12,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/property")
+ * @Route("/proprietes")
  * @IsGranted("ROLE_USER")
  */
 class PropertyController extends AbstractController
 {
     /**
      * @Route("/", name="property_index", methods={"GET"})
+     * @param PropertyRepository $propertyRepository
+     * @return Response
      */
     public function index(PropertyRepository $propertyRepository): Response
     {
@@ -29,6 +31,8 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/new", name="property_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -52,6 +56,8 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/{id}", name="property_show", methods={"GET"})
+     * @param Property $property
+     * @return Response
      */
     public function show(Property $property): Response
     {
@@ -62,6 +68,9 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="property_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Property $property
+     * @return Response
      */
     public function edit(Request $request, Property $property): Response
     {
@@ -84,6 +93,9 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/{id}", name="property_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Property $property
+     * @return Response
      */
     public function delete(Request $request, Property $property): Response
     {
