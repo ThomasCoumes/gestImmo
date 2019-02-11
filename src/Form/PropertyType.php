@@ -44,12 +44,10 @@ class PropertyType extends AbstractType
             ->add('equipment', EntityType::class, [
                 'required' => false,
                 'label' => 'Equipements',
-                [
-                    'class' => Equipment::class,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'choice_label' => 'name'
-                ]
+                'class' => Equipment::class,
+                'multiple' => true,
+                'expanded' => true,
+                'choice_label' => 'name'
             ])
             ->add('rentalType', ChoiceType::class, [
                 'required' => true,
