@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -14,34 +15,91 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Type(
+     *     type="integer",
+     *     message="{{ value }} n'est pas un nombre entier."
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Type(
+     *     type="string",
+     *     message="{{ value }} doit etre une chaine de caractères."
+     * )
+     * @Assert\Email(
+     *     message = "Veuillez renseigner votre adresse mail.",
+     *     checkMX = true
+     * )
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 180,
+     *      minMessage = "Votre email est trop court",
+     *      maxMessage = "Votre email est trop long"
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Assert\NotBlank
+     * @Assert\Type(
+     *     type="string",
+     *     message="Role invalide."
+     * )
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\Type(
+     *     type="string",
+     *     message="{{ value }} doit etre une chaine de caractères."
+     * )
+     * @Assert\Length(
+     *      min = 8,
+     *      minMessage = "Votre mot de passe doit faire au moins 8 caracteres",
+     * )
      */
     private $password;
 
     /**
      * @var string
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\Type(
+     *     type="string",
+     *     message="{{ value }} doit etre une chaine de caractères."
+     * )
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 180,
+     *      minMessage = "Votre prénom est trop court",
+     *      maxMessage = "Votre prénom est trop long"
+     * )
      */
     private $name;
 
     /**
      * @var string
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\Type(
+     *     type="string",
+     *     message="{{ value }} doit etre une chaine de caractères."
+     * )
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 180,
+     *      minMessage = "Votre nom est trop court",
+     *      maxMessage = "Votre nom est trop long"
+     * )
      */
     private $lastName;
 
