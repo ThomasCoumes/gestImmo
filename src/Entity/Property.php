@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
@@ -13,76 +14,106 @@ class Property
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Choice({"Appartement", "Maison", "Garage", "Bureau", "Château", "Commerce"})
      */
     private $propertyCategory;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $uniqueName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $city;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
+     * @Assert\Length(min = 5, minMessage = "Ce champ doit contenir 5 chiffres")
+     * @Assert\Length(max = 5, maxMessage = "Ce champ doit contenir 5 chiffres")
      */
     private $zipCode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Country
      */
     private $country;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $surfaceInSquareMeter;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $numberOfPiece;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Type("string")
      */
     private $description;
 
     /**
      * @ORM\Column(type="object", nullable=true)
+     * @Assert\Type("object")
      */
     private $equipment;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Choice({"Meublé", "Non neublé"})
      */
     private $rentalCategory;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
+     * @Assert\Type("float")
      */
     private $rentExcludingCharges;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
+     * @Assert\Type("float")
      */
     private $charges;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
+     * @Assert\Type("float")
      */
     private $purchasePrice;
 
