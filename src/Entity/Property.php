@@ -143,7 +143,7 @@ class Property
 
         return $this;
     }
-
+  
     public function getUniqueName(): ?string
     {
         return $this->uniqueName;
