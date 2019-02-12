@@ -1,0 +1,61 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Property index{% endblock %}
+
+{% block body %}
+    <h1>Property index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PropertyCategory</th>
+                <th>UniqueName</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>ZipCode</th>
+                <th>Country</th>
+                <th>SurfaceInSquareMeter</th>
+                <th>NumberOfPiece</th>
+                <th>Description</th>
+                <th>Equipment</th>
+                <th>RentalCategory</th>
+                <th>RentExcludingCharges</th>
+                <th>Charges</th>
+                <th>PurchasePrice</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for property in properties %}
+            <tr>
+                <td>{{ property.id }}</td>
+                <td>{{ property.propertyCategory }}</td>
+                <td>{{ property.uniqueName }}</td>
+                <td>{{ property.address }}</td>
+                <td>{{ property.city }}</td>
+                <td>{{ property.zipCode }}</td>
+                <td>{{ property.country }}</td>
+                <td>{{ property.surfaceInSquareMeter }}</td>
+                <td>{{ property.numberOfPiece }}</td>
+                <td>{{ property.description }}</td>
+                <td>{{ property.equipment }}</td>
+                <td>{{ property.rentalCategory }}</td>
+                <td>{{ property.rentExcludingCharges }}</td>
+                <td>{{ property.charges }}</td>
+                <td>{{ property.purchasePrice }}</td>
+                <td>
+                    <a href="{{ path('property_show', {'id': property.id}) }}">show</a>
+                    <a href="{{ path('property_edit', {'id': property.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('property_new') }}">Create new</a>
+{% endblock %}
