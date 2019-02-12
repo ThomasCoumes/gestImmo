@@ -1,6 +1,7 @@
 @import "~bootswatch/dist/united/variables";
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/united/bootswatch";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 
 $black: #000000;
 
@@ -20,4 +21,8 @@ $black: #000000;
 .logout {
   font-weight: bolder;
   color: $black!important;
+}
+
+.fa-edit {
+  margin-left: 2vw;
 }
