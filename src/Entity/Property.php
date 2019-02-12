@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -14,22 +16,16 @@ class Property
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank
-     * @Assert\Type("integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Choice({"Appartement", "Maison", "Garage", "Bureau", "Château", "Commerce"})
      */
     private $propertyCategory;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Type("string")
      */
     private $uniqueName;
 
@@ -84,12 +80,6 @@ class Property
     private $description;
 
     /**
-     * @ORM\Column(type="object", nullable=true)
-     * @Assert\Type("object")
-     */
-    private $equipment;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Choice({"Meublé", "Non neublé"})
@@ -121,6 +111,16 @@ class Property
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      */
     private $userProperty;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Equipment", mappedBy="equipment")
+     */
+    private $equipments;
+
+    public function __construct()
+    {
+        $this->equipments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -235,18 +235,6 @@ class Property
         return $this;
     }
 
-    public function getEquipment()
-    {
-        return $this->equipment;
-    }
-
-    public function setEquipment($equipment): self
-    {
-        $this->equipment = $equipment;
-
-        return $this;
-    }
-
     public function getRentalCategory(): ?string
     {
         return $this->rentalCategory;
@@ -303,6 +291,37 @@ class Property
     public function setUserProperty(?User $userProperty): self
     {
         $this->userProperty = $userProperty;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipment[]
+     */
+    public function getEquipments(): Collection
+    {
+        return $this->equipments;
+    }
+
+    public function addEquipment(Equipment $equipment): self
+    {
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments[] = $equipment;
+            $equipment->setEquipment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Equipment $equipment): self
+    {
+        if ($this->equipments->contains($equipment)) {
+            $this->equipments->removeElement($equipment);
+            // set the owning side to null (unless already changed)
+            if ($equipment->getEquipment() === $this) {
+                $equipment->setEquipment(null);
+            }
+        }
 
         return $this;
     }

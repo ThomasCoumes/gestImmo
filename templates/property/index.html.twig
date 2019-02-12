@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Property index{% endblock %}
+{% block title %}Propriétés{% endblock %}
 
 {% block body %}
     <h1>Property index</h1>
@@ -8,28 +8,26 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>PropertyCategory</th>
-                <th>UniqueName</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>ZipCode</th>
-                <th>Country</th>
-                <th>SurfaceInSquareMeter</th>
-                <th>NumberOfPiece</th>
+                <th>Type de bien</th>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Ville</th>
+                <th>Code postal</th>
+                <th>Pays</th>
+                <th>Surface en m²</th>
+                <th>Nombre de pièces</th>
                 <th>Description</th>
-                <th>Equipment</th>
-                <th>RentalCategory</th>
-                <th>RentExcludingCharges</th>
+                <th>Equipement</th>
+                <th>Type de location</th>
+                <th>Loyer hors charges</th>
                 <th>Charges</th>
-                <th>PurchasePrice</th>
+                <th>Prix d'achat</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for property in properties %}
             <tr>
-                <td>{{ property.id }}</td>
                 <td>{{ property.propertyCategory }}</td>
                 <td>{{ property.uniqueName }}</td>
                 <td>{{ property.address }}</td>
@@ -51,11 +49,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="16">no records found</td>
+                <td colspan="16">Vous n'avez pas enregistré de propriétés</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('property_new') }}">Create new</a>
+    <a href="{{ path('property_new') }}">Ajouter</a>
 {% endblock %}

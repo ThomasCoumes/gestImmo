@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Property{% endblock %}
+{% block title %}Propriétées{% endblock %}
 
 {% block body %}
     <h1>Property</h1>
@@ -8,39 +8,35 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ property.id }}</td>
-            </tr>
-            <tr>
-                <th>PropertyCategory</th>
+                <th>Type de bien</th>
                 <td>{{ property.propertyCategory }}</td>
             </tr>
             <tr>
-                <th>UniqueName</th>
+                <th>Nom</th>
                 <td>{{ property.uniqueName }}</td>
             </tr>
             <tr>
-                <th>Address</th>
+                <th>Adresse</th>
                 <td>{{ property.address }}</td>
             </tr>
             <tr>
-                <th>City</th>
+                <th>Ville</th>
                 <td>{{ property.city }}</td>
             </tr>
             <tr>
-                <th>ZipCode</th>
+                <th>Code postal</th>
                 <td>{{ property.zipCode }}</td>
             </tr>
             <tr>
-                <th>Country</th>
+                <th>Pays</th>
                 <td>{{ property.country }}</td>
             </tr>
             <tr>
-                <th>SurfaceInSquareMeter</th>
+                <th>Surface en m²</th>
                 <td>{{ property.surfaceInSquareMeter }}</td>
             </tr>
             <tr>
-                <th>NumberOfPiece</th>
+                <th>Nombre de pièces</th>
                 <td>{{ property.numberOfPiece }}</td>
             </tr>
             <tr>
@@ -48,15 +44,15 @@
                 <td>{{ property.description }}</td>
             </tr>
             <tr>
-                <th>Equipment</th>
+                <th>Equipement</th>
                 <td>{{ property.equipment }}</td>
             </tr>
             <tr>
-                <th>RentalCategory</th>
+                <th>Type de location</th>
                 <td>{{ property.rentalCategory }}</td>
             </tr>
             <tr>
-                <th>RentExcludingCharges</th>
+                <th>Loyer hors charges</th>
                 <td>{{ property.rentExcludingCharges }}</td>
             </tr>
             <tr>
@@ -64,15 +60,15 @@
                 <td>{{ property.charges }}</td>
             </tr>
             <tr>
-                <th>PurchasePrice</th>
+                <th>Prix d'achat</th>
                 <td>{{ property.purchasePrice }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('property_index') }}">back to list</a>
+    <a href="{{ path('property_index') }}">Revenir à la liste</a>
 
-    <a href="{{ path('property_edit', {'id': property.id}) }}">edit</a>
+    <a href="{{ path('property_edit', {'id': property.id}) }}">éditer</a>
 
     {{ include('property/_delete_form.html.twig') }}
 {% endblock %}
