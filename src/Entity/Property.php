@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
@@ -13,87 +14,118 @@ class Property
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Choice({"Appartement", "Maison", "Garage", "Bureau", "Château", "Commerce"})
      */
     private $propertyType;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $uniqueName;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $address;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $city;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
+     * @Assert\Length(min = 5, minMessage = "Ce champ doit contenir 5 chiffres")
+     * @Assert\Length(max = 5, maxMessage = "Ce champ doit contenir 5 chiffres")
      */
     private $zipCode;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Country
      */
     private $country;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $surfaceInSquarMeter;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $numberOfPiece;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
+     * @Assert\Type("string")
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
+     * @Assert\Type("string")
      */
     private $equipment;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Choice({"Meublé", "Non neublé"})
      */
     private $rentalType;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("float")
      */
     private $rentExcludingCharge;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("float")
      */
     private $charges;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("float")
      */
     private $purchasePrice;
 
