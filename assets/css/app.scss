@@ -1,3 +1,23 @@
 @import "~bootswatch/dist/united/variables";
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/united/bootswatch";
+
+$black: #000000;
+
+* {
+  font-size: 16pt;
+}
+
+.login {
+  margin-top: 15vh;
+}
+
+.name {
+  font-weight: bolder;
+  color: $black!important;
+}
+
+.logout {
+  font-weight: bolder;
+  color: $black!important;
+}
