@@ -108,7 +108,7 @@ class User implements UserInterface
     private $lastName;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Property", mappedBy="propertyType")
+     * @ORM\OneToMany(targetEntity="App\Entity\Property", mappedBy="userProperty")
      */
     private $properties;
 
@@ -239,7 +239,7 @@ class User implements UserInterface
     {
         if (!$this->properties->contains($property)) {
             $this->properties[] = $property;
-            $property->setPropertyType($this);
+            $property->setUserProperty($this);
         }
 
         return $this;
@@ -250,8 +250,8 @@ class User implements UserInterface
         if ($this->properties->contains($property)) {
             $this->properties->removeElement($property);
             // set the owning side to null (unless already changed)
-            if ($property->getPropertyType() === $this) {
-                $property->setPropertyType(null);
+            if ($property->getUserProperty() === $this) {
+                $property->setUserProperty(null);
             }
         }
 

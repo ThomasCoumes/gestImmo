@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,40 +22,35 @@ class Property
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Choice({"Appartement", "Maison", "Garage", "Bureau", "Château", "Commerce"})
      */
-    private $propertyType;
+    private $propertyCategory;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
      */
     private $uniqueName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
      */
     private $address;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
      */
     private $city;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
      * @Assert\NotBlank
      * @Assert\Type("integer")
      * @Assert\Length(min = 5, minMessage = "Ce champ doit contenir 5 chiffres")
@@ -62,263 +59,276 @@ class Property
     private $zipCode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Country
      */
     private $country;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
      * @Assert\NotBlank
      * @Assert\Type("integer")
      */
-    private $surfaceInSquarMeter;
+    private $surfaceInSquareMeter;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
      * @Assert\NotBlank
      * @Assert\Type("integer")
      */
     private $numberOfPiece;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
+     * @ORM\Column(type="text", nullable=true)
      * @Assert\Type("string")
      */
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @Assert\Type("string")
-     */
-    private $equipment;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Choice({"Meublé", "Non neublé"})
      */
-    private $rentalType;
+    private $rentalCategory;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="float")
      * @Assert\NotBlank
      * @Assert\Type("float")
      */
-    private $rentExcludingCharge;
+    private $rentExcludingCharges;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="float")
      * @Assert\NotBlank
      * @Assert\Type("float")
      */
     private $charges;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="float")
      * @Assert\NotBlank
      * @Assert\Type("float")
      */
     private $purchasePrice;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="properties")
+     */
+    private $userProperty;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Equipment", mappedBy="equipment")
+     */
+    private $equipments;
+
+    public function __construct()
+    {
+        $this->equipments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPropertyType(): ?User
+    public function getPropertyCategory(): ?string
     {
-        return $this->propertyType;
+        return $this->propertyCategory;
     }
 
-    public function setPropertyType(?User $propertyType): self
+    public function setPropertyCategory(string $propertyCategory): self
     {
-        $this->propertyType = $propertyType;
+        $this->propertyCategory = $propertyCategory;
 
         return $this;
     }
-
-    public function getUniqueName(): ?User
+  
+    public function getUniqueName(): ?string
     {
         return $this->uniqueName;
     }
 
-    public function setUniqueName(?User $uniqueName): self
+    public function setUniqueName(string $uniqueName): self
     {
         $this->uniqueName = $uniqueName;
 
         return $this;
     }
 
-    public function getAddress(): ?User
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    public function setAddress(?User $address): self
+    public function setAddress(string $address): self
     {
         $this->address = $address;
 
         return $this;
     }
 
-    public function getCity(): ?User
+    public function getCity(): ?string
     {
         return $this->city;
     }
 
-    public function setCity(?User $city): self
+    public function setCity(string $city): self
     {
         $this->city = $city;
 
         return $this;
     }
 
-    public function getZipCode(): ?User
+    public function getZipCode(): ?int
     {
         return $this->zipCode;
     }
 
-    public function setZipCode(?User $zipCode): self
+    public function setZipCode(int $zipCode): self
     {
         $this->zipCode = $zipCode;
 
         return $this;
     }
 
-    public function getCountry(): ?User
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
-    public function setCountry(?User $country): self
+    public function setCountry(string $country): self
     {
         $this->country = $country;
 
         return $this;
     }
 
-    public function getSurfaceInSquarMeter(): ?User
+    public function getSurfaceInSquareMeter(): ?int
     {
-        return $this->surfaceInSquarMeter;
+        return $this->surfaceInSquareMeter;
     }
 
-    public function setSurfaceInSquarMeter(?User $surfaceInSquarMeter): self
+    public function setSurfaceInSquareMeter(int $surfaceInSquareMeter): self
     {
-        $this->surfaceInSquarMeter = $surfaceInSquarMeter;
+        $this->surfaceInSquareMeter = $surfaceInSquareMeter;
 
         return $this;
     }
 
-    public function getNumberOfPiece(): ?User
+    public function getNumberOfPiece(): ?int
     {
         return $this->numberOfPiece;
     }
 
-    public function setNumberOfPiece(?User $numberOfPiece): self
+    public function setNumberOfPiece(int $numberOfPiece): self
     {
         $this->numberOfPiece = $numberOfPiece;
 
         return $this;
     }
 
-    public function getDescription(): ?User
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(?User $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEquipment()
+    public function getRentalCategory(): ?string
     {
-        return $this->equipment;
+        return $this->rentalCategory;
     }
 
-    /**
-     * @param mixed $equipment
-     */
-    public function setEquipment($equipment)
+    public function setRentalCategory(string $rentalCategory): self
     {
-        $this->equipment = $equipment;
+        $this->rentalCategory = $rentalCategory;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRentalType()
+    public function getRentExcludingCharges(): ?float
     {
-        return $this->rentalType;
+        return $this->rentExcludingCharges;
     }
 
-    /**
-     * @param mixed $rentalType
-     */
-    public function setRentalType($rentalType)
+    public function setRentExcludingCharges(float $rentExcludingCharges): self
     {
-        $this->rentalType = $rentalType;
+        $this->rentExcludingCharges = $rentExcludingCharges;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRentExcludingCharge()
-    {
-        return $this->rentExcludingCharge;
-    }
-
-    /**
-     * @param mixed $rentExcludingCharge
-     */
-    public function setRentExcludingCharge($rentExcludingCharge)
-    {
-        $this->rentExcludingCharge = $rentExcludingCharge;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCharges()
+    public function getCharges(): ?float
     {
         return $this->charges;
     }
 
-    /**
-     * @param mixed $charges
-     */
-    public function setCharges($charges)
+    public function setCharges(float $charges): self
     {
         $this->charges = $charges;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPurchasePrice()
+    public function getPurchasePrice(): ?float
     {
         return $this->purchasePrice;
     }
 
-    /**
-     * @param mixed $purchasePrice
-     */
-    public function setPurchasePrice($purchasePrice)
+    public function setPurchasePrice(float $purchasePrice): self
     {
         $this->purchasePrice = $purchasePrice;
+
+        return $this;
+    }
+
+    public function getUserProperty(): ?User
+    {
+        return $this->userProperty;
+    }
+
+    public function setUserProperty(?User $userProperty): self
+    {
+        $this->userProperty = $userProperty;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipment[]
+     */
+    public function getEquipments(): Collection
+    {
+        return $this->equipments;
+    }
+
+    public function addEquipment(Equipment $equipment): self
+    {
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments[] = $equipment;
+            $equipment->setEquipment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Equipment $equipment): self
+    {
+        if ($this->equipments->contains($equipment)) {
+            $this->equipments->removeElement($equipment);
+            // set the owning side to null (unless already changed)
+            if ($equipment->getEquipment() === $this) {
+                $equipment->setEquipment(null);
+            }
+        }
+
+        return $this;
     }
 }
