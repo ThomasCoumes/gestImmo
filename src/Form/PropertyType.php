@@ -48,7 +48,7 @@ class PropertyType extends AbstractType
                 'class' => Equipment::class,
                 'multiple' => true,
                 'expanded' => true,
-//                'choice_label' => 'name',
+                'choice_label' => 'name',
             ])
             ->add('rentalCategory', ChoiceType::class, [
                 'required' => true,
