@@ -31,8 +31,8 @@
                 <td>{{ property.charges }}</td>
                 <td>{{ property.purchasePrice }}</td>
                 <td>
-                    <a href="{{ path('property_show', {'id': property.id}) }}">show</a>
-                    <a href="{{ path('property_edit', {'id': property.id}) }}">edit</a>
+                    <a href="{{ path('property_show', {'id': property.id}) }}">Voir</a>
+                    <a href="{{ path('property_edit', {'id': property.id}) }}"><i class="fas fa-edit"></i> édition</a>
                 </td>
             </tr>
         {% else %}
@@ -43,5 +43,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('property_new') }}">Ajouter</a>
+    <a href="{{ path('property_new') }}"><i class="fas fa-plus-circle"></i> Ajouter</a>
 {% endblock %}
