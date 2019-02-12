@@ -28,7 +28,8 @@ class PropertyType extends AbstractType
                     'Bureau' => 'Bureau',
                     'Château' => 'Château',
                     'Commerce' => 'Commerce',
-                ]
+                ],
+                'label' => 'Type de bien'
             ])
             ->add('uniqueName', TextType::class, ['required' => true, 'label' => 'Nom unique'])
             ->add('address', TextType::class, ['required' => true, 'label' => 'Adresse'])
@@ -47,14 +48,15 @@ class PropertyType extends AbstractType
                 'class' => Equipment::class,
                 'multiple' => true,
                 'expanded' => true,
-                'choice_label' => 'name'
+//                'choice_label' => 'name',
             ])
             ->add('rentalCategory', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
                     'Meublé' => 'Meublé',
                     'Non meublé' => 'Non meublé',
-                ]
+                ],
+                'label' => 'Type de location'
             ])
             ->add('rentExcludingCharges', NumberType::class, [
                 'required' => true,
