@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -102,6 +104,16 @@ class User implements UserInterface
      * )
      */
     private $lastName;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Property", mappedBy="userProperty")
+     */
+    private $properties;
+
+    public function __construct()
+    {
+        $this->properties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -211,5 +223,36 @@ class User implements UserInterface
     public function setLastName($lastName): string
     {
         $this->lastName = $lastName;
+    }
+
+    /**
+     * @return Collection|Property[]
+     */
+    public function getProperties(): Collection
+    {
+        return $this->properties;
+    }
+
+    public function addProperty(Property $property): self
+    {
+        if (!$this->properties->contains($property)) {
+            $this->properties[] = $property;
+            $property->setUserProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProperty(Property $property): self
+    {
+        if ($this->properties->contains($property)) {
+            $this->properties->removeElement($property);
+            // set the owning side to null (unless already changed)
+            if ($property->getUserProperty() === $this) {
+                $property->setUserProperty(null);
+            }
+        }
+
+        return $this;
     }
 }
