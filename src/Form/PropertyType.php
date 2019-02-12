@@ -19,7 +19,7 @@ class PropertyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('propertyType', ChoiceType::class, [
+            ->add('propertyCategory', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
                     'Appartement' => 'Appartement',
@@ -35,13 +35,13 @@ class PropertyType extends AbstractType
             ->add('city', TextType::class, ['required' => true, 'label' => 'Ville'])
             ->add('zipCode', IntegerType::class, ['required' => true, 'label' => 'Code postal'])
             ->add('country', CountryType::class, ['required' => true, 'label' => 'Pays'])
-            ->add('surfaceInSquarMeter', IntegerType::class, [
+            ->add('surfaceInSquareMeter', IntegerType::class, [
                 'required' => true,
                 'label' => 'Surface en m²'
             ])
             ->add('numberOfPiece', IntegerType::class, ['required' => true, 'label' => 'Nombre de pièces'])
             ->add('description', TextType::class, ['required' => false, 'label' => 'Description'])
-            ->add('equipment', EntityType::class, [
+            ->add('equipments', EntityType::class, [
                 'required' => false,
                 'label' => 'Equipements',
                 'class' => Equipment::class,
@@ -49,19 +49,20 @@ class PropertyType extends AbstractType
                 'expanded' => true,
                 'choice_label' => 'name'
             ])
-            ->add('rentalType', ChoiceType::class, [
+            ->add('rentalCategory', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
                     'Meublé' => 'Meublé',
                     'Non meublé' => 'Non meublé',
                 ]
             ])
-            ->add('rentExcludingCharge', NumberType::class, [
+            ->add('rentExcludingCharges', NumberType::class, [
                 'required' => true,
                 'label' => 'Loyer hors charges'
             ])
             ->add('charges', NumberType::class, ['required' => true, 'label' => 'Charges'])
-            ->add('purchasePrice', NumberType::class, ['required' => true, 'label' => 'Prix d\'achat']);
+            ->add('purchasePrice', NumberType::class, ['required' => true, 'label' => 'Prix d\'achat'])
+//            ->add('userProperty')
         ;
     }
 

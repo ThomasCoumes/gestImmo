@@ -64,6 +64,11 @@ class Equipment
      */
     private $swimmingPool;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Property", inversedBy="equipments")
+     */
+    private $equipment;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +178,18 @@ class Equipment
     public function setSwimmingPool(?bool $swimmingPool): self
     {
         $this->swimmingPool = $swimmingPool;
+
+        return $this;
+    }
+
+    public function getEquipment(): ?Property
+    {
+        return $this->equipment;
+    }
+
+    public function setEquipment(?Property $equipment): self
+    {
+        $this->equipment = $equipment;
 
         return $this;
     }
