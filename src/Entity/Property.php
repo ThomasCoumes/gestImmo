@@ -16,16 +16,22 @@ class Property
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Choice({"Appartement", "Maison", "Garage", "Bureau", "Château", "Commerce"})
      */
     private $propertyCategory;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
      */
     private $uniqueName;
 
