@@ -16,7 +16,6 @@ class Property
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank
      * @Assert\Type("integer")
      */
     private $id;
