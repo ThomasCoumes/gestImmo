@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('property_delete', {'id': property.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer?');">
+<form method="post" class="deleteForm col-md-9 col-lg-9 col-9 col-sm-9 col-xl-9" action="{{ path('property_delete', {'id': property.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ property.id) }}">
     <button class="btn text-primary"><i class="far fa-trash-alt"></i> Supprimer</button>

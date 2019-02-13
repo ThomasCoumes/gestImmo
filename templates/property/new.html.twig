@@ -3,9 +3,11 @@
 {% block title %}Nouvelle propriétée{% endblock %}
 
 {% block body %}
-    <h1>Créer une nouvelle propriétée</h1>
-
-    {{ include('property/_form.html.twig') }}
-
     <a href="{{ path('property_index') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
+
+    <h1 class="propertyTitle">Créer une nouvelle propriétée</h1>
+
+    <div class="container">
+        {{ include('property/_form.html.twig') }}
+    </div>
 {% endblock %}

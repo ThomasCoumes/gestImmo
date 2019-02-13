@@ -15,17 +15,21 @@ class Equipment
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Assert\Type("integer")
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Assert\Type("string")
+     * @var string
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Property", inversedBy="equipments")
+     * @Assert\Type("string")
+     * @var string
      */
     private $equipment;
 
@@ -61,11 +65,18 @@ class Equipment
         $this->name = $name;
     }
 
+    /**
+     * @return Property|null
+     */
     public function getEquipment(): ?Property
     {
         return $this->equipment;
     }
 
+    /**
+     * @param Property|null $equipment
+     * @return Equipment
+     */
     public function setEquipment(?Property $equipment): self
     {
         $this->equipment = $equipment;
