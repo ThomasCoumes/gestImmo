@@ -4,7 +4,6 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
 $black: #000000;
-
 * {
   font-size: 16pt;
 }
@@ -26,3 +25,8 @@ $black: #000000;
 .fa-edit {
   margin-left: 2vw;
 }
+
+header {
+  margin-bottom: 8vh;
+}
+
