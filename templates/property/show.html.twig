@@ -47,8 +47,8 @@
             </tr>
             <tr>
                 <th>Equipement</th>
-                    {% for equipment in property %}
-                        <td>{{ property.equipments }}</td>
+                    {% for equipment in property.equipments %}
+                        <td>{{ equipment.name }}</td>
                     {% endfor %}
             </tr>
             <tr>
