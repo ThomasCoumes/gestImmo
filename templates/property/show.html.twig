@@ -45,7 +45,9 @@
             </tr>
             <tr>
                 <th>Equipement</th>
-                <td>{{ property.equipments }}</td>
+                    {% for equipment in property %}
+                        <td>{{ property.equipments }}</td>
+                    {% endfor %}
             </tr>
             <tr>
                 <th>Type de location</th>
