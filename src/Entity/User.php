@@ -24,6 +24,7 @@ class User implements UserInterface
      *     type="integer",
      *     message="{{ value }} n'est pas un nombre entier."
      * )
+     * @var int
      */
     private $id;
 
@@ -44,6 +45,7 @@ class User implements UserInterface
      *      minMessage = "Votre email est trop court",
      *      maxMessage = "Votre email est trop long"
      * )
+     * @var string
      */
     private $email;
 
@@ -54,6 +56,7 @@ class User implements UserInterface
      *     type="string",
      *     message="Role invalide."
      * )
+     * @var string
      */
     private $roles = [];
 
@@ -70,6 +73,7 @@ class User implements UserInterface
      *      min = 8,
      *      minMessage = "Votre mot de passe doit faire au moins 8 caracteres",
      * )
+     * @var string
      */
     private $password;
 
@@ -87,6 +91,7 @@ class User implements UserInterface
      *      minMessage = "Votre prénom est trop court",
      *      maxMessage = "Votre prénom est trop long"
      * )
+     * @var string
      */
     private $name;
 
@@ -104,6 +109,7 @@ class User implements UserInterface
      *      minMessage = "Votre nom est trop court",
      *      maxMessage = "Votre nom est trop long"
      * )
+     * @var string
      */
     private $lastName;
 
@@ -112,21 +118,34 @@ class User implements UserInterface
      */
     private $properties;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->properties = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return null|string
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return User
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -138,6 +157,8 @@ class User implements UserInterface
      * A visual identifier that represents this user.
      *
      * @see UserInterface
+     *
+     * @return string
      */
     public function getUsername(): string
     {
@@ -146,6 +167,8 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return array
      */
     public function getRoles(): array
     {
@@ -156,6 +179,10 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     * @return User
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -165,12 +192,18 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return string
      */
     public function getPassword(): string
     {
         return (string) $this->password;
     }
 
+    /**
+     * @param string $password
+     * @return User
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -204,7 +237,8 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $name
+     * @param $name
+     * @return string
      */
     public function setName($name): string
     {
@@ -212,7 +246,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getLastName(): ?string
     {
@@ -220,7 +254,8 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $lastName
+     * @param $lastName
+     * @return string
      */
     public function setLastName($lastName): string
     {
@@ -228,13 +263,17 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Property[]
+     * @return Collection
      */
     public function getProperties(): Collection
     {
         return $this->properties;
     }
 
+    /**
+     * @param Property $property
+     * @return User
+     */
     public function addProperty(Property $property): self
     {
         if (!$this->properties->contains($property)) {
@@ -245,6 +284,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Property $property
+     * @return User
+     */
     public function removeProperty(Property $property): self
     {
         if ($this->properties->contains($property)) {
