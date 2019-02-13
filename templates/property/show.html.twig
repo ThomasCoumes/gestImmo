@@ -3,6 +3,8 @@
 {% block title %}Propriétées{% endblock %}
 
 {% block body %}
+    <a href="{{ path('property_index') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
+
     <h1>Propriétée</h1>
 
     <table class="table">
@@ -67,8 +69,6 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('property_index') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
 
     <a href="{{ path('property_edit', {'id': property.id}) }}"><i class="fas fa-edit"></i> éditer</a>
 
