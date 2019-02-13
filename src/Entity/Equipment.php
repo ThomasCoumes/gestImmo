@@ -20,6 +20,7 @@ class Equipment
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Type("string")
      */
     private $name;
 
