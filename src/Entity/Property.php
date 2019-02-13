@@ -17,6 +17,7 @@ class Property
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Assert\Type("integer")
+     * @var int
      */
     private $id;
 
@@ -24,6 +25,7 @@ class Property
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Choice({"Appartement", "Maison", "Garage", "Bureau", "Château", "Commerce"})
+     * @var string
      */
     private $propertyCategory;
 
@@ -31,6 +33,7 @@ class Property
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
+     * @var string
      */
     private $uniqueName;
 
@@ -38,6 +41,7 @@ class Property
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
+     * @var string
      */
     private $address;
 
@@ -45,6 +49,7 @@ class Property
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
+     * @var string
      */
     private $city;
 
@@ -54,6 +59,7 @@ class Property
      * @Assert\Type("integer")
      * @Assert\Length(min = 5, minMessage = "Ce champ doit contenir 5 chiffres")
      * @Assert\Length(max = 5, maxMessage = "Ce champ doit contenir 5 chiffres")
+     * @var int
      */
     private $zipCode;
 
@@ -61,6 +67,7 @@ class Property
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Country
+     * @var string
      */
     private $country;
 
@@ -68,6 +75,7 @@ class Property
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
      * @Assert\Type("integer")
+     * @var string
      */
     private $surfaceInSquareMeter;
 
@@ -75,12 +83,14 @@ class Property
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
      * @Assert\Type("integer")
+     * @var int
      */
     private $numberOfPiece;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\Type("string")
+     * @var string
      */
     private $description;
 
@@ -88,6 +98,7 @@ class Property
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Choice({"Meublé", "Non neublé"})
+     * @var string
      */
     private $rentalCategory;
 
@@ -95,6 +106,7 @@ class Property
      * @ORM\Column(type="float")
      * @Assert\NotBlank
      * @Assert\Type("float")
+     * @var float
      */
     private $rentExcludingCharges;
 
@@ -102,6 +114,7 @@ class Property
      * @ORM\Column(type="float")
      * @Assert\NotBlank
      * @Assert\Type("float")
+     * @var float
      */
     private $charges;
 
@@ -109,6 +122,7 @@ class Property
      * @ORM\Column(type="float")
      * @Assert\NotBlank
      * @Assert\Type("float")
+     * @var float
      */
     private $purchasePrice;
 
@@ -122,33 +136,53 @@ class Property
      */
     private $equipments;
 
+    /**
+     * Property constructor.
+     */
     public function __construct()
     {
         $this->equipments = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return null|string
+     */
     public function getPropertyCategory(): ?string
     {
         return $this->propertyCategory;
     }
 
+    /**
+     * @param string $propertyCategory
+     * @return Property
+     */
     public function setPropertyCategory(string $propertyCategory): self
     {
         $this->propertyCategory = $propertyCategory;
 
         return $this;
     }
-  
+
+    /**
+     * @return null|string
+     */
     public function getUniqueName(): ?string
     {
         return $this->uniqueName;
     }
 
+    /**
+     * @param string $uniqueName
+     * @return Property
+     */
     public function setUniqueName(string $uniqueName): self
     {
         $this->uniqueName = $uniqueName;
@@ -156,11 +190,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getAddress(): ?string
     {
         return $this->address;
     }
 
+    /**
+     * @param string $address
+     * @return Property
+     */
     public function setAddress(string $address): self
     {
         $this->address = $address;
@@ -168,11 +209,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getCity(): ?string
     {
         return $this->city;
     }
 
+    /**
+     * @param string $city
+     * @return Property
+     */
     public function setCity(string $city): self
     {
         $this->city = $city;
@@ -180,11 +228,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getZipCode(): ?int
     {
         return $this->zipCode;
     }
 
+    /**
+     * @param int $zipCode
+     * @return Property
+     */
     public function setZipCode(int $zipCode): self
     {
         $this->zipCode = $zipCode;
@@ -192,11 +247,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getCountry(): ?string
     {
         return $this->country;
     }
 
+    /**
+     * @param string $country
+     * @return Property
+     */
     public function setCountry(string $country): self
     {
         $this->country = $country;
@@ -204,11 +266,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getSurfaceInSquareMeter(): ?int
     {
         return $this->surfaceInSquareMeter;
     }
 
+    /**
+     * @param int $surfaceInSquareMeter
+     * @return Property
+     */
     public function setSurfaceInSquareMeter(int $surfaceInSquareMeter): self
     {
         $this->surfaceInSquareMeter = $surfaceInSquareMeter;
@@ -216,11 +285,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getNumberOfPiece(): ?int
     {
         return $this->numberOfPiece;
     }
 
+    /**
+     * @param int $numberOfPiece
+     * @return Property
+     */
     public function setNumberOfPiece(int $numberOfPiece): self
     {
         $this->numberOfPiece = $numberOfPiece;
@@ -228,11 +304,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * @param null|string $description
+     * @return Property
+     */
     public function setDescription(?string $description): self
     {
         $this->description = $description;
@@ -240,11 +323,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getRentalCategory(): ?string
     {
         return $this->rentalCategory;
     }
 
+    /**
+     * @param string $rentalCategory
+     * @return Property
+     */
     public function setRentalCategory(string $rentalCategory): self
     {
         $this->rentalCategory = $rentalCategory;
@@ -252,11 +342,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getRentExcludingCharges(): ?float
     {
         return $this->rentExcludingCharges;
     }
 
+    /**
+     * @param float $rentExcludingCharges
+     * @return Property
+     */
     public function setRentExcludingCharges(float $rentExcludingCharges): self
     {
         $this->rentExcludingCharges = $rentExcludingCharges;
@@ -264,11 +361,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getCharges(): ?float
     {
         return $this->charges;
     }
 
+    /**
+     * @param float $charges
+     * @return Property
+     */
     public function setCharges(float $charges): self
     {
         $this->charges = $charges;
@@ -276,11 +380,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getPurchasePrice(): ?float
     {
         return $this->purchasePrice;
     }
 
+    /**
+     * @param float $purchasePrice
+     * @return Property
+     */
     public function setPurchasePrice(float $purchasePrice): self
     {
         $this->purchasePrice = $purchasePrice;
@@ -288,11 +399,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUserProperty(): ?User
     {
         return $this->userProperty;
     }
 
+    /**
+     * @param User|null $userProperty
+     * @return Property
+     */
     public function setUserProperty(?User $userProperty): self
     {
         $this->userProperty = $userProperty;
@@ -301,13 +419,17 @@ class Property
     }
 
     /**
-     * @return Collection|Equipment[]
+     * @return Collection
      */
     public function getEquipments(): Collection
     {
         return $this->equipments;
     }
 
+    /**
+     * @param Equipment $equipment
+     * @return Property
+     */
     public function addEquipment(Equipment $equipment): self
     {
         if (!$this->equipments->contains($equipment)) {
@@ -318,6 +440,10 @@ class Property
         return $this;
     }
 
+    /**
+     * @param Equipment $equipment
+     * @return Property
+     */
     public function removeEquipment(Equipment $equipment): self
     {
         if ($this->equipments->contains($equipment)) {
