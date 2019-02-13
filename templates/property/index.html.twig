@@ -27,9 +27,9 @@
                 <td>{{ property.address }}</td>
                 <td>{{ property.city }}</td>
                 <td>{{ property.zipCode }}</td>
-                <td>{{ property.rentExcludingCharges }}</td>
-                <td>{{ property.charges }}</td>
-                <td>{{ property.purchasePrice }}</td>
+                <td>{{ property.rentExcludingCharges }} €</td>
+                <td>{{ property.charges }} €</td>
+                <td>{{ property.purchasePrice }} €</td>
                 <td>
                     <a href="{{ path('property_show', {'id': property.id}) }}">Voir</a>
                     <a href="{{ path('property_edit', {'id': property.id}) }}"><i class="fas fa-edit"></i> édition</a>
