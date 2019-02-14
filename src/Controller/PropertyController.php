@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Property;
+use App\Entity\User;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +41,10 @@ class PropertyController extends AbstractController
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $property->setUserProperty($this->getUser());
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($property);
             $entityManager->flush();
@@ -63,6 +67,12 @@ class PropertyController extends AbstractController
      */
     public function show(Property $property): Response
     {
+        if (!$this->isGranted('EDIT', $property)) {
+            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
+
+            return $this->redirectToRoute('property_index');
+        }
+
         return $this->render('property/show.html.twig', [
             'property' => $property,
         ]);
@@ -76,6 +86,12 @@ class PropertyController extends AbstractController
      */
     public function edit(Request $request, Property $property): Response
     {
+        if (!$this->isGranted('EDIT', $property)) {
+            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
+
+            return $this->redirectToRoute('property_index');
+        }
+
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
 
@@ -103,6 +119,12 @@ class PropertyController extends AbstractController
      */
     public function delete(Request $request, Property $property): Response
     {
+        if (!$this->isGranted('EDIT', $property)) {
+            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
+
+            return $this->redirectToRoute('property_index');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$property->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($property);

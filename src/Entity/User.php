@@ -130,6 +130,14 @@ class User implements UserInterface
     }
 
     /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -285,6 +293,14 @@ class User implements UserInterface
     public function getProperties(): Collection
     {
         return $this->properties;
+    }
+
+    /**
+     * @param mixed $properties
+     */
+    public function setProperties($properties)
+    {
+        $this->properties = $properties;
     }
 
     /**
