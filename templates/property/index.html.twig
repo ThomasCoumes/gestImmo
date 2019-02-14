@@ -20,26 +20,30 @@
             </tr>
         </thead>
         <tbody>
-        {% for property in properties %}
-            <tr>
-                <td>{{ property.propertyCategory }}</td>
-                <td>{{ property.uniqueName }}</td>
-                <td>{{ property.address }}</td>
-                <td>{{ property.city }}</td>
-                <td>{{ property.zipCode }}</td>
-                <td>{{ property.rentExcludingCharges }} €</td>
-                <td>{{ property.charges }} €</td>
-                <td>{{ property.purchasePrice }} €</td>
-                <td>
-                    <a href="{{ path('property_show', {'id': property.id}) }}">Voir</a>
-                    <a href="{{ path('property_edit', {'id': property.id}) }}"><i class="fas fa-edit"></i> édition</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="16">Vous n'avez pas enregistré de propriétés</td>
-            </tr>
-        {% endfor %}
+            {% for property in properties %}
+                {% if properties is defined %}
+                    {% if is_granted('EDIT', property) %}
+                        <tr>
+                            <td>{{ property.propertyCategory }}</td>
+                            <td>{{ property.uniqueName }}</td>
+                            <td>{{ property.address }}</td>
+                            <td>{{ property.city }}</td>
+                            <td>{{ property.zipCode }}</td>
+                            <td>{{ property.rentExcludingCharges }} €</td>
+                            <td>{{ property.charges }} €</td>
+                            <td>{{ property.purchasePrice }} €</td>
+                            <td>
+                                <a href="{{ path('property_show', {'id': property.id}) }}">Voir</a>
+                                <a href="{{ path('property_edit', {'id': property.id}) }}"><i class="fas fa-edit"></i> édition</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% else %}
+                        <tr>
+                            <td colspan="16">Vous n'avez pas enregistré de propriétés</td>
+                        </tr>
+                {% endif %}
+            {% endfor %}
         </tbody>
     </table>
 
