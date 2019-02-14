@@ -8,7 +8,6 @@
 
 namespace App\Security;
 
-
 use App\Entity\Property;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
