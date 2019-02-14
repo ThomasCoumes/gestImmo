@@ -5,13 +5,15 @@
 {% block body %}
 
     <div class="offset-4 login">
-        <div class="col-xl-5 col-md-5">
+        <div class="col-xl-6 col-md-6">
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
 
-                <h1 class="h3 mb-3 font-weight-normal">Connectez vous</h1>
+                <h1 class="h3 mb-3">Connectez vous</h1>
+                (ou <a class="mb-3" href="{{ path('registration') }}">inscrivez vous</a>)
+
                 <label for="inputEmail" class="sr-only">Email</label>
                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
                        placeholder="Email" required autofocus>
@@ -29,9 +31,7 @@
                     </label>
                 </div>
 
-                <button class="btn btn-lg btn-primary" type="submit">
-                    Connexion
-                </button>
+                <button class="btn btn-lg btn-primary register" type="submit">Connexion</button>
             </form>
         </div>
     </div>
