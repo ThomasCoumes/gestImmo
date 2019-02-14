@@ -19,7 +19,6 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank
      * @Assert\Type(
      *     type="integer",
      *     message="{{ value }} n'est pas un nombre entier."
@@ -51,11 +50,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Assert\NotBlank
-     * @Assert\Type(
-     *     type="string",
-     *     message="Role invalide."
-     * )
      * @var string
      */
     private $roles = [];
@@ -73,9 +67,18 @@ class User implements UserInterface
      *      min = 8,
      *      minMessage = "Votre mot de passe doit faire au moins 8 caracteres",
      * )
+     * @Assert\EqualTo(
+     *     propertyPath="confirm_password",
+     *     message="Vous avez mal ré-entré ce mot de passe dans le champ de confirmation"
+     * )
      * @var string
      */
     private $password;
+
+    /**
+     * @var string
+     */
+    private $confirmPassword;
 
     /**
      * @var string
@@ -86,7 +89,7 @@ class User implements UserInterface
      *     message="{{ value }} doit etre une chaine de caractères."
      * )
      * @Assert\Length(
-     *      min = 5,
+     *      min = 1,
      *      max = 180,
      *      minMessage = "Votre prénom est trop court",
      *      maxMessage = "Votre prénom est trop long"
@@ -104,7 +107,7 @@ class User implements UserInterface
      *     message="{{ value }} doit etre une chaine de caractères."
      * )
      * @Assert\Length(
-     *      min = 5,
+     *      min = 1,
      *      max = 180,
      *      minMessage = "Votre nom est trop court",
      *      maxMessage = "Votre nom est trop long"
@@ -212,6 +215,22 @@ class User implements UserInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getConfirmPassword()
+    {
+        return $this->confirmPassword;
+    }
+
+    /**
+     * @param mixed $confirmPassword
+     */
+    public function setConfirmPassword($confirmPassword)
+    {
+        $this->confirmPassword = $confirmPassword;
+    }
+
+    /**
      * @see UserInterface
      */
     public function getSalt()
@@ -229,35 +248,33 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
 
     /**
-     * @param $name
-     * @return string
+     * @param mixed $name
      */
-    public function setName($name): string
+    public function setName($name)
     {
         $this->name = $name;
     }
 
     /**
-     * @return null|string
+     * @return mixed
      */
-    public function getLastName(): ?string
+    public function getLastName()
     {
         return $this->lastName;
     }
 
     /**
-     * @param $lastName
-     * @return string
+     * @param mixed $lastName
      */
-    public function setLastName($lastName): string
+    public function setLastName($lastName)
     {
         $this->lastName = $lastName;
     }
