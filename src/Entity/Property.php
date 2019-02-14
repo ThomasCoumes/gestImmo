@@ -97,7 +97,7 @@ class Property
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Choice({"Meublé", "Non neublé"})
+     * @Assert\Choice({"Meublé", "Non meublé"})
      * @var string
      */
     private $rentalCategory;
