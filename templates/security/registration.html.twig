@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}S'inscrire !{% endblock %}
+
+{% block body %}
+
+    <h1 class="propertyTitle">Inscription</h1>
+
+    <div class="container">
+        {{ form_start(form) }}
+
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.confirm_password) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.lastName) }}
+
+        <button type="submit" class="btn btn-primary center-block register">Inscription</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
