@@ -119,7 +119,7 @@ class PropertyController extends AbstractController
      */
     public function delete(Request $request, Property $property): Response
     {
-        if (!$this->isGranted('EDIT', $property)) {
+        if (!$this->isGranted('DELETE', $property)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
 
             return $this->redirectToRoute('property_index');
