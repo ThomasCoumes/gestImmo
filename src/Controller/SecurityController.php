@@ -39,15 +39,14 @@ class SecurityController extends AbstractController
     public function registration(
         Request $request,
         ObjectManager $objectManager,
-        UserPasswordEncoderInterface $encoder): Response
-    {
+        UserPasswordEncoderInterface $encoder
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getPassword());
 
             $user->setPassword($hash);
@@ -57,7 +56,7 @@ class SecurityController extends AbstractController
             $objectManager->persist($user);
             $objectManager->flush();
 
-            $this->addFlash('success','Votre compte a été enregistré, vous pouvez vous connecter');
+            $this->addFlash('success', 'Votre compte a été enregistré, vous pouvez vous connecter');
 
             return $this->redirectToRoute('app_login');
         }

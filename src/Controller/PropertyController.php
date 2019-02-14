@@ -49,7 +49,7 @@ class PropertyController extends AbstractController
             $entityManager->persist($property);
             $entityManager->flush();
 
-            $this->addFlash('success','Votre propriétée a été enregistrée');
+            $this->addFlash('success', 'Votre propriétée a été enregistrée');
 
             return $this->redirectToRoute('property_index');
         }
@@ -98,7 +98,7 @@ class PropertyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success','Votre propriétée a été modifiée');
+            $this->addFlash('success', 'Votre propriétée a été modifiée');
 
             return $this->redirectToRoute('property_index', [
                 'id' => $property->getId(),
@@ -130,7 +130,7 @@ class PropertyController extends AbstractController
             $entityManager->remove($property);
             $entityManager->flush();
 
-            $this->addFlash('success','Votre propriétée a été supprimée');
+            $this->addFlash('success', 'Votre propriétée a été supprimée');
         }
 
         return $this->redirectToRoute('property_index');
