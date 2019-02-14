@@ -57,7 +57,9 @@ class SecurityController extends AbstractController
             $objectManager->persist($user);
             $objectManager->flush();
 
-            $this->redirectToRoute('app_login');
+            $this->addFlash('success','Votre compte a été enregistré, vous pouvez vous connecter');
+
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('security/registration.html.twig', [
