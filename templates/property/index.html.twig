@@ -22,7 +22,7 @@
         <tbody>
             {% for property in properties %}
                 {% if properties is defined %}
-                    {% if is_granted('EDIT', property) %}
+                    {% if is_granted('SHOW', property) %}
                         <tr>
                             <td>{{ property.propertyCategory }}</td>
                             <td>{{ property.uniqueName }}</td>
