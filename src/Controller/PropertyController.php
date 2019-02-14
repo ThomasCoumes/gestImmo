@@ -67,7 +67,7 @@ class PropertyController extends AbstractController
      */
     public function show(Property $property): Response
     {
-        if (!$this->isGranted('EDIT', $property)) {
+        if (!$this->isGranted('SHOW', $property)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
 
             return $this->redirectToRoute('property_index');
