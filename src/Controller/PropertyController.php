@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Property;
-use App\Entity\User;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
