@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse navbar-dark bg-dark" id="navbarSupportedContent">
         <ul class="navbar-nav  mr-auto mt-2 mt-lg-0 "></ul>
         <ul class="navbar-nav">
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED')%}
                 <li class="mr-3">
                     <button class="btn nav-link name">
                         {{ app.user.lastName }} {{ app.user.name }}
