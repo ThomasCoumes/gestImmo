@@ -69,7 +69,6 @@ class PropertyType extends AbstractType
             ])
             ->add('charges', NumberType::class, ['required' => true, 'label' => 'Charges'])
             ->add('purchasePrice', NumberType::class, ['required' => true, 'label' => 'Prix d\'achat'])
-//            ->add('userProperty')
         ;
     }
 
