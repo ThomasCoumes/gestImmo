@@ -27,9 +27,15 @@ class Equipment
     private $name;
 
     /**
+     * @ORM\Column(type="array", nullable=true)
+     * @Assert\Type("array")
+     * @var array
+     */
+    private $propertyWhoGetIt;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Property", inversedBy="equipments")
-     * @Assert\Type("string")
-     * @var string
+     * @ORM\JoinColumn(name="equipment_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $equipment;
 
@@ -63,6 +69,22 @@ class Equipment
     public function setName($name): string
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPropertyWhoGetIt()
+    {
+        return $this->propertyWhoGetIt;
+    }
+
+    /**
+     * @param mixed $propertyWhoGetIt
+     */
+    public function setPropertyWhoGetIt($propertyWhoGetIt)
+    {
+        $this->propertyWhoGetIt = $propertyWhoGetIt;
     }
 
     /**
