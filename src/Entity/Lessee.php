@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -46,6 +48,14 @@ class Lessee
     private $lastname;
 
     /**
+     * @ORM\Column(type="string", length=510)
+     * @Assert\Type("string")
+     * @var string
+     * @var string
+     */
+    private $fullName;
+
+    /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank
      * @Assert\DateTime
@@ -87,6 +97,16 @@ class Lessee
      */
     private $phoneNumber;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Property", inversedBy="lessees")
+     */
+    private $lessee;
+
+    public function __construct()
+    {
+        $this->lessee = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -126,6 +146,22 @@ class Lessee
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * @param mixed $fullName
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
     }
 
     public function getBirthday(): ?\DateTimeInterface
@@ -172,6 +208,32 @@ class Lessee
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Property[]
+     */
+    public function getLessee(): Collection
+    {
+        return $this->lessee;
+    }
+
+    public function addLessee(Property $lessee): self
+    {
+        if (!$this->lessee->contains($lessee)) {
+            $this->lessee[] = $lessee;
+        }
+
+        return $this;
+    }
+
+    public function removeLessee(Property $lessee): self
+    {
+        if ($this->lessee->contains($lessee)) {
+            $this->lessee->removeElement($lessee);
+        }
 
         return $this;
     }

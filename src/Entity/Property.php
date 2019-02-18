@@ -139,12 +139,18 @@ class Property
     private $equipment;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Lessee", mappedBy="lessee")
+     */
+    private $lessees;
+
+    /**
      * Property constructor.
      */
     public function __construct()
     {
         $this->equipments = new ArrayCollection();
         $this->equipment = new ArrayCollection();
+        $this->lessees = new ArrayCollection();
     }
 
     /**
@@ -444,6 +450,34 @@ class Property
         if ($this->equipment->contains($equipment)) {
             $this->equipment->removeElement($equipment);
             $equipment->removeEquipment($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lessee[]
+     */
+    public function getLessees(): Collection
+    {
+        return $this->lessees;
+    }
+
+    public function addLessee(Lessee $lessee): self
+    {
+        if (!$this->lessees->contains($lessee)) {
+            $this->lessees[] = $lessee;
+            $lessee->addLessee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLessee(Lessee $lessee): self
+    {
+        if ($this->lessees->contains($lessee)) {
+            $this->lessees->removeElement($lessee);
+            $lessee->removeLessee($this);
         }
 
         return $this;

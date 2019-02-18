@@ -73,6 +73,14 @@
                 <th>Prix d'achat</th>
                 <td>{{ property.purchasePrice }} €</td>
             </tr>
+            <tr>
+                <th>Locataires</th>
+                <td>
+                    {% for lessee in property.lessees %}
+                        <span class="lessee">{{ lessee.civility }} {{ lessee.name }} {{ lessee.lastname }}</span>
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
