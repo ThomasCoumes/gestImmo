@@ -19,6 +19,8 @@ class LesseeController extends AbstractController
 {
     /**
      * @Route("/", name="lessee_index", methods={"GET"})
+     * @param LesseeRepository $lesseeRepository
+     * @return Response
      */
     public function index(LesseeRepository $lesseeRepository): Response
     {
@@ -29,6 +31,8 @@ class LesseeController extends AbstractController
 
     /**
      * @Route("/new", name="lessee_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -52,6 +56,8 @@ class LesseeController extends AbstractController
 
     /**
      * @Route("/{id}", name="lessee_show", methods={"GET"})
+     * @param Lessee $lessee
+     * @return Response
      */
     public function show(Lessee $lessee): Response
     {
@@ -62,6 +68,9 @@ class LesseeController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="lessee_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Lessee $lessee
+     * @return Response
      */
     public function edit(Request $request, Lessee $lessee): Response
     {
@@ -84,6 +93,9 @@ class LesseeController extends AbstractController
 
     /**
      * @Route("/{id}", name="lessee_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Lessee $lessee
+     * @return Response
      */
     public function delete(Request $request, Lessee $lessee): Response
     {
