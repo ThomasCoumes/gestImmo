@@ -134,9 +134,9 @@ class Property
     private $userProperty;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Equipment", mappedBy="equipment")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Equipment", mappedBy="equipment")
      */
-    private $equipments;
+    private $equipment;
 
     /**
      * Property constructor.
@@ -144,6 +144,7 @@ class Property
     public function __construct()
     {
         $this->equipments = new ArrayCollection();
+        $this->equipment = new ArrayCollection();
     }
 
     /**
@@ -421,39 +422,28 @@ class Property
     }
 
     /**
-     * @return Collection
+     * @return Collection|Equipment[]
      */
-    public function getEquipments(): Collection
+    public function getEquipment(): Collection
     {
-        return $this->equipments;
+        return $this->equipment;
     }
 
-    /**
-     * @param Equipment $equipment
-     * @return Property
-     */
     public function addEquipment(Equipment $equipment): self
     {
-        if (!$this->equipments->contains($equipment)) {
-            $this->equipments[] = $equipment;
-            $equipment->setEquipment($this);
+        if (!$this->equipment->contains($equipment)) {
+            $this->equipment[] = $equipment;
+            $equipment->addEquipment($this);
         }
 
         return $this;
     }
 
-    /**
-     * @param Equipment $equipment
-     * @return Property
-     */
     public function removeEquipment(Equipment $equipment): self
     {
-        if ($this->equipments->contains($equipment)) {
-            $this->equipments->removeElement($equipment);
-            // set the owning side to null (unless already changed)
-            if ($equipment->getEquipment() === $this) {
-                $equipment->setEquipment(null);
-            }
+        if ($this->equipment->contains($equipment)) {
+            $this->equipment->removeElement($equipment);
+            $equipment->removeEquipment($this);
         }
 
         return $this;
