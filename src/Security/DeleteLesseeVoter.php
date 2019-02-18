@@ -34,7 +34,7 @@ class DeleteLesseeVoter implements VoterInterface
             self::ACCESS_ABSTAIN;
         }
 
-        if (!in_array('DELETE', $attributes)) {
+        if (!in_array('DELETELESEE', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }
 

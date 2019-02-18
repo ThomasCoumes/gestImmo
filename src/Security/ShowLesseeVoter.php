@@ -34,7 +34,7 @@ class ShowLesseeVoter implements VoterInterface
             self::ACCESS_ABSTAIN;
         }
 
-        if (!in_array('SHOW', $attributes)) {
+        if (!in_array('SHOWLESSEE', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }
 

@@ -67,8 +67,8 @@ class LesseeController extends AbstractController
      */
     public function show(Lessee $lessee): Response
     {
-        if (!$this->isGranted('SHOW', $lessee)) {
-            $this->addFlash('danger', 'EHOH BOUGELA');
+        if (!$this->isGranted('SHOWLESSEE', $lessee)) {
+            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
 
             return $this->redirectToRoute('lessee_index');
         }
@@ -86,8 +86,8 @@ class LesseeController extends AbstractController
      */
     public function edit(Request $request, Lessee $lessee): Response
     {
-        if (!$this->isGranted('EDIT', $lessee)) {
-            $this->addFlash('danger', 'EHOH BOUGELA');
+        if (!$this->isGranted('EDITLESEE', $lessee)) {
+            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
 
             return $this->redirectToRoute('lessee_index');
         }
@@ -117,8 +117,8 @@ class LesseeController extends AbstractController
      */
     public function delete(Request $request, Lessee $lessee): Response
     {
-        if (!$this->isGranted('DELETE', $lessee)) {
-            $this->addFlash('danger', 'EHOH BOUGELA');
+        if (!$this->isGranted('DELETELESEE', $lessee)) {
+            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
 
             return $this->redirectToRoute('lessee_index');
         }

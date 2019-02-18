@@ -34,7 +34,7 @@ class EditLesseeVoter implements VoterInterface
             self::ACCESS_ABSTAIN;
         }
 
-        if (!in_array('EDIT', $attributes)) {
+        if (!in_array('EDITLESEE', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }
 
