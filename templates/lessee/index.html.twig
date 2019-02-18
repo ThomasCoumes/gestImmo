@@ -20,8 +20,8 @@
         </thead>
         <tbody>
             {% for lessee in lessees %}
-                {#{% if properties is defined %}#}
-                    {#{% if is_granted('SHOWLESSEE', lessee) %}#}
+                {% if lessee is defined %}
+                    {% if is_granted('SHOWLESSEE', lessee) %}
                         <tr>
                             <td>{{ lessee.civility }}</td>
                             <td>{{ lessee.name }}</td>
@@ -35,12 +35,12 @@
                                 <a href="{{ path('lessee_edit', {'id': lessee.id}) }}"><i class="fas fa-edit"></i> édition</a>
                             </td>
                         </tr>
-                    {#{% endif %}#}
-                {#{% else %}#}
-                        {#<tr>#}
-                            {#<td colspan="9">Vous n'avez pas encore de locataires</td>#}
-                        {#</tr>#}
-                {#{% endif %}#}
+                    {% endif %}
+                {% else %}
+                        <tr>
+                            <td colspan="9">Vous n'avez pas encore de locataires</td>
+                        </tr>
+                {% endif %}
             {% endfor %}
         </tbody>
     </table>
