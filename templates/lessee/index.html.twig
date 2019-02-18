@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lessee index{% endblock %}
+
+{% block body %}
+    <h1>Lessee index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Civility</th>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Birthday</th>
+                <th>PlaceOfBirth</th>
+                <th>Email</th>
+                <th>PhoneNumber</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lessee in lessees %}
+            <tr>
+                <td>{{ lessee.id }}</td>
+                <td>{{ lessee.civility }}</td>
+                <td>{{ lessee.name }}</td>
+                <td>{{ lessee.lastname }}</td>
+                <td>{{ lessee.birthday ? lessee.birthday|date('Y-m-d') : '' }}</td>
+                <td>{{ lessee.placeOfBirth }}</td>
+                <td>{{ lessee.email }}</td>
+                <td>{{ lessee.phoneNumber }}</td>
+                <td>
+                    <a href="{{ path('lessee_show', {'id': lessee.id}) }}">show</a>
+                    <a href="{{ path('lessee_edit', {'id': lessee.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('lessee_new') }}">Create new</a>
+{% endblock %}

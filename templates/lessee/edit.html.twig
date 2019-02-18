@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Lessee{% endblock %}
+
+{% block body %}
+    <h1>Edit Lessee</h1>
+
+    {{ include('lessee/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('lessee_index') }}">back to list</a>
+
+    {{ include('lessee/_delete_form.html.twig') }}
+{% endblock %}
