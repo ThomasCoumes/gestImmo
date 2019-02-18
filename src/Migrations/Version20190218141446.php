@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190218141259 extends AbstractMigration
+final class Version20190218141446 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20190218141259 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE lessee ADD user_lessee_id INT DEFAULT NULL, ADD full_name VARCHAR(510) NOT NULL');
+        $this->addSql('ALTER TABLE lessee ADD user_lessee_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE lessee ADD CONSTRAINT FK_954945F150A913D2 FOREIGN KEY (user_lessee_id) REFERENCES user (id)');
         $this->addSql('CREATE INDEX IDX_954945F150A913D2 ON lessee (user_lessee_id)');
     }
@@ -34,6 +34,6 @@ final class Version20190218141259 extends AbstractMigration
 
         $this->addSql('ALTER TABLE lessee DROP FOREIGN KEY FK_954945F150A913D2');
         $this->addSql('DROP INDEX IDX_954945F150A913D2 ON lessee');
-        $this->addSql('ALTER TABLE lessee DROP user_lessee_id, DROP full_name');
+        $this->addSql('ALTER TABLE lessee DROP user_lessee_id');
     }
 }
