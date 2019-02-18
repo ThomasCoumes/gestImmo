@@ -3,29 +3,31 @@
 {% block title %}Locataire{% endblock %}
 
 {% block body %}
-    <h1>Lessee</h1>
+    <a href="{{ path('lessee_index') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
+
+    <h1 class="propertyTitle">Locataires</h1>
 
     <div class="container">
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Civility</th>
+                    <th>Civilite</th>
                     <td>{{ lessee.civility }}</td>
                 </tr>
                 <tr>
-                    <th>Name</th>
+                    <th>Prénom</th>
                     <td>{{ lessee.name }}</td>
                 </tr>
                 <tr>
-                    <th>Lastname</th>
+                    <th>Nom</th>
                     <td>{{ lessee.lastname }}</td>
                 </tr>
                 <tr>
-                    <th>Birthday</th>
+                    <th>Date de naissance</th>
                     <td>{{ lessee.birthday ? lessee.birthday|date('Y-m-d') : '' }}</td>
                 </tr>
                 <tr>
-                    <th>PlaceOfBirth</th>
+                    <th>Lieu de naissance</th>
                     <td>{{ lessee.placeOfBirth }}</td>
                 </tr>
                 <tr>
@@ -33,16 +35,14 @@
                     <td>{{ lessee.email }}</td>
                 </tr>
                 <tr>
-                    <th>PhoneNumber</th>
+                    <th>Telephone</th>
                     <td>{{ lessee.phoneNumber }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <a href="{{ path('lessee_index') }}">back to list</a>
-
-    <a href="{{ path('lessee_edit', {'id': lessee.id}) }}">edit</a>
+    <a class="edit" href="{{ path('lessee_edit', {'id': lessee.id}) }}"><i class="fas fa-edit"></i> éditer</a>
 
     {{ include('lessee/_delete_form.html.twig') }}
 {% endblock %}
