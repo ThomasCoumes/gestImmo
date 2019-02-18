@@ -1,47 +1,45 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Lessee index{% endblock %}
 
 {% block body %}
-    <h1>Lessee index</h1>
+    <h1 class="propertyTitle">Liste des locataires</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Civility</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>Birthday</th>
-                <th>PlaceOfBirth</th>
+                <th>Civilité</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Date de naissance</th>
+                <th>Lieu de naissance</th>
                 <th>Email</th>
-                <th>PhoneNumber</th>
+                <th>Telephone</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for lessee in lessees %}
             <tr>
-                <td>{{ lessee.id }}</td>
                 <td>{{ lessee.civility }}</td>
                 <td>{{ lessee.name }}</td>
                 <td>{{ lessee.lastname }}</td>
-                <td>{{ lessee.birthday ? lessee.birthday|date('Y-m-d') : '' }}</td>
+                <td>{{ lessee.birthday ? lessee.birthday|date('d-m-Y')}}</td>
                 <td>{{ lessee.placeOfBirth }}</td>
                 <td>{{ lessee.email }}</td>
                 <td>{{ lessee.phoneNumber }}</td>
                 <td>
-                    <a href="{{ path('lessee_show', {'id': lessee.id}) }}">show</a>
-                    <a href="{{ path('lessee_edit', {'id': lessee.id}) }}">edit</a>
+                    <a href="{{ path('lessee_show', {'id': lessee.id}) }}">Voir</a>
+                    <a href="{{ path('lessee_edit', {'id': lessee.id}) }}"><i class="fas fa-edit"></i> édition</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="9">Vous n'avez pas encore de locataires</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('lessee_new') }}">Create new</a>
+    <a href="{{ path('lessee_new') }}"><i class="fas fa-plus-circle"></i> Ajouter</a>
 {% endblock %}

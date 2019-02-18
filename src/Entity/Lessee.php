@@ -49,8 +49,8 @@ class Lessee
     /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank
-     * @Assert\Date
-     * @var string A "Y-m-d" formatted value
+     * @Assert\DateTime
+     * @var string A "d-m-Y" formatted value
      */
     private $birthday;
 

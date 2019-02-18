@@ -1,46 +1,44 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Lessee{% endblock %}
 
 {% block body %}
     <h1>Lessee</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ lessee.id }}</td>
-            </tr>
-            <tr>
-                <th>Civility</th>
-                <td>{{ lessee.civility }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ lessee.name }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ lessee.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Birthday</th>
-                <td>{{ lessee.birthday ? lessee.birthday|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>PlaceOfBirth</th>
-                <td>{{ lessee.placeOfBirth }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ lessee.email }}</td>
-            </tr>
-            <tr>
-                <th>PhoneNumber</th>
-                <td>{{ lessee.phoneNumber }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Civility</th>
+                    <td>{{ lessee.civility }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ lessee.name }}</td>
+                </tr>
+                <tr>
+                    <th>Lastname</th>
+                    <td>{{ lessee.lastname }}</td>
+                </tr>
+                <tr>
+                    <th>Birthday</th>
+                    <td>{{ lessee.birthday ? lessee.birthday|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>PlaceOfBirth</th>
+                    <td>{{ lessee.placeOfBirth }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ lessee.email }}</td>
+                </tr>
+                <tr>
+                    <th>PhoneNumber</th>
+                    <td>{{ lessee.phoneNumber }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <a href="{{ path('lessee_index') }}">back to list</a>
 
