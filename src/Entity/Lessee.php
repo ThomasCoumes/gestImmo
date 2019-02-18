@@ -15,7 +15,6 @@ class Lessee
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Assert\Type("integer")
-     * @Assert\NotBlank
      * @var int
      */
     private $id;
@@ -84,12 +83,6 @@ class Lessee
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
-     * @Assert\Length(
-     *      min = 10,
-     *      max = 17,
-     *      minMessage = "Votre email est trop court",
-     *      maxMessage = "Votre email est trop long"
-     * )
      * @var string
      */
     private $phoneNumber;
