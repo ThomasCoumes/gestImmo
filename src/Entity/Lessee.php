@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -86,6 +88,16 @@ class Lessee
      * @var string
      */
     private $phoneNumber;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Property", inversedBy="lessees")
+     */
+    private $lessee;
+
+    public function __construct()
+    {
+        $this->lessee = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -172,6 +184,32 @@ class Lessee
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Property[]
+     */
+    public function getLessee(): Collection
+    {
+        return $this->lessee;
+    }
+
+    public function addLessee(Property $lessee): self
+    {
+        if (!$this->lessee->contains($lessee)) {
+            $this->lessee[] = $lessee;
+        }
+
+        return $this;
+    }
+
+    public function removeLessee(Property $lessee): self
+    {
+        if ($this->lessee->contains($lessee)) {
+            $this->lessee->removeElement($lessee);
+        }
 
         return $this;
     }
