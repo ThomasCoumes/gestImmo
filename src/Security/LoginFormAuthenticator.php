@@ -120,7 +120,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('property_index'));
+        return new RedirectResponse($this->urlGenerator->generate('home'));
     }
 
     /**
