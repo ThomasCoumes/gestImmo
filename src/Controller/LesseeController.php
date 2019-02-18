@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/lessee")
+ * @Route("/locataires")
  * @IsGranted("ROLE_USER")
  */
 class LesseeController extends AbstractController

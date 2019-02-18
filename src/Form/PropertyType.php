@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Equipment;
+use App\Entity\Lessee;
 use App\Entity\Property;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -69,6 +70,15 @@ class PropertyType extends AbstractType
             ])
             ->add('charges', NumberType::class, ['required' => true, 'label' => 'Charges'])
             ->add('purchasePrice', NumberType::class, ['required' => true, 'label' => 'Prix d\'achat'])
+            ->add('lessees', EntityType::class, [
+                'required' => false,
+                'label' => 'Locataires',
+                'class' => Lessee::class,
+                'multiple' => true,
+                'expanded' => true,
+                'by_reference' => false,
+                'choice_label' => 'name',
+            ])
         ;
     }
 
