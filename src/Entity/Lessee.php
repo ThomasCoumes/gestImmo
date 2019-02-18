@@ -102,6 +102,11 @@ class Lessee
      */
     private $lessee;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="lessees")
+     */
+    private $userLessee;
+
     public function __construct()
     {
         $this->lessee = new ArrayCollection();
@@ -234,6 +239,18 @@ class Lessee
         if ($this->lessee->contains($lessee)) {
             $this->lessee->removeElement($lessee);
         }
+
+        return $this;
+    }
+
+    public function getUserLessee(): ?User
+    {
+        return $this->userLessee;
+    }
+
+    public function setUserLessee(?User $userLessee): self
+    {
+        $this->userLessee = $userLessee;
 
         return $this;
     }
