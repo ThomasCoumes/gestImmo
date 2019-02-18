@@ -1,0 +1,48 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Locataire{% endblock %}
+
+{% block body %}
+    <a href="{{ path('lessee_index') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
+
+    <h1 class="propertyTitle">Locataires</h1>
+
+    <div class="container">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Civilite</th>
+                    <td>{{ lessee.civility }}</td>
+                </tr>
+                <tr>
+                    <th>Prénom</th>
+                    <td>{{ lessee.name }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ lessee.lastname }}</td>
+                </tr>
+                <tr>
+                    <th>Date de naissance</th>
+                    <td>{{ lessee.birthday ? lessee.birthday|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Lieu de naissance</th>
+                    <td>{{ lessee.placeOfBirth }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ lessee.email }}</td>
+                </tr>
+                <tr>
+                    <th>Telephone</th>
+                    <td>{{ lessee.phoneNumber }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a class="edit" href="{{ path('lessee_edit', {'id': lessee.id}) }}"><i class="fas fa-edit"></i> éditer</a>
+
+    {{ include('lessee/_delete_form.html.twig') }}
+{% endblock %}

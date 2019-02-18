@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Edition de locataire{% endblock %}
+
+{% block body %}
+    <a href="{{ path('lessee_index') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
+
+    <h1 class="propertyTitle">Editer les informations d'un locataire</h1>
+
+    <div class="container">
+        {{ include('lessee/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+    </div>
+
+    {{ include('lessee/_delete_form.html.twig') }}
+{% endblock %}
