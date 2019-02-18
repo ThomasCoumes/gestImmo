@@ -75,9 +75,11 @@
             </tr>
             <tr>
                 <th>Locataires</th>
-                {% for lessee in property.lessees %}
-                    <span class="equipmentName">{{ lessee.name }}</span>
-                {% endfor %}
+                <td>
+                    {% for lessee in property.lessees %}
+                        <span class="lessee">{{ lessee.civility }} {{ lessee.name }} {{ lessee.lastname }}</span>
+                    {% endfor %}
+                </td>
             </tr>
         </tbody>
     </table>
