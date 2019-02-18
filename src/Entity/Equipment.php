@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,93 +17,64 @@ class Equipment
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Assert\Type("integer")
-     * @var int
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=255)
      * @Assert\Type("string")
-     * @var string
      */
     private $name;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
-     * @Assert\Type("array")
-     * @var array
-     */
-    private $propertyWhoGetIt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Property", inversedBy="equipments")
-     * @ORM\JoinColumn(name="equipment_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Property", inversedBy="equipment")
      */
     private $equipment;
 
-    /**
-     * @return mixed
-     */
+    public function __construct()
+    {
+        $this->equipment = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): int
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name): string
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return Collection|Property[]
      */
-    public function getPropertyWhoGetIt()
-    {
-        return $this->propertyWhoGetIt;
-    }
-
-    /**
-     * @param mixed $propertyWhoGetIt
-     */
-    public function setPropertyWhoGetIt($propertyWhoGetIt)
-    {
-        $this->propertyWhoGetIt = $propertyWhoGetIt;
-    }
-
-    /**
-     * @return Property|null
-     */
-    public function getEquipment(): ?Property
+    public function getEquipment(): Collection
     {
         return $this->equipment;
     }
 
-    /**
-     * @param Property|null $equipment
-     * @return Equipment
-     */
-    public function setEquipment(?Property $equipment): self
+    public function addEquipment(Property $equipment): self
     {
-        $this->equipment = $equipment;
+        if (!$this->equipment->contains($equipment)) {
+            $this->equipment[] = $equipment;
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Property $equipment): self
+    {
+        if ($this->equipment->contains($equipment)) {
+            $this->equipment->removeElement($equipment);
+        }
 
         return $this;
     }

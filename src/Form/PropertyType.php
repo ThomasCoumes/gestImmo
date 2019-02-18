@@ -46,7 +46,7 @@ class PropertyType extends AbstractType
             ])
             ->add('numberOfPiece', IntegerType::class, ['required' => true, 'label' => 'Nombre de pièces'])
             ->add('description', TextType::class, ['required' => false, 'label' => 'Description'])
-            ->add('equipments', EntityType::class, [
+            ->add('equipment', EntityType::class, [
                 'required' => false,
                 'label' => 'Equipements',
                 'class' => Equipment::class,
