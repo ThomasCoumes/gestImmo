@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Nouveau locataire{% endblock %}
+
+{% block body %}
+    <a href="{{ path('lessee_index') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
+
+    <h1 class="propertyTitle">Ajouter un nouveau locataire</h1>
+
+    <div class="container">
+        {{ include('lessee/_form.html.twig') }}
+    </div>
+
+{% endblock %}
