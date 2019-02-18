@@ -77,7 +77,7 @@ class PropertyType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'by_reference' => false,
-                'choice_label' => 'name',
+                'choice_label' => 'fullName',
             ])
         ;
     }

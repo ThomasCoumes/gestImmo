@@ -48,6 +48,14 @@ class Lessee
     private $lastname;
 
     /**
+     * @ORM\Column(type="string", length=510)
+     * @Assert\Type("string")
+     * @var string
+     * @var string
+     */
+    private $fullName;
+
+    /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank
      * @Assert\DateTime
@@ -138,6 +146,22 @@ class Lessee
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * @param mixed $fullName
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
     }
 
     public function getBirthday(): ?\DateTimeInterface

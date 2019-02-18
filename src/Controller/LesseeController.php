@@ -42,6 +42,10 @@ class LesseeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $fullName = $lessee->getName() . ' ' . $lessee->getLastname();
+            $lessee->setFullName($fullName);
+
             $entityManager->persist($lessee);
             $entityManager->flush();
 
