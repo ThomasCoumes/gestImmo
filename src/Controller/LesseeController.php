@@ -41,6 +41,8 @@ class LesseeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $lessee->setUserLessee($this->getUser());
+
             $entityManager = $this->getDoctrine()->getManager();
 
             $fullName = $lessee->getName() . ' ' . $lessee->getLastname();
@@ -65,6 +67,12 @@ class LesseeController extends AbstractController
      */
     public function show(Lessee $lessee): Response
     {
+        if (!$this->isGranted('SHOW', $lessee)) {
+            $this->addFlash('danger', 'EHOH BOUGELA');
+
+            return $this->redirectToRoute('lessee_index');
+        }
+
         return $this->render('lessee/show.html.twig', [
             'lessee' => $lessee,
         ]);
@@ -78,6 +86,12 @@ class LesseeController extends AbstractController
      */
     public function edit(Request $request, Lessee $lessee): Response
     {
+        if (!$this->isGranted('EDIT', $lessee)) {
+            $this->addFlash('danger', 'EHOH BOUGELA');
+
+            return $this->redirectToRoute('lessee_index');
+        }
+
         $form = $this->createForm(LesseeType::class, $lessee);
         $form->handleRequest($request);
 
@@ -103,6 +117,12 @@ class LesseeController extends AbstractController
      */
     public function delete(Request $request, Lessee $lessee): Response
     {
+        if (!$this->isGranted('DELETE', $lessee)) {
+            $this->addFlash('danger', 'EHOH BOUGELA');
+
+            return $this->redirectToRoute('lessee_index');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$lessee->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($lessee);
