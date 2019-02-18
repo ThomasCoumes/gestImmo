@@ -122,11 +122,17 @@ class User implements UserInterface
     private $properties;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Lessee", mappedBy="userLessee")
+     */
+    private $lessees;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->properties = new ArrayCollection();
+        $this->lessees = new ArrayCollection();
     }
 
     /**
@@ -328,6 +334,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($property->getUserProperty() === $this) {
                 $property->setUserProperty(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lessee[]
+     */
+    public function getLessees(): Collection
+    {
+        return $this->lessees;
+    }
+
+    public function addLessee(Lessee $lessee): self
+    {
+        if (!$this->lessees->contains($lessee)) {
+            $this->lessees[] = $lessee;
+            $lessee->setUserLessee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLessee(Lessee $lessee): self
+    {
+        if ($this->lessees->contains($lessee)) {
+            $this->lessees->removeElement($lessee);
+            // set the owning side to null (unless already changed)
+            if ($lessee->getUserLessee() === $this) {
+                $lessee->setUserLessee(null);
             }
         }
 

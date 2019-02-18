@@ -2,5 +2,5 @@
 2) run composer install
 3) run yarn install
 4) run bin/console d:d:c
-5) run bin/console d:m:m
+5) run bin/console doctrine:make:migration
 6) enjoy !
