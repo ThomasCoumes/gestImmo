@@ -1,4 +1,4 @@
-1) create a .env.local file, then copy .env content and past it in .env.local. Set your database login infos
+1) create a .env.local file, then copy .env content and past it in .env.local. Set your database and mailer login infos
 2) run composer install
 3) run yarn install
 4) run bin/console d:d:c
