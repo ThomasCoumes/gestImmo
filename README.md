@@ -3,4 +3,5 @@
 3) run yarn install
 4) run bin/console d:d:c
 5) run bin/console doctrine:make:migration
-6) enjoy !
+6) run yarn encore production
+7) enjoy !

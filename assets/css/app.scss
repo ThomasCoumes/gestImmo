@@ -17,6 +17,7 @@ $black: #000000;
 .name {
   font-weight: bolder;
   color: $black!important;
+  cursor: default!important;
 }
 
 .logout {
@@ -70,4 +71,8 @@ header {
 .lessee {
   white-space: nowrap;
   margin-right: 3vw;
+}
+
+.navbar {
+  width: 100vw;
 }
