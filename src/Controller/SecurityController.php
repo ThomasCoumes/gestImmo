@@ -113,6 +113,7 @@ class SecurityController extends AbstractController
                     //put the email adress you defined in .env.local here
                     ->setFrom('thomascoumes3145@gmail.com')
                     ->setTo($formEmail)
+                    ->setSubject('Reinitialisez votre mot de passe gestImmo')
                     ->setBody(
                         $this->renderView(
                             'emails/emailResetPassword.html.twig',
