@@ -127,6 +127,16 @@ class User implements UserInterface
     private $lessees;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Type(
+     *     type="string",
+     *     message="{{ value }} doit etre une chaine de caractères."
+     * )
+     * @var string
+     */
+    private $token;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -367,6 +377,18 @@ class User implements UserInterface
                 $lessee->setUserLessee(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }

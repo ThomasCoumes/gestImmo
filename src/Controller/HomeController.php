@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/home", name="home")
+     * @Route("/accueil", name="home")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index()

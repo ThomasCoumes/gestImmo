@@ -30,7 +30,7 @@ class LesseeController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="lessee_new", methods={"GET","POST"})
+     * @Route("/ajouter", name="lessee_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
@@ -79,7 +79,7 @@ class LesseeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="lessee_edit", methods={"GET","POST"})
+     * @Route("/{id}/editer", name="lessee_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Lessee $lessee
      * @return Response
