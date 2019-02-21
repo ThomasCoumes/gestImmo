@@ -163,10 +163,11 @@ class SecurityController extends AbstractController
 
             $newEncodedPassword = $encoder->encodePassword($confirmedUser, $formPassword);
             $confirmedUser->setPassword($newEncodedPassword);
+
+            $confirmedUser->setToken(NULL);
+
             $em->persist($confirmedUser);
             $em->flush();
-
-            //TODO DELETE TOKEN
 
             $this->addFlash('success', 'Votre mot de passe a bien été enregistré');
         }
