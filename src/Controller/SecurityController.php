@@ -98,7 +98,8 @@ class SecurityController extends AbstractController
             } else {
                 $this->addFlash(
                     'success',
-                    'Veuillez cliquer sur le lien que nous vous avons envoyé par mail');
+                    'Veuillez cliquer sur le lien que nous vous avons envoyé par mail'
+                );
 
                 //generate token (160 characters) then set him to user corresponding to the email
                 $token = bin2hex(random_bytes(80));
@@ -123,7 +124,7 @@ class SecurityController extends AbstractController
                     );
 
                 $mailer->send($message);
-//                return $this->redirectToRoute('');
+                return $this->redirectToRoute('app_login');
             }
         }
 
