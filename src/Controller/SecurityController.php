@@ -144,8 +144,11 @@ class SecurityController extends AbstractController
      * @param EntityManagerInterface $emInterface
      * @return Response
      */
-    public function resetPassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $emInterface)
-    {
+    public function resetPassword(
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        EntityManagerInterface $emInterface
+    ) {
         $em = $this->getDoctrine()->getManager();
 
         $token = str_replace('/changer-mot-de-passe/', '', $request->getPathInfo());
@@ -164,7 +167,7 @@ class SecurityController extends AbstractController
             $newEncodedPassword = $encoder->encodePassword($confirmedUser, $formPassword);
             $confirmedUser->setPassword($newEncodedPassword);
 
-            $confirmedUser->setToken(NULL);
+            $confirmedUser->setToken(null);
 
             $em->persist($confirmedUser);
             $em->flush();
