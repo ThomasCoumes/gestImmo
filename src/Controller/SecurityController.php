@@ -102,23 +102,26 @@ class SecurityController extends AbstractController
                 );
 
                 //generate token (160 characters) then set him to user corresponding to the email
+
+                $name = $potentialUser->getName();
+
                 $token = bin2hex(random_bytes(80));
                 $potentialUser->setToken($token);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($potentialUser);
                 $em->flush();
 
-                $name = $potentialUser->getName();
-
-                $message = (new \Swift_Message('Hello Email'))
+                $message = (new \Swift_Message('Reinitialisez votre mot de passe gestImmo'))
                     //put the email adress you defined in .env.local here
                     ->setFrom('thomascoumes3145@gmail.com')
                     ->setTo($formEmail)
-                    ->setSubject('Reinitialisez votre mot de passe gestImmo')
                     ->setBody(
                         $this->renderView(
                             'emails/emailResetPassword.html.twig',
-                            ['name' => $name]
+                            [
+                                'name' => $name,
+                                'token' => $token,
+                            ]
                         ),
                         'text/html'
                     );
@@ -131,5 +134,13 @@ class SecurityController extends AbstractController
         return $this->render('security/emailChecking.html.twig', [
             'form'=> $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/changer-mot-de-passe/{token}", name="resetPassword")
+     */
+    public function resetPassword()
+    {
+
     }
 }
