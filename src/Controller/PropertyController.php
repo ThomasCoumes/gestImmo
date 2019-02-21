@@ -30,7 +30,7 @@ class PropertyController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="property_new", methods={"GET","POST"})
+     * @Route("/ajouter", name="property_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
@@ -78,7 +78,7 @@ class PropertyController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="property_edit", methods={"GET","POST"})
+     * @Route("/{id}/editer", name="property_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Property $property
      * @return Response
