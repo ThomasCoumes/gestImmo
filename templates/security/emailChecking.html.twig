@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('app_login') }}"><i class="fas fa-long-arrow-alt-left"></i> Retour</a>
+
+    <h1 class="propertyTitle">Modifier mon mot de passe</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                {{ form_start(form) }}
+                {{ form_widget (form) }}
+
+                <button type="submit" class="btn btn-primary register">Envoyez moi un email</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

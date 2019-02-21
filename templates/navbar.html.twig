@@ -4,6 +4,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED')%}
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('lessee_index') }}">Locataires<span class="sr-only">(current)</span></a>
@@ -13,7 +14,6 @@
             </li>
         </ul>
         <ul class="navbar-nav">
-            {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED')%}
                 <li class="mr-3">
                     <button class="btn nav-link name">
                         {{ app.user.lastName }} {{ app.user.name }}
@@ -24,12 +24,14 @@
                     <a href="{{ path('app_logout') }}" class="btn btn-outline-dark logout nav-link"><i
                                 class="fas fa-sign-out-alt"></i> Déconnexion</a>
                 </li>
-            {% else %}
+        {% else %}
+            <ul class="navbar-nav">
                 <li>
                     <a href="{{ path('app_login') }}" class="btn btn-outline-dark logout nav-link"><i
                                 class="fas fa-sign-out-alt"></i> Connexion</a>
                 </li>
-            {% endif %}
+            </ul>
+        {% endif %}
         </ul>
     </div>
 </nav>
