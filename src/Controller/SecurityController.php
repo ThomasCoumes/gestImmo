@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\EmailCheckingType;
 use App\Form\RegistrationType;
+use App\Form\ResetPasswordType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -138,9 +139,40 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/changer-mot-de-passe/{token}", name="resetPassword")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @param EntityManagerInterface $emInterface
+     * @return Response
      */
-    public function resetPassword()
+    public function resetPassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $emInterface)
     {
+        $em = $this->getDoctrine()->getManager();
 
+        $token = str_replace('/changer-mot-de-passe/', '', $request->getPathInfo());
+
+        $user = $emInterface->getRepository(User::class);
+        $confirmedUser = $user->findOneBy(['token' => $token]);
+
+        $form = $this->createForm(ResetPasswordType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $formPassword = $data->getNewPlainPassword();
+
+            $newEncodedPassword = $encoder->encodePassword($confirmedUser, $formPassword);
+            $confirmedUser->setPassword($newEncodedPassword);
+            $em->persist($confirmedUser);
+            $em->flush();
+
+            //TODO DELETE TOKEN
+
+            $this->addFlash('success', 'Votre mot de passe a bien été enregistré');
+        }
+
+        return $this->render('security/resetPassword.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
