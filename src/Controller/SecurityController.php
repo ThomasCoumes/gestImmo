@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -76,6 +77,7 @@ class SecurityController extends AbstractController
      * @Route("/resetPassword", name="reset_password")
      * @param Request $request
      * @param EntityManagerInterface $em
+     * @param TokenGeneratorInterface $tokenGenerator
      * @return Response
      */
     public function checkEmailExistance(Request $request, EntityManagerInterface $em)
@@ -93,7 +95,14 @@ class SecurityController extends AbstractController
             if (!$user->findOneBy(['email' => $formEmail])) {
                 $this->addFlash('danger', 'Nous n\'avons pas trouvé votre adresse email');
             } else {
+                $potentialUser = $user->findOneBy(['email' => $formEmail]);
+
                 $this->addFlash('success', 'Nous avons trouvé votre adresse email');
+
+                //generate token (160 characters) then set him to user corresponding to the email
+                $token = bin2hex(random_bytes(80));
+
+                $potentialUser->setToken($token);
 
                 //TODO SEND AN EMAIL
             }
