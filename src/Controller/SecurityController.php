@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\EmailCheckingType;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,6 +69,40 @@ class SecurityController extends AbstractController
 
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/resetPassword", name="reset_password")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    public function checkEmailExistance(Request $request, EntityManagerInterface $em)
+    {
+        $form = $this->createForm(EmailCheckingType::class);
+
+        $form->handleRequest($request);
+
+        $user =$em->getRepository(User::class);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $formEmail = $data->getEmail();
+
+            $emailExist = $user->findOneBy(['email' => $formEmail]);
+
+            if ($emailExist) {
+                $this->addFlash('success', 'Nous avons trouvé votre adresse email');
+
+                //TODO SEND AN EMAIL
+            } else {
+                $this->addFlash('danger', 'Nous n\'avons pas trouvé votre adresse email');
+            }
+        }
+
+        return $this->render('security/emailChecking.html.twig',[
+            'form'=> $form->createView(),
         ]);
     }
 }

@@ -127,11 +127,6 @@ class User implements UserInterface
     private $lessees;
 
     /**
-     * @var string
-     */
-    private $newPlainPassword;
-
-    /**
      * User constructor.
      */
     public function __construct()
@@ -372,18 +367,6 @@ class User implements UserInterface
                 $lessee->setUserLessee(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getNewPlainPassword(): ?string
-    {
-        return $this->newPlainPassword;
-    }
-
-    public function setNewPlainPassword(?string $newPlainPassword): self
-    {
-        $this->newPlainPassword = $newPlainPassword;
 
         return $this;
     }
