@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -74,37 +73,56 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/resetPassword", name="reset_password")
+     * @Route("/contactez-moi", name="sendResetPasswordEmail")
      * @param Request $request
-     * @param EntityManagerInterface $em
-     * @param TokenGeneratorInterface $tokenGenerator
+     * @param EntityManagerInterface $emInterface
+     * @param \Swift_Mailer $mailer
      * @return Response
      */
-    public function checkEmailExistance(Request $request, EntityManagerInterface $em)
+    public function sendResetPasswordEmail(Request $request, EntityManagerInterface $emInterface, \Swift_Mailer $mailer)
     {
         $form = $this->createForm(EmailCheckingType::class);
 
         $form->handleRequest($request);
 
-        $user = $em->getRepository(User::class);
+        $user = $emInterface->getRepository(User::class);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $formEmail = $data->getEmail();
 
-            if (!$user->findOneBy(['email' => $formEmail])) {
+            $potentialUser = $user->findOneBy(['email' => $formEmail]);
+
+            if (!$potentialUser) {
                 $this->addFlash('danger', 'Nous n\'avons pas trouvé votre adresse email');
             } else {
-                $potentialUser = $user->findOneBy(['email' => $formEmail]);
-
-                $this->addFlash('success', 'Nous avons trouvé votre adresse email');
+                $this->addFlash(
+                    'success',
+                    'Veuillez cliquer sur le lien que nous vous avons envoyé par mail');
 
                 //generate token (160 characters) then set him to user corresponding to the email
                 $token = bin2hex(random_bytes(80));
-
                 $potentialUser->setToken($token);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($potentialUser);
+                $em->flush();
 
-                //TODO SEND AN EMAIL
+                $name = $potentialUser->getName();
+
+                $message = (new \Swift_Message('Hello Email'))
+                    //put the email adress you defined in .env.local here
+                    ->setFrom('thomascoumes3145@gmail.com')
+                    ->setTo($formEmail)
+                    ->setBody(
+                        $this->renderView(
+                            'emails/emailResetPassword.html.twig',
+                            ['name' => $name]
+                        ),
+                        'text/html'
+                    );
+
+                $mailer->send($message);
+//                return $this->redirectToRoute('');
             }
         }
 
