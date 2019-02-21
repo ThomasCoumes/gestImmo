@@ -128,6 +128,7 @@ class SecurityController extends AbstractController
                     );
 
                 $mailer->send($message);
+
                 return $this->redirectToRoute('app_login');
             }
         }
@@ -173,6 +174,8 @@ class SecurityController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Votre mot de passe a bien été enregistré');
+
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('security/resetPassword.html.twig', [
