@@ -84,24 +84,22 @@ class SecurityController extends AbstractController
 
         $form->handleRequest($request);
 
-        $user =$em->getRepository(User::class);
+        $user = $em->getRepository(User::class);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $formEmail = $data->getEmail();
 
-            $emailExist = $user->findOneBy(['email' => $formEmail]);
-
-            if ($emailExist) {
+            if (!$user->findOneBy(['email' => $formEmail])) {
+                $this->addFlash('danger', 'Nous n\'avons pas trouvé votre adresse email');
+            } else {
                 $this->addFlash('success', 'Nous avons trouvé votre adresse email');
 
                 //TODO SEND AN EMAIL
-            } else {
-                $this->addFlash('danger', 'Nous n\'avons pas trouvé votre adresse email');
             }
         }
 
-        return $this->render('security/emailChecking.html.twig',[
+        return $this->render('security/emailChecking.html.twig', [
             'form'=> $form->createView(),
         ]);
     }
