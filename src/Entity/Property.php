@@ -144,6 +144,11 @@ class Property
     private $lessees;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pdfFile;
+
+    /**
      * Property constructor.
      */
     public function __construct()
@@ -479,6 +484,18 @@ class Property
             $this->lessees->removeElement($lessee);
             $lessee->removeLessee($this);
         }
+
+        return $this;
+    }
+
+    public function getPdfFile(): ?string
+    {
+        return $this->pdfFile;
+    }
+
+    public function setPdfFile(?string $pdfFile): self
+    {
+        $this->pdfFile = $pdfFile;
 
         return $this;
     }
