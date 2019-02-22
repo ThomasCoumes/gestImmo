@@ -145,6 +145,10 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(
+     *     mimeTypes = {"application/json", "text/plain"},
+     *     mimeTypesMessage = "Votre fichier n'est pas au format .json"
+     * )
      */
     private $pdfFile;
 
