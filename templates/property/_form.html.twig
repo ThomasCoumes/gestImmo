@@ -1,4 +1,19 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.propertyCategory) }}
+    {{ form_row(form.uniqueName) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.zipCode) }}
+    {{ form_row(form.country) }}
+    {{ form_row(form.surfaceInSquareMeter) }}
+    {{ form_row(form.numberOfPiece) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.equipment) }}
+    {{ form_row(form.rentalCategory) }}
+    {{ form_row(form.rentExcludingCharges) }}
+    {{ form_row(form.charges) }}
+    {{ form_row(form.purchasePrice) }}
+    {{ form_row(form.lessees) }}
+    {{ form_row(form.pdfFile) }}
     <a class="edit" href="#"><button class="btn text-primary"><i class="fas fa-edit"></i> {{ button_label|default('Enregistrer') }}</button></a>
 {{ form_end(form) }}

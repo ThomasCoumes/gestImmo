@@ -8,6 +8,7 @@ use App\Repository\PropertyRepository;
 use App\Service\PdfUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -97,6 +98,8 @@ class PropertyController extends AbstractController
      */
     public function edit(Request $request, Property $property, PdfUploader $pdfUploader): Response
     {
+        $pdfFile = $property->getPdfFile();
+
         if (!$this->isGranted('EDIT', $property)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
 
@@ -106,13 +109,12 @@ class PropertyController extends AbstractController
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
 
-        $property->setPdfFile(
-            new File($this->getParameter('brochures_directory') . $property->getPdfFile())  //cette ligne c est de la merde
+
+        if (isset($pdfFile))$property->setPdfFile(
+            new File($this->getParameter('brochures_directory') . '/' . $pdfFile)  //cette ligne c est de la merde
         );
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $pdfFile = $property->getPdfFile();
-
             if (isset($pdfFile)) {
                 $fileName = $pdfUploader->uploadPdf($pdfFile);
 
