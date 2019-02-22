@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Property;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
+use App\Service\PdfUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,9 +33,10 @@ class PropertyController extends AbstractController
     /**
      * @Route("/ajouter", name="property_new", methods={"GET","POST"})
      * @param Request $request
+     * @param PdfUploader $pdfUploader
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, PdfUploader $pdfUploader): Response
     {
         $property = new Property();
         $form = $this->createForm(PropertyType::class, $property);
@@ -42,6 +44,14 @@ class PropertyController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pdfFile = $property->getPdfFile();
+
+            if (isset($pdfFile)) {
+                $fileName = $pdfUploader->uploadPdf($pdfFile);
+
+                $property->setPdfFile($fileName);
+            }
+
             $property->setUserProperty($this->getUser());
 
             $entityManager = $this->getDoctrine()->getManager();

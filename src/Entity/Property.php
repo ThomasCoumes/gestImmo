@@ -498,8 +498,10 @@ class Property
         return $this->pdfFile;
     }
 
-    public function setPdfFile(?string $pdfFile): void
+    public function setPdfFile($pdfFile): self
     {
         $this->pdfFile = $pdfFile;
+
+        return $this;
     }
 }
