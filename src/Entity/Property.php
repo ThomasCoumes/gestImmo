@@ -493,12 +493,12 @@ class Property
         return $this;
     }
 
-    public function getPdfFile(): ?string
+    public function getPdfFile()
     {
         return $this->pdfFile;
     }
 
-    public function setPdfFile(?string $pdfFile): self
+    public function setPdfFile(?string $pdfFile)
     {
         $this->pdfFile = $pdfFile;
 
