@@ -7,6 +7,7 @@ use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use App\Service\PdfUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -91,9 +92,10 @@ class PropertyController extends AbstractController
      * @Route("/{id}/editer", name="property_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Property $property
+     * @param PdfUploader $pdfUploader
      * @return Response
      */
-    public function edit(Request $request, Property $property): Response
+    public function edit(Request $request, Property $property, PdfUploader $pdfUploader): Response
     {
         if (!$this->isGranted('EDIT', $property)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
@@ -104,7 +106,19 @@ class PropertyController extends AbstractController
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
 
+        $property->setPdfFile(
+            new File($this->getParameter('brochures_directory') . $property->getPdfFile())  //cette ligne c est de la merde
+        );
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $pdfFile = $property->getPdfFile();
+
+            if (isset($pdfFile)) {
+                $fileName = $pdfUploader->uploadPdf($pdfFile);
+
+                $property->setPdfFile($fileName);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Votre propriétée a été modifiée');

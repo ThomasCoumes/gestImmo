@@ -83,6 +83,7 @@ class PropertyType extends AbstractType
             ->add('pdfFile', FileType::class, [
                 'label' => 'Fichiers PDF',
                 'required' => false,
+                'data_class' => null,
             ])
         ;
     }
