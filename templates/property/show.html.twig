@@ -73,6 +73,7 @@
                 <th>Prix d'achat</th>
                 <td>{{ property.purchasePrice }} €</td>
             </tr>
+            {% if property.pdfFile is not null %}
             <tr>
                 <th>Locataires</th>
                 <td>
@@ -81,7 +82,8 @@
                     {% endfor %}
                 </td>
             </tr>
-            {% if property.pdfFile is defined %}
+            {% endif %}
+            {% if property.pdfFile is not null %}
                 <tr>
                     <th>Documents PDF</th>
                     <td>
