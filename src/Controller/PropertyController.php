@@ -98,25 +98,26 @@ class PropertyController extends AbstractController
      */
     public function edit(Request $request, Property $property, PdfUploader $pdfUploader): Response
     {
-        $pdfFile = $property->getPdfFile();
-
         if (!$this->isGranted('EDIT', $property)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
 
             return $this->redirectToRoute('property_index');
         }
 
+        $pdfFile = $property->getPdfFile();
+
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
 
-
-        if (isset($pdfFile))$property->setPdfFile(
-            new File($this->getParameter('brochures_directory') . '/' . $pdfFile)  //cette ligne c est de la merde
-        );
-
         if ($form->isSubmitted() && $form->isValid()) {
-            if (isset($pdfFile)) {
-                $fileName = $pdfUploader->uploadPdf($pdfFile);
+            $pdfField = $form->getData()->getPdfFile();
+
+            if ($pdfFile !== null) {
+                $property->setPdfFile($pdfFile);
+            }
+
+            if ($pdfField !== null) {
+                $fileName = $pdfUploader->uploadPdf($pdfField);
 
                 $property->setPdfFile($fileName);
             }
