@@ -30,7 +30,7 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirectToRoute('property_index');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
