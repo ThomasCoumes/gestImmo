@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -78,6 +79,11 @@ class PropertyType extends AbstractType
                 'expanded' => true,
                 'by_reference' => false,
                 'choice_label' => 'fullName',
+            ])
+            ->add('pdfFile', FileType::class, [
+                'label' => 'Fichiers PDF',
+                'required' => false,
+                'data_class' => null,
             ])
         ;
     }

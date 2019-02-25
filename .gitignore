@@ -1,4 +1,5 @@
 .idea
+/public/uploads/pdf/*
 
 ###> symfony/framework-bundle ###
 /.env.local

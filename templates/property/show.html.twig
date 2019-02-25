@@ -43,10 +43,10 @@
                 <td>{{ property.numberOfPiece }}</td>
             </tr>
             {% if property.description %}
-            <tr>
-                <th>Description</th>
-                <td>{{ property.description }}</td>
-            </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ property.description }}</td>
+                </tr>
             {% else %}
             {% endif %}
             <tr>
@@ -73,6 +73,7 @@
                 <th>Prix d'achat</th>
                 <td>{{ property.purchasePrice }} €</td>
             </tr>
+            {% if property.pdfFile is not null %}
             <tr>
                 <th>Locataires</th>
                 <td>
@@ -81,6 +82,15 @@
                     {% endfor %}
                 </td>
             </tr>
+            {% endif %}
+            {% if property.pdfFile is not null %}
+                <tr>
+                    <th>Documents PDF</th>
+                    <td>
+                        <a target="_blank" href="{{ asset('uploads/pdf/' ~ property.pdfFile) }}">Voir les pdf</a>
+                    </td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
