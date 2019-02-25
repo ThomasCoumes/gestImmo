@@ -144,6 +144,16 @@ class Property
     private $lessees;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\File(
+     *     maxSize = "2000k",
+     *     mimeTypes = {"application/pdf", "application/x-pdf"},
+     *     mimeTypesMessage = "Choisisez un fichier PDF"
+     * )
+     */
+    private $pdfFile;
+
+    /**
      * Property constructor.
      */
     public function __construct()
@@ -479,6 +489,18 @@ class Property
             $this->lessees->removeElement($lessee);
             $lessee->removeLessee($this);
         }
+
+        return $this;
+    }
+
+    public function getPdfFile()
+    {
+        return $this->pdfFile;
+    }
+
+    public function setPdfFile($pdfFile): self
+    {
+        $this->pdfFile = $pdfFile;
 
         return $this;
     }
