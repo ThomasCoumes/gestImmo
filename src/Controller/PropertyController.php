@@ -7,8 +7,7 @@ use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use App\Service\PdfUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -152,7 +151,13 @@ class PropertyController extends AbstractController
         }
 
         if ($this->isCsrfTokenValid('delete'.$property->getId(), $request->request->get('_token'))) {
+            $fileSystem = new Filesystem();
+            $pdfFile = $property->getPdfFile();
+
             $entityManager = $this->getDoctrine()->getManager();
+
+            $fileSystem->remove('uploads/pdf/' . $pdfFile);
+
             $entityManager->remove($property);
             $entityManager->flush();
 
