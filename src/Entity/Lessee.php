@@ -292,17 +292,17 @@ class Lessee
     }
 
     /**
-     * @return int
+     * @return string or null
      */
-    public function getInvitationToken(): int
+    public function getInvitationToken(): ?string
     {
         return $this->invitationToken;
     }
 
     /**
-     * @param int $invitationToken
+     * @param string $invitationToken
      */
-    public function setInvitationToken(int $invitationToken)
+    public function setInvitationToken(string $invitationToken)
     {
         $this->invitationToken = $invitationToken;
     }
