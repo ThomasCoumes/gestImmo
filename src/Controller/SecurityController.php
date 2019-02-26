@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Lessee;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use App\Form\EmailCheckingType;
@@ -227,13 +228,24 @@ class SecurityController extends AbstractController
      * @param Request $request
      * @param ObjectManager $objectManager
      * @param UserPasswordEncoderInterface $encoder
+     * @param EntityManagerInterface $emInterface
      * @return Response
      */
     public function lesseeRegistration(
         Request $request,
         ObjectManager $objectManager,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordEncoderInterface $encoder,
+        EntityManagerInterface $emInterface
     ): Response {
+
+
+        $invitationToken = str_replace('/inscription/', '', $request->getPathInfo());
+
+        $lessee = $emInterface->getRepository(Lessee::class);
+        $registringLessee = $lessee->findOneBy(['invitationToken' => $invitationToken]);
+
+        //TODO INJECTER DANS LE FORM LES DONNEES DE LESSEE
+
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
 
@@ -246,6 +258,9 @@ class SecurityController extends AbstractController
 
             $user->setRoles(["ROLE_LESSEE"]);
 
+            $registringLessee->setInvitationToken(null);
+
+            $objectManager->persist($registringLessee);
             $objectManager->persist($user);
             $objectManager->flush();
 

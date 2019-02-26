@@ -302,7 +302,7 @@ class Lessee
     /**
      * @param string $invitationToken
      */
-    public function setInvitationToken(string $invitationToken)
+    public function setInvitationToken(?string $invitationToken)
     {
         $this->invitationToken = $invitationToken;
     }
