@@ -15,9 +15,16 @@
         </ul>
         <ul class="navbar-nav">
                 <li class="mr-3">
-                    <button class="btn nav-link name">
-                        {{ app.user.lastName }} {{ app.user.name }}
-                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-dark dropdown-toggle nav-link name" data-toggle="dropdown">
+                            {{ app.user.lastName }} {{ app.user.name }}
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path('password-change') }}"><i class="fas fa-key"></i>
+                                Modifier le mot de passe</a>
+                        </div>
+                    </div>
                 </li>
 
                 <li>
