@@ -115,6 +115,12 @@ class Lessee
      */
     private $invitationToken;
 
+    /**
+     * @ORM\Column(type="json")
+     * @var string
+     */
+    private $roles = [];
+
     public function __construct()
     {
         $this->lessee = new ArrayCollection();
@@ -277,5 +283,30 @@ class Lessee
     public function setInvitationToken(int $invitationToken)
     {
         $this->invitationToken = $invitationToken;
+    }
+
+    /**
+     * @see UserInterface
+     *
+     * @return array
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_LESSEE';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param array $roles
+     * @return User
+     */
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 }
