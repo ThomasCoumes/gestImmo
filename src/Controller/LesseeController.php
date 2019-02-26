@@ -134,7 +134,7 @@ class LesseeController extends AbstractController
     }
 
     /**
-     * @Route("/invite/{invitationToken}", name="lessee_invitation", methods={"GET","POST"})
+     * @Route("/invitation-de-locataire/{id}", name="lessee_invitation", methods={"GET","POST"})
      * @param User $user
      * @param Lessee $lessee
      * @param \Swift_Mailer $mailer
@@ -142,6 +142,36 @@ class LesseeController extends AbstractController
      */
     public function inviteLesseeByEmail(User $user, Lessee $lessee, \Swift_Mailer $mailer): Response
     {
+        $lesseeName = $lessee->getName();
+        $userIdentity = $user->getName() . ' ' . $user->getLastName();
+        $lesseeEmail = $lessee->getEmail();
 
+        // generate a random 200 char token and set him to lessee
+        $invitationToken =  bin2hex(random_bytes(100));
+        $lessee->setInvitationToken($invitationToken);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($lessee);
+        $em->flush();
+
+        $message = (new \Swift_Message($userIdentity . ' ' . 'vous invite à rejoindre l\'application gestImmo'))
+            //put the email adress you defined in .env.local here
+            ->setFrom('thomascoumes3145@gmail.com')
+            ->setTo($lesseeEmail)
+            ->setBody(
+                $this->renderView(
+                    'emails/lesseeInvitation.html.twig',
+                    [
+                        'userIdentity' => $userIdentity,
+                        'lesseeName' => $lesseeName,
+                        'invitationToken' => $invitationToken,
+                    ]
+                ),
+                'text/html'
+            );
+
+        $mailer->send($message);
+
+        return $this->redirectToRoute('lessee_index');
     }
 }
