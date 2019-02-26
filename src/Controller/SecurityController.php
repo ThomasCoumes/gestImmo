@@ -221,4 +221,41 @@ class SecurityController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/inscription/{invitationToken}", name="lesseeRegistration")
+     * @param Request $request
+     * @param ObjectManager $objectManager
+     * @param UserPasswordEncoderInterface $encoder
+     * @return Response
+     */
+    public function lesseeRegistration(
+        Request $request,
+        ObjectManager $objectManager,
+        UserPasswordEncoderInterface $encoder
+    ): Response {
+        $user = new User();
+        $form = $this->createForm(RegistrationType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $hash = $encoder->encodePassword($user, $user->getPassword());
+
+            $user->setPassword($hash);
+
+            $user->setRoles(["ROLE_LESSEE"]);
+
+            $objectManager->persist($user);
+            $objectManager->flush();
+
+            $this->addFlash('success', 'Votre compte a été enregistré, vous pouvez vous connecter');
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('security/registration.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }
