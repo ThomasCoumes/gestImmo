@@ -23,6 +23,8 @@ final class Version20190226091138 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE lessee ADD invitation_token INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE lessee ADD roles JSON NOT NULL');
+        $this->addSql('ALTER TABLE lessee ADD password VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -31,5 +33,7 @@ final class Version20190226091138 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE lessee DROP invitation_token');
+        $this->addSql('ALTER TABLE lessee DROP roles');
+        $this->addSql('ALTER TABLE lessee DROP password');
     }
 }
