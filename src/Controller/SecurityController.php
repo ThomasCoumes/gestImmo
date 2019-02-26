@@ -237,15 +237,21 @@ class SecurityController extends AbstractController
         UserPasswordEncoderInterface $encoder,
         EntityManagerInterface $emInterface
     ): Response {
+        $user = new User();
+
         $invitationToken = str_replace('/inscription/', '', $request->getPathInfo());
 
         $lessee = $emInterface->getRepository(Lessee::class);
         $registringLessee = $lessee->findOneBy(['invitationToken' => $invitationToken]);
 
-        //TODO INJECTER DANS LE FORM LES DONNEES DE LESSEE
-        //TODO (à la main avec les setter pour chaque propriete reutilisable?)
+        $email = $registringLessee->getEmail();
+        $name = $registringLessee->getName();
+        $lastName = $registringLessee->getLastName();
 
-        $user = new User();
+        $user->setEmail($email);
+        $user->setName($name);
+        $user->setLastName($lastName);
+
         $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);
