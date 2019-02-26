@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Lessee;
+use App\Entity\User;
 use App\Form\LesseeType;
 use App\Repository\LesseeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -130,5 +131,17 @@ class LesseeController extends AbstractController
         }
 
         return $this->redirectToRoute('lessee_index');
+    }
+
+    /**
+     * @Route("/invite/{invitationToken}", name="lessee_invitation", methods={"GET","POST"})
+     * @param User $user
+     * @param Lessee $lessee
+     * @param \Swift_Mailer $mailer
+     * @return Response
+     */
+    public function inviteLesseeByEmail(User $user, Lessee $lessee, \Swift_Mailer $mailer): Response
+    {
+
     }
 }

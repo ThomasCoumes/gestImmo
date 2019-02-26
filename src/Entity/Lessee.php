@@ -109,9 +109,9 @@ class Lessee
     private $userLessee;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Type("integer")
-     * @var int
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\Type(type="string")
+     * @var string
      */
     private $invitationToken;
 
