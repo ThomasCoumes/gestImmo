@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangePasswordType;
 use App\Form\EmailCheckingType;
 use App\Form\RegistrationType;
 use App\Form\ResetPasswordType;
@@ -179,6 +180,44 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('security/resetPassword.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/change-password", name="password-change")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function change(Request $request, UserPasswordEncoderInterface $encoder)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePasswordType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $formPassword = $data['password'];
+
+            if ($encoder->isPasswordValid($user, $formPassword)) {
+                $newPlainPassword = $data['newPassword'];
+                $newEncodedPassword = $encoder->encodePassword($user, $newPlainPassword);
+                $user->setPassword($newEncodedPassword);
+                $em->persist($user);
+                $em->flush();
+
+                $this->addFlash('success', 'Votre mot de passe a bien été enregistré');
+
+                return $this->redirectToRoute('home');
+            } else {
+                $this->addFlash('danger', 'Mot de passe actuel incorrect');
+            }
+        }
+
+        return $this->render('security/changePassword.html.twig', [
             'form' => $form->createView(),
         ]);
     }
