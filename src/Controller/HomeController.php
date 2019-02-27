@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 /**
  * @IsGranted("IS_AUTHENTICATED_FULLY")
