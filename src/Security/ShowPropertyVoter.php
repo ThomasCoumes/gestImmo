@@ -44,7 +44,9 @@ class ShowPropertyVoter implements VoterInterface
             return self::ACCESS_DENIED;
         }
 
-        if ($user !== $subject->getUserProperty()) {
+        $lessee = $subject->getLessees();
+
+        if ($user->getEmail() !== $lessee->getValues()['email']) {
             return self::ACCESS_DENIED;
         }
 

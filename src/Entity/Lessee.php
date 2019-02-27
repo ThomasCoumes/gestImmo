@@ -121,11 +121,6 @@ class Lessee
      */
     private $roles = [];
 
-    /**
-     * @var string
-     */
-    private $confirmPassword;
-
     public function __construct()
     {
         $this->lessee = new ArrayCollection();
