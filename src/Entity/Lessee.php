@@ -122,23 +122,6 @@ class Lessee
     private $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Type(
-     *     type="string",
-     *     message="{{ value }} doit etre une chaine de caractères."
-     * )
-     * @Assert\Length(
-     *      min = 8,
-     *      minMessage = "Votre mot de passe doit faire au moins 8 caracteres",
-     * )
-     * @Assert\EqualTo(
-     *     propertyPath="confirm_password",
-     *     message="Vous avez mal ré-entré ce mot de passe dans le champ de confirmation"
-     * )
-     */
-    private $password;
-
-    /**
      * @var string
      */
     private $confirmPassword;
@@ -328,30 +311,6 @@ class Lessee
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(?string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getConfirmPassword(): ?string
-    {
-        return $this->confirmPassword;
-    }
-
-    public function setConfirmPassword(string $confirmPassword): self
-    {
-        $this->confirmPassword = $confirmPassword;
 
         return $this;
     }
