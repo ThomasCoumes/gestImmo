@@ -14,13 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/proprietes")
- * @IsGranted("ROLE_USER")
+ * @Route("/proprietees")
  */
 class PropertyController extends AbstractController
 {
     /**
      * @Route("/", name="property_index", methods={"GET"})
+     * @IsGranted("ROLE_LESSEE")
      * @param PropertyRepository $propertyRepository
      * @return Response
      */
@@ -33,6 +33,7 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/ajouter", name="property_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param PdfUploader $pdfUploader
      * @return Response
@@ -72,6 +73,7 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/{id}", name="property_show", methods={"GET"})
+     * @IsGranted("ROLE_LESSEE")
      * @param Property $property
      * @return Response
      */
@@ -90,6 +92,7 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/{id}/editer", name="property_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param Property $property
      * @param PdfUploader $pdfUploader
@@ -138,6 +141,7 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/{id}", name="property_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param Property $property
      * @return Response
