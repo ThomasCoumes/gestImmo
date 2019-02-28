@@ -108,6 +108,13 @@ class Lessee
      */
     private $userLessee;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\Type(type="string")
+     * @var string
+     */
+    private $invitationToken;
+
     public function __construct()
     {
         $this->lessee = new ArrayCollection();
@@ -254,5 +261,21 @@ class Lessee
         $this->userLessee = $userLessee;
 
         return $this;
+    }
+
+    /**
+     * @return string or null
+     */
+    public function getInvitationToken(): ?string
+    {
+        return $this->invitationToken;
+    }
+
+    /**
+     * @param string $invitationToken
+     */
+    public function setInvitationToken(?string $invitationToken)
+    {
+        $this->invitationToken = $invitationToken;
     }
 }

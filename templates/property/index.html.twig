@@ -7,45 +7,55 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Type de bien</th>
-                <th>Nom</th>
-                <th>Adresse</th>
-                <th>Ville</th>
-                <th>Code postal</th>
-                <th>Loyer hors charges</th>
-                <th>Charges</th>
-                <th>Prix d'achat</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Type de bien</th>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Ville</th>
+            <th>Code postal</th>
+            <th>Loyer hors charges</th>
+            <th>Charges</th>
+            <th>Prix d'achat</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
-            {% for property in properties %}
-                {% if properties is defined %}
-                    {% if is_granted('SHOW', property) %}
-                        <tr>
-                            <td>{{ property.propertyCategory }}</td>
-                            <td>{{ property.uniqueName }}</td>
-                            <td>{{ property.address }}</td>
-                            <td>{{ property.city }}</td>
-                            <td>{{ property.zipCode }}</td>
-                            <td>{{ property.rentExcludingCharges }} €</td>
-                            <td>{{ property.charges }} €</td>
-                            <td>{{ property.purchasePrice }} €</td>
-                            <td>
-                                <a href="{{ path('property_show', {'id': property.id}) }}">Voir</a>
+        {% for property in properties %}
+            {% if properties is defined %}
+
+                {% set emails = [property.userProperty.email] %}
+                {% for lessee in property.lessees.values %}
+                    {% set emails = emails|merge([lessee.email]) %}
+                {% endfor %}
+
+                {% if app.user.email in emails %}
+                    <tr>
+                        <td>{{ property.propertyCategory }}</td>
+                        <td>{{ property.uniqueName }}</td>
+                        <td>{{ property.address }}</td>
+                        <td>{{ property.city }}</td>
+                        <td>{{ property.zipCode }}</td>
+                        <td>{{ property.rentExcludingCharges }} €</td>
+                        <td>{{ property.charges }} €</td>
+                        <td>{{ property.purchasePrice }} €</td>
+                        <td>
+                            <a href="{{ path('property_show', {'id': property.id}) }}">Voir</a>
+                            {% if is_granted('ROLE_USER') %}
                                 <a href="{{ path('property_edit', {'id': property.id}) }}"><i class="fas fa-edit"></i> édition</a>
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% else %}
-                        <tr>
-                            <td colspan="16">Vous n'avez pas enregistré de propriétés</td>
-                        </tr>
+                            {% endif %}
+                        </td>
+                    </tr>
                 {% endif %}
-            {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="16">Vous n'avez pas enregistré de propriétés</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('property_new') }}"><i class="fas fa-plus-circle"></i> Ajouter</a>
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('property_new') }}"><i class="fas fa-plus-circle"></i> Ajouter</a>
+    {% endif %}
 {% endblock %}
