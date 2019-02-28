@@ -46,8 +46,13 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
 
     role_hierarchy:
+            ROLE_LESSEE:
+            ROLE_USER: [ROLE_LESSEE]
             ROLE_ADMIN: [ROLE_USER]
 
     access_decision_manager:
             strategy: unanimous
             allow_if_all_abstain: false
+
+acl:
+    connection: default

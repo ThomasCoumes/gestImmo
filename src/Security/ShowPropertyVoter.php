@@ -34,6 +34,7 @@ class ShowPropertyVoter implements VoterInterface
             return self::ACCESS_ABSTAIN;
         }
 
+
         if (!in_array('SHOW', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }

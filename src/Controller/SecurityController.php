@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Lessee;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use App\Form\EmailCheckingType;
@@ -219,6 +220,62 @@ class SecurityController extends AbstractController
 
         return $this->render('security/changePassword.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/inscription/{invitationToken}", name="lesseeRegistration")
+     * @param Request $request
+     * @param ObjectManager $objectManager
+     * @param UserPasswordEncoderInterface $encoder
+     * @param EntityManagerInterface $emInterface
+     * @return Response
+     */
+    public function lesseeRegistration(
+        Request $request,
+        ObjectManager $objectManager,
+        UserPasswordEncoderInterface $encoder,
+        EntityManagerInterface $emInterface
+    ): Response {
+        $user = new User();
+
+        $invitationToken = str_replace('/inscription/', '', $request->getPathInfo());
+
+        $lessee = $emInterface->getRepository(Lessee::class);
+        $registringLessee = $lessee->findOneBy(['invitationToken' => $invitationToken]);
+
+        $email = $registringLessee->getEmail();
+        $name = $registringLessee->getName();
+        $lastName = $registringLessee->getLastName();
+
+        $user->setEmail($email);
+        $user->setName($name);
+        $user->setLastName($lastName);
+
+        $form = $this->createForm(RegistrationType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $hash = $encoder->encodePassword($user, $user->getPassword());
+
+            $user->setPassword($hash);
+
+            $user->setRoles(["ROLE_LESSEE"]);
+
+            $registringLessee->setInvitationToken(null);
+
+            $objectManager->persist($registringLessee);
+            $objectManager->persist($user);
+            $objectManager->flush();
+
+            $this->addFlash('success', 'Votre compte a été enregistré, vous pouvez vous connecter');
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('security/registration.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

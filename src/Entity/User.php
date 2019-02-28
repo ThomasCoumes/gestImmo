@@ -57,7 +57,6 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @ORM\Column(type="string")
      * @Assert\NotBlank
      * @Assert\Type(
      *     type="string",
@@ -201,7 +200,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = '';
 
         return array_unique($roles);
     }
