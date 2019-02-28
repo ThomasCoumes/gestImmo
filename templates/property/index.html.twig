@@ -22,7 +22,17 @@
         <tbody>
             {% for property in properties %}
                 {% if properties is defined %}
-                    {% if is_granted('SHOW', property) %} {#, property.lessees#}
+
+                    {% set emails = [property.userProperty.email] %}
+                    {% for lessee in property.lessees.values %}
+                        {% set emails = emails|merge([lessee.email]) %}
+                    {% endfor %}
+
+                    {% if app.user.email in emails %}
+
+
+
+
                         <tr>
                             <td>{{ property.propertyCategory }}</td>
                             <td>{{ property.uniqueName }}</td>

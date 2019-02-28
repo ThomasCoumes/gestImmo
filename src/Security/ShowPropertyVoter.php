@@ -8,6 +8,7 @@
 
 namespace App\Security;
 
+use App\Entity\Lessee;
 use App\Entity\Property;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -34,21 +35,45 @@ class ShowPropertyVoter implements VoterInterface
             return self::ACCESS_ABSTAIN;
         }
 
+
         if (!in_array('SHOW', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }
 
         $user = $token->getUser();
 
+
+
         if (!$user instanceof User) {
             return self::ACCESS_DENIED;
         }
 
         $lessee = $subject->getLessees();
+//        $lessees = $subject->getLessees();
 
-        if ($user !== $subject->getUserProperty()) { //or $user->getEmail() !== $lessee->getValues()['email']
+
+        if ($user !== $subject->getUserProperty()) { //AND $user->getEmail() !== $lessee->getValues()['email']
             return self::ACCESS_DENIED;
         }
+
+
+
+//        if ($user !== $subject->getUserProperty()) {
+//            return self::ACCESS_DENIED;
+//        }
+
+//        /**
+//         * @var Lessee $lessee
+//         */
+//        foreach ($lessees->getValues() as $lessee) {
+//            if ($user->getEmail() === $lessee->getEmail()) {
+//                $checked = true;
+//            }
+//        }
+//
+//        if ($checked === false) {
+//            return self::ACCESS_DENIED;
+//        }
 
         return self::ACCESS_GRANTED;
     }
