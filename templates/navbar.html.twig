@@ -5,14 +5,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED')%}
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ path('lessee_index') }}">Locataires<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ path('property_index') }}">Propriétées</a>
-            </li>
-        </ul>
+            {% if is_granted('ROLE_USER') %}
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('lessee_index') }}">Locataires<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('property_index') }}">Propriétées</a>
+                    </li>
+                </ul>
+            {% endif %}
         <ul class="navbar-nav">
                 <li class="mr-3">
                     <div class="dropdown">
