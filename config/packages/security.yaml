@@ -53,3 +53,6 @@ security:
     access_decision_manager:
             strategy: unanimous
             allow_if_all_abstain: false
+
+acl:
+    connection: default
