@@ -45,6 +45,12 @@ class ShowPropertyVoter implements VoterInterface
             return self::ACCESS_DENIED;
         }
 
+        if (! isset($subject->getLessees()->getValues()[0])) {
+            throw new \Exception(
+                'Vous n\'êtes pas inscrit comme locataire de cette propriétée monsieur le PIRATE'
+            );
+        }
+
         if ($user !== $subject->getUserProperty()
             and $user->getEmail() !== $subject->getLessees()->getValues()[0]->getEmail()) {
             return self::ACCESS_DENIED;
