@@ -73,15 +73,15 @@
                 <th>Prix d'achat</th>
                 <td>{{ property.purchasePrice }} €</td>
             </tr>
-            {% if property.pdfFile is not null %}
-            <tr>
-                <th>Locataires</th>
-                <td>
-                    {% for lessee in property.lessees %}
-                        <span class="lessee">{{ lessee.civility }} {{ lessee.name }} {{ lessee.lastname }}</span>
-                    {% endfor %}
-                </td>
-            </tr>
+            {% if property.lessees is not empty %}
+                <tr>
+                    <th>Locataires</th>
+                    <td>
+                        {% for lessee in property.lessees %}
+                            <span class="lessee">{{ lessee.civility }} {{ lessee.name }} {{ lessee.lastname }}</span>
+                        {% endfor %}
+                    </td>
+                </tr>
             {% endif %}
             {% if property.pdfFile is not null %}
                 <tr>
