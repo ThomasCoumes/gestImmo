@@ -4,6 +4,8 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
 $black: #000000;
+$facebook: #5146AF;
+$white: #ffffff;
 
 * {
   font-size: 16pt;
@@ -78,4 +80,17 @@ header {
 
 .changePassword {
   margin-top: 10vh;
+}
+
+.facebookRegister {
+  display: block;
+  margin : auto;
+  margin-top: 5vh;
+  margin-bottom: 2vh;
+  background-color: $facebook;
+  color: $white;
+}
+
+.facebookLogo {
+  margin-right: 0.4vw;
 }
