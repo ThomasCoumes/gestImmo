@@ -150,7 +150,7 @@ class FacebookAuthenticator extends SocialAuthenticator
             $user->setEmail($facebookUser->getEmail());
             $user->setName($facebookUser->getFirstName());
             $user->setLastName($facebookUser->getLastName());
-            $user->setPassword('toto');
+            $user->setPassword(bin2hex(random_bytes(40)));
             $this->em->persist($user);
             $this->em->flush();
         }
