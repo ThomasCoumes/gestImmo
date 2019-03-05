@@ -12,6 +12,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
+//use KnpU\OAuth2ClientBundle\Client\Provider\FacebookClient;
 use League\OAuth2\Client\Provider\FacebookUser;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -149,7 +150,6 @@ class FacebookAuthenticator extends SocialAuthenticator
             $user->setEmail($facebookUser->getEmail());
             $user->setName($facebookUser->getFirstName());
             $user->setLastName($facebookUser->getLastName());
-            $user->setRoles(["ROLE_USER"]);
             $user->setPassword('toto');
             $this->em->persist($user);
             $this->em->flush();
@@ -197,6 +197,6 @@ class FacebookAuthenticator extends SocialAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         // on success, let the request continue
-        return new Response();
+        return new RedirectResponse('/accueil');
     }
 }
