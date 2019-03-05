@@ -12,7 +12,6 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
-//use KnpU\OAuth2ClientBundle\Client\Provider\FacebookClient;
 use League\OAuth2\Client\Provider\FacebookUser;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -150,7 +149,11 @@ class FacebookAuthenticator extends SocialAuthenticator
             $user->setEmail($facebookUser->getEmail());
             $user->setName($facebookUser->getFirstName());
             $user->setLastName($facebookUser->getLastName());
-            $user->setPassword(bin2hex(random_bytes(40)));
+            $user->setRoles(["ROLE_USER"]);
+
+            //TODO HASHER LE MOT DE PASSE
+
+            $user->setPassword(bin2hex(random_bytes(80)));
             $this->em->persist($user);
             $this->em->flush();
         }
@@ -196,7 +199,8 @@ class FacebookAuthenticator extends SocialAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        // on success, let the request continue
+        //TODO TROUVER COMMENT DONNER LE NOM DE LA ROUTE AU LIEU DE LA ROUTE EN DUR
+
         return new RedirectResponse('/accueil');
     }
 }
