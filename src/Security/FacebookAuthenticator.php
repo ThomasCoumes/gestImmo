@@ -21,7 +21,6 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-
 class FacebookAuthenticator extends SocialAuthenticator
 {
     private $clientRegistry;

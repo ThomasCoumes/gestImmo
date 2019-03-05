@@ -34,7 +34,8 @@ class FacebookController extends AbstractController
      *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function connectCheckAction() {
+    public function connectCheckAction()
+    {
         if (!$this->getUser()) {
             return new JsonResponse(array('status' => false, 'message' => "User not found!"));
         } else {
