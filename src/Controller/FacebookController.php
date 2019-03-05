@@ -40,16 +40,6 @@ class FacebookController extends AbstractController
         if (!$this->getUser()) {
             return new JsonResponse(array('status' => false, 'message' => "User not found!"));
         } else {
-//            $em = $this->getDoctrine()->getManager();
-//
-//            $user = $this->getUser();
-//            $password = bin2hex(random_bytes(80));
-//            $hash = $encoder->encodePassword($user, $password);
-//            $user->setPassword($hash);
-//
-//            $em->persist($user);
-//            $em->flush();
-
             return $this->redirectToRoute('default');
         }
     }

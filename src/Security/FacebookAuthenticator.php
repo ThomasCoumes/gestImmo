@@ -153,7 +153,7 @@ class FacebookAuthenticator extends SocialAuthenticator
 
             //TODO HASHER LE MOT DE PASSE
 
-            $user->setPassword(bin2hex(random_bytes(80)));
+            $user->setPassword(password_hash(bin2hex(random_bytes(80)), PASSWORD_ARGON2I));
             $this->em->persist($user);
             $this->em->flush();
         }
