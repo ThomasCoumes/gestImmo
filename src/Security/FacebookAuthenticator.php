@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -25,11 +26,19 @@ class FacebookAuthenticator extends SocialAuthenticator
 {
     private $clientRegistry;
     private $em;
+    /**
+     * @var EncoderFactoryInterface
+     */
+    private $securityEncoderFactory;
 
-    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em)
-    {
+    public function __construct(
+        ClientRegistry $clientRegistry,
+        EntityManagerInterface $em,
+        EncoderFactoryInterface $securityEncoderFactory
+    ) {
         $this->clientRegistry = $clientRegistry;
         $this->em = $em;
+        $this->securityEncoderFactory = $securityEncoderFactory;
     }
 
     /**
@@ -149,7 +158,12 @@ class FacebookAuthenticator extends SocialAuthenticator
             $user->setName($facebookUser->getFirstName());
             $user->setLastName($facebookUser->getLastName());
             $user->setRoles(["ROLE_USER"]);
-            $user->setPassword(password_hash(bin2hex(random_bytes(80)), PASSWORD_ARGON2I));
+
+            $password = bin2hex(random_bytes(80));
+            $encoder = $this->securityEncoderFactory->getEncoder($user);
+            $hash = $encoder->encodePassword($password, $user);
+
+            $user->setPassword($hash);
             $this->em->persist($user);
             $this->em->flush();
         }
