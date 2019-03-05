@@ -39,43 +39,6 @@ class FacebookController extends AbstractController
      */
     public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
     {
-        // ** if you want to *authenticate* the user, then
-        // leave this method blank and create a Guard authenticator
-//        // (read below)
-//
-//        /** @var \KnpU\OAuth2ClientBundle\Client\Provider\FacebookClient $client */
-//        $client = $clientRegistry->getClient('facebook_main');
-//
-//        try {
-//            // the exact class depends on which provider you're using
-//            /** @var \League\OAuth2\Client\Provider\FacebookUser $user */
-//            $user = $client->fetchUser();
-//            dump($user);
-//
-//            // get the access token and then user
-//            $accessToken = $client->getAccessToken();
-//            $user = $client->fetchUserFromToken($accessToken);
-//
-//            // access the underlying "provider" from league/oauth2-client
-//            $provider = $client->getOAuth2Provider();
-//            // if you're using Facebook, then this works:
-//            $longLivedToken = $provider->getLongLivedAccessToken($accessToken);
-//
-//            // do something with all this new power!
-//            // e.g. $name = $user->getFirstName();
-//            dump($user);
-//            dump($accessToken);
-//            dump($provider);
-//            dump($longLivedToken);
-//            die;
-//            // ...
-//        } catch (IdentityProviderException $e) {
-//            throw new \Exception('There is a problem, try again !');
-//        }
-
-
-
-
         if (!$this->getUser()) {
             return new JsonResponse(array('status' => false, 'message' => "User not found!"));
         } else {
