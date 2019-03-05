@@ -209,8 +209,6 @@ class FacebookAuthenticator extends SocialAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        //TODO TROUVER COMMENT DONNER LE NOM DE LA ROUTE AU LIEU DE LA ROUTE EN DUR
-
-        return new RedirectResponse('/accueil');
+        return new RedirectResponse('/');
     }
 }
