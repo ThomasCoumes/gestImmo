@@ -150,9 +150,6 @@ class FacebookAuthenticator extends SocialAuthenticator
             $user->setName($facebookUser->getFirstName());
             $user->setLastName($facebookUser->getLastName());
             $user->setRoles(["ROLE_USER"]);
-
-            //TODO HASHER LE MOT DE PASSE
-
             $user->setPassword(password_hash(bin2hex(random_bytes(80)), PASSWORD_ARGON2I));
             $this->em->persist($user);
             $this->em->flush();
