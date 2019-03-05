@@ -136,16 +136,6 @@ class User implements UserInterface
     private $token;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Type(
-     *     type="integer",
-     *     message="{{ value }} doit etre un nombre entier."
-     * )
-     * @var integer
-     */
-    private $facebookId;
-
-    /**
      * User constructor.
      */
     public function __construct()
@@ -398,18 +388,6 @@ class User implements UserInterface
     public function setToken(?string $token): self
     {
         $this->token = $token;
-
-        return $this;
-    }
-
-    public function getFacebookId(): ?int
-    {
-        return $this->facebookId;
-    }
-
-    public function setFacebookId(?int $facebookId): self
-    {
-        $this->facebookId = $facebookId;
 
         return $this;
     }
