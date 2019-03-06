@@ -1,11 +1,11 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Editer la propriété{% endblock %}
+{% block title %}Editer la propriétée{% endblock %}
 
 {% block body %}
     <a href="{{ path('property_index') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
 
-    <h1 class="propertyTitle">Editer les propriétées</h1>
+    <h1 class="propertyTitle">Editer la propriétée</h1>
 
     <div class="container">
         {{ include('property/_form.html.twig', {'button_label': 'Enregistrer'}) }}
