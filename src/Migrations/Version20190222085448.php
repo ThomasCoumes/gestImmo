@@ -24,6 +24,7 @@ final class Version20190222085448 extends AbstractMigration
 
         $this->addSql('ALTER TABLE property ADD pdf_file VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE lost_user ADD email VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE lessee ADD invitation_token VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -33,5 +34,6 @@ final class Version20190222085448 extends AbstractMigration
 
         $this->addSql('ALTER TABLE lost_user DROP email');
         $this->addSql('ALTER TABLE property DROP pdf_file');
+        $this->addSql('ALTER TABLE lessee DROP invitation_token');
     }
 }
