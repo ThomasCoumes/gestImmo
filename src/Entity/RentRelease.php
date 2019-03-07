@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\RentRealeaseRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\RentReleaseRepository")
  */
-class RentRealease
+class RentRelease
 {
     /**
      * @ORM\Id()
@@ -34,7 +34,7 @@ class RentRealease
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Lessee", inversedBy="rentRealeases")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lessee", inversedBy="rentReleases")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
      * @Assert\Type("integer")

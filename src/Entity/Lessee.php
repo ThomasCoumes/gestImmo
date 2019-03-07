@@ -116,14 +116,14 @@ class Lessee
     private $invitationToken;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RentRealease", mappedBy="rentRelease")
+     * @ORM\OneToMany(targetEntity="App\Entity\RentRelease", mappedBy="rentRelease")
      */
-    private $rentRealeases;
+    private $rentReleases;
 
     public function __construct()
     {
         $this->lessee = new ArrayCollection();
-        $this->rentRealeases = new ArrayCollection();
+        $this->rentReleases = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -286,30 +286,30 @@ class Lessee
     }
 
     /**
-     * @return Collection|RentRealease[]
+     * @return Collection|RentRelease[]
      */
-    public function getRentRealeases(): Collection
+    public function getRentReleases(): Collection
     {
-        return $this->rentRealeases;
+        return $this->rentReleases;
     }
 
-    public function addRentRealease(RentRealease $rentRealease): self
+    public function addRentRelease(RentRelease $rentRelease): self
     {
-        if (!$this->rentRealeases->contains($rentRealease)) {
-            $this->rentRealeases[] = $rentRealease;
-            $rentRealease->setRentRelease($this);
+        if (!$this->rentReleases->contains($rentRelease)) {
+            $this->rentReleases[] = $rentRelease;
+            $rentRelease->setRentRelease($this);
         }
 
         return $this;
     }
 
-    public function removeRentRealease(RentRealease $rentRealease): self
+    public function removeRentRelease(RentRelease $rentRelease): self
     {
-        if ($this->rentRealeases->contains($rentRealease)) {
-            $this->rentRealeases->removeElement($rentRealease);
+        if ($this->rentReleases->contains($rentRelease)) {
+            $this->rentReleases->removeElement($rentRelease);
             // set the owning side to null (unless already changed)
-            if ($rentRealease->getRentRelease() === $this) {
-                $rentRealease->setRentRelease(null);
+            if ($rentRelease->getRentRelease() === $this) {
+                $rentRelease->setRentRelease(null);
             }
         }
 
