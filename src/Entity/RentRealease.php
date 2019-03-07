@@ -18,17 +18,24 @@ class RentRealease
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
+     * @Assert\Type("float")
      */
     private $Amount;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Choice({"Paiement en attente", "Payé"})
      */
     private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Lessee", inversedBy="rentRealeases")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $rentRelease;
 
