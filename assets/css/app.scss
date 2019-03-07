@@ -63,10 +63,8 @@ header {
 }
 
 .homeButton {
-  margin : auto;
   display: block;
-  margin-bottom: 4vh;
-  margin-top: 14vh;
+  margin: 14vh auto 4vh;
 }
 
 .lessee {
@@ -85,13 +83,16 @@ header {
 .facebookRegister {
   display: block;
   width: 25vw;
-  margin : auto;
-  margin-top: 3vh;
-  margin-bottom: 2vh;
+  margin: 3vh auto 2vh;
   background-color: $facebook;
   color: $white;
 }
 
 .facebookLogo {
   margin-right: 0.4vw;
+}
+
+.centerButton {
+  display: block;
+  margin: auto;
 }

@@ -1,4 +1,10 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-<a class="edit" href="#"><button class="btn text-primary"> <i class="fas fa-edit"></i>{{ button_label|default('Enregistrer') }}</button></a>
+    {{ form_row(form.civility) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.lastname) }}
+    {{ form_row(form.birthday) }}
+    {{ form_row(form.placeOfBirth) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.phoneNumber) }}
+<button class="btn text-primary centerButton"> <i class="fas fa-edit"></i>{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
