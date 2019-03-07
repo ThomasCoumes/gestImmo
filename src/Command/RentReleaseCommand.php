@@ -36,6 +36,34 @@ class RentReleaseCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        //TODO
+        $output->writeln([
+            'Rent release',
+            '===========================================================================',
+            '',
+        ]);
+
+        $output->writeln(['Inserting values in database',
+            '',
+        ]);
+
+        //TODO insert values in rentRelease foreach lessee assigned to at least 1 property
+
+        $output->writeln(['Generating PDF',
+            '',
+        ]);
+
+        //TODO generate PDF from each rent release
+
+        $output->writeln(['Sending emails to lessees',
+            '',
+        ]);
+
+        //TODO send emails to each lessee assigned to at least 1 property
+
+        $output->writeln(['Sending email to owner',
+            '',
+        ]);
+
+        //TODO send emails to each owner who as at least 1 lessee assigned to a property
     }
 }
