@@ -115,9 +115,15 @@ class Lessee
      */
     private $invitationToken;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RentRealease", mappedBy="rentRelease")
+     */
+    private $rentRealeases;
+
     public function __construct()
     {
         $this->lessee = new ArrayCollection();
+        $this->rentRealeases = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -277,5 +283,36 @@ class Lessee
     public function setInvitationToken(?string $invitationToken)
     {
         $this->invitationToken = $invitationToken;
+    }
+
+    /**
+     * @return Collection|RentRealease[]
+     */
+    public function getRentRealeases(): Collection
+    {
+        return $this->rentRealeases;
+    }
+
+    public function addRentRealease(RentRealease $rentRealease): self
+    {
+        if (!$this->rentRealeases->contains($rentRealease)) {
+            $this->rentRealeases[] = $rentRealease;
+            $rentRealease->setRentRelease($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRentRealease(RentRealease $rentRealease): self
+    {
+        if ($this->rentRealeases->contains($rentRealease)) {
+            $this->rentRealeases->removeElement($rentRealease);
+            // set the owning side to null (unless already changed)
+            if ($rentRealease->getRentRelease() === $this) {
+                $rentRealease->setRentRelease(null);
+            }
+        }
+
+        return $this;
     }
 }
