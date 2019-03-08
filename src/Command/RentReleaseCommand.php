@@ -8,12 +8,29 @@
 
 namespace App\Command;
 
+use App\Service\RentReleaseInsertion;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class RentReleaseCommand extends Command
 {
+    /**
+     * @var RentReleaseInsertion
+     */
+    private $rentReleaseInsertion;
+
+    /**
+     * RentReleaseCommand constructor.
+     * @param RentReleaseInsertion $rentReleaseInsertion
+     */
+    public function __construct(RentReleaseInsertion $rentReleaseInsertion)
+    {
+        $this->rentReleaseInsertion = $rentReleaseInsertion;
+
+        parent::__construct();
+    }
+
     /**
      * bin/console {name choosed here} to execute the command
      * @var string
@@ -45,6 +62,8 @@ class RentReleaseCommand extends Command
         $output->writeln(['Inserting values in database',
             '',
         ]);
+
+        $this->rentReleaseInsertion->settingRentReleaseValues();
 
         //TODO insert values in rentRelease foreach lessee assigned to at least 1 property
 

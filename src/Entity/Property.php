@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
+ * @ORM\Table(name="property")
  */
 class Property
 {
