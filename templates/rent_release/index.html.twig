@@ -1,0 +1,34 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Mes loyers{% endblock %}
+
+{% block body %}
+    <h1 class="propertyTitle">Mes loyers</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rent_release in rent_releases %}
+            <tr>
+                <td>{{ rent_release.Amount }} €</td>
+                <td>{{ rent_release.date ? rent_release.date|date('Y-m-d') : '' }}</td>
+                <td>{{ rent_release.status }}</td>
+                <td>
+                    <a href="{{ path('rent_release_show', {'id': rent_release.id}) }}">Voir</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Nous ne vous avons pas encore généré de quittance de loyer</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

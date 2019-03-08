@@ -33,8 +33,7 @@
                             <td>
                                 <a href="{{ path('lessee_show', {'id': lessee.id}) }}">Voir</a>
                                 <a href="{{ path('lessee_edit', {'id': lessee.id}) }}"><i class="fas fa-edit"></i> édition</a>
-                                <a class="btn btn-warning" href="{{ path('lessee_invitation', {'id': lessee.id}) }}"><i class="fas fa-envelope"></i> Inviter</a>
-                            </td>
+                                <a class="btn btn-warning" href="{{ path('lessee_invitation', {'lessee_id': lessee.id}) }}"><i class="fas fa-envelope"></i> Inviter</a>                            </td>
                         </tr>
                     {% endif %}
                 {% else %}
