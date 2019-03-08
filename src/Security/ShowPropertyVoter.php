@@ -25,8 +25,8 @@ class ShowPropertyVoter implements VoterInterface
      * @param TokenInterface $token A TokenInterface instance
      * @param mixed $subject The subject to secure
      * @param array $attributes An array of attributes associated with the method being invoked
-     *
      * @return int either ACCESS_GRANTED, ACCESS_ABSTAIN, or ACCESS_DENIED
+     * @throws \Exception
      */
     public function vote(TokenInterface $token, $subject, array $attributes)
     {

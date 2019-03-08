@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Lessee;
-use App\Entity\User;
 use App\Form\LesseeType;
 use App\Repository\LesseeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
