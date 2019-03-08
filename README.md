@@ -7,4 +7,7 @@
 7) set your facebook OAUTH id and facebook OAUTH secret in .env.local
 8) active HTTPS (https://www.youtube.com/watch?v=1daMCJeh5yM if you're in localhost), https://doc.ubuntu-fr.org/tutoriel/securiser_apache2_avec_ssl if you've got a domain name and a server
 9) follow this documentation (https://developers.facebook.com/docs/facebook-login/security#strict_mode) to configure your app on facebook
-10) enjoy !
+10) run sudo apt-get upgrade -y
+11) run (sudo) apt-get install xvfb -y
+12) run (sudo) apt-get install libqt5webkit5
+13) enjoy !
