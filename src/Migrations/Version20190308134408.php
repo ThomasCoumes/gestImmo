@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190218122128 extends AbstractMigration
+final class Version20190308134408 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,17 +22,17 @@ final class Version20190218122128 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE lessee_property (lessee_id INT NOT NULL, property_id INT NOT NULL, INDEX IDX_D9FAF5B450499E36 (lessee_id), INDEX IDX_D9FAF5B4549213EC (property_id), PRIMARY KEY(lessee_id, property_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE lessee_property ADD CONSTRAINT FK_D9FAF5B450499E36 FOREIGN KEY (lessee_id) REFERENCES lessee (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE lessee_property ADD CONSTRAINT FK_D9FAF5B4549213EC FOREIGN KEY (property_id) REFERENCES property (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE lessee ADD full_name VARCHAR(510) NOT NULL');
+        $this->addSql('CREATE TABLE rent_release (id INT AUTO_INCREMENT NOT NULL, rent_release_id INT NOT NULL, amount DOUBLE PRECISION NOT NULL, status VARCHAR(255) NOT NULL, INDEX IDX_7F6B786D1BC8D612 (rent_release_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE rent_release ADD CONSTRAINT FK_7F6B786D1BC8D612 FOREIGN KEY (rent_release_id) REFERENCES lessee (id)');
+        $this->addSql('ALTER TABLE rent_release ADD date DATETIME NOT NULL');
     }
+
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE lessee_property');
+        $this->addSql('DROP TABLE rent_release');
     }
 }
