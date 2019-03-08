@@ -62,7 +62,6 @@ class RentReleaseCommand extends Command
         $output->writeln(['Inserting values in database',
             '',
         ]);
-
         $this->rentReleaseInsertion->settingRentReleaseValues();
 
         $output->writeln(['Generating PDF',
