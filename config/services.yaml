@@ -32,3 +32,6 @@ services:
     App\Service\PdfUploader:
             arguments:
                 $targetDirectory: '%brochures_directory%'
+
+    # rent release insertion service
+    App\Service\RentReleaseInsertion:
