@@ -1,19 +1,17 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}RentRelease{% endblock %}
+{% block title %}Mes loyers{% endblock %}
 
 {% block body %}
-    <h1>RentRelease</h1>
+    <a href="{{ path('rent_release_index') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
+
+    <h1 class="propertyTitle">Détail du loyer</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ rent_release.id }}</td>
-            </tr>
-            <tr>
                 <th>Amount</th>
-                <td>{{ rent_release.Amount }}</td>
+                <td>{{ rent_release.Amount }} €</td>
             </tr>
             <tr>
                 <th>Status</th>
@@ -21,10 +19,8 @@
             </tr>
             <tr>
                 <th>Date</th>
-                <td>{{ rent_release.date ? rent_release.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ rent_release.date ? rent_release.date|date('Y-m-d') : '' }}</td>
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('rent_release_index') }}">back to list</a>
 {% endblock %}
