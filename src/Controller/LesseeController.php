@@ -9,8 +9,10 @@ use App\Repository\LesseeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/locataires")
@@ -134,13 +136,14 @@ class LesseeController extends AbstractController
     }
 
     /**
-     * @Route("/invitation-de-locataire/{id}", name="lessee_invitation", methods={"GET","POST"})
-     * @param User $user
+     * @Route("/invitation-de-locataire/{lessee_id}", name="lessee_invitation", methods={"GET","POST"})
+     * @ParamConverter("lessee", class="App\Entity\Lessee", options={"mapping": {"lessee_id" : "id"}})
      * @param Lessee $lessee
+     * @param UserInterface $user
      * @param \Swift_Mailer $mailer
      * @return Response
      */
-    public function inviteLesseeByEmail(User $user, Lessee $lessee, \Swift_Mailer $mailer): Response
+    public function inviteLesseeByEmail(Lessee $lessee, UserInterface $user, \Swift_Mailer $mailer): Response
     {
         $lesseeName = $lessee->getName();
         $userIdentity = $user->getName() . ' ' . $user->getLastName();
