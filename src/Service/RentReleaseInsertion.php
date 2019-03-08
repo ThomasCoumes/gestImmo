@@ -38,6 +38,7 @@ class RentReleaseInsertion
                 $rentRelease->setRentRelease($lessee);
                 $rentRelease->setAmount($amount);
                 $rentRelease->setStatus('Paiement en attente');
+                $rentRelease->setDate(new \DateTime());
 
                 $this->manager->persist($rentRelease);
                 $this->manager->flush();

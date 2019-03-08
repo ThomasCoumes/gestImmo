@@ -24,7 +24,9 @@ final class Version20190308134408 extends AbstractMigration
 
         $this->addSql('CREATE TABLE rent_release (id INT AUTO_INCREMENT NOT NULL, rent_release_id INT NOT NULL, amount DOUBLE PRECISION NOT NULL, status VARCHAR(255) NOT NULL, INDEX IDX_7F6B786D1BC8D612 (rent_release_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE rent_release ADD CONSTRAINT FK_7F6B786D1BC8D612 FOREIGN KEY (rent_release_id) REFERENCES lessee (id)');
+        $this->addSql('ALTER TABLE rent_release ADD date DATETIME NOT NULL');
     }
+
 
     public function down(Schema $schema) : void
     {

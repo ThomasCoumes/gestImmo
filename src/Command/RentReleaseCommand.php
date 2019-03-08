@@ -65,24 +65,22 @@ class RentReleaseCommand extends Command
 
         $this->rentReleaseInsertion->settingRentReleaseValues();
 
-        //TODO insert values in rentRelease foreach lessee assigned to at least 1 property
-
         $output->writeln(['Generating PDF',
             '',
         ]);
 
-        //TODO generate PDF from each rent release
+        //TODO generate PDF from each rent release where rentRelease dateTime === current month
 
         $output->writeln(['Sending emails to lessees',
             '',
         ]);
 
-        //TODO send emails to each lessee assigned to at least 1 property
+        //TODO send emails to each lessee assigned to at least 1 property where rentRelease dateTime === current month
 
         $output->writeln(['Sending email to owner',
             '',
         ]);
 
-        //TODO send emails to each owner who as at least 1 lessee assigned to a property
+        //TODO send emails to each owner who as at least 1 lessee assigned to a property where rentRelease dateTime === current month
     }
 }

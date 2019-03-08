@@ -41,6 +41,13 @@ class RentRelease
      */
     private $rentRelease;
 
+    /**
+     * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
+     * @Assert\DateTime
+     */
+    private $date;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,6 +85,18 @@ class RentRelease
     public function setRentRelease(?Lessee $rentRelease): self
     {
         $this->rentRelease = $rentRelease;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
