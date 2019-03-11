@@ -3,7 +3,7 @@
 {% block title %}Ma quittance de loyer{% endblock %}
 
 {% block body %}
-    <h1 class="propertyTitle">Quittance de loyer {{ rent_release.date|date('m-Y') }}</h1>
+    <h1 class="propertyTitle">Quittance de loyer {{ rent_release.date|date('m/Y') }}</h1>
 
     <div class="container">
         <p><span class="politeness">Bonjour <strong>{{ rent_release.lesseeName }}</strong>!</span> <br>
