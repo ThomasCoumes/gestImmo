@@ -136,12 +136,19 @@ class User implements UserInterface
     private $token;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RentRelease", mappedBy="userRentRelease")
+     * @Assert\NotBlank
+     */
+    private $rentReleases;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->properties = new ArrayCollection();
         $this->lessees = new ArrayCollection();
+        $this->rentReleases = new ArrayCollection();
     }
 
     /**
@@ -388,6 +395,37 @@ class User implements UserInterface
     public function setToken(?string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RentRelease[]
+     */
+    public function getRentReleases(): Collection
+    {
+        return $this->rentReleases;
+    }
+
+    public function addRentRelease(RentRelease $rentRelease): self
+    {
+        if (!$this->rentReleases->contains($rentRelease)) {
+            $this->rentReleases[] = $rentRelease;
+            $rentRelease->setUserRentRelease($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRentRelease(RentRelease $rentRelease): self
+    {
+        if ($this->rentReleases->contains($rentRelease)) {
+            $this->rentReleases->removeElement($rentRelease);
+            // set the owning side to null (unless already changed)
+            if ($rentRelease->getUserRentRelease() === $this) {
+                $rentRelease->setUserRentRelease(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Editer la propriétée{% endblock %}
+
+{% block body %}
+    <a href="{{ path('rent_release_index') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
+
+    <h1 class="propertyTitle">Editer le status du loyer</h1>
+
+    <div class="container">
+        {{ include('rent_release/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+    </div>
+{% endblock %}
