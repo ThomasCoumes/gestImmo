@@ -2,18 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: thocou
- * Date: 14/02/19
- * Time: 20:34
+ * Date: 11/03/19
+ * Time: 09:39
  */
 
 namespace App\Security;
 
-use App\Entity\Property;
+use App\Entity\RentRelease;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-class ShowPropertyVoter implements VoterInterface
+class EditRentReleaseVoter implements VoterInterface
 {
 
     /**
@@ -25,16 +25,16 @@ class ShowPropertyVoter implements VoterInterface
      * @param TokenInterface $token A TokenInterface instance
      * @param mixed $subject The subject to secure
      * @param array $attributes An array of attributes associated with the method being invoked
+     *
      * @return int either ACCESS_GRANTED, ACCESS_ABSTAIN, or ACCESS_DENIED
-     * @throws \Exception
      */
     public function vote(TokenInterface $token, $subject, array $attributes)
     {
-        if (!$subject instanceof Property) {
+        if (!$subject instanceof RentRelease) {
             return self::ACCESS_ABSTAIN;
         }
 
-        if (!in_array('SHOW', $attributes)) {
+        if (!in_array('EDIT_RENT_RELEASE', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }
 
@@ -44,14 +44,7 @@ class ShowPropertyVoter implements VoterInterface
             return self::ACCESS_DENIED;
         }
 
-        if (! isset($subject->getLessees()->getValues()[0]) and $user !== $subject->getUserProperty()) {
-            throw new \Exception(
-                'Vous n\'avez pas à voir cette propriétée monsieur le PIRATE'
-            );
-        }
-
-        if ($user !== $subject->getUserProperty()
-            and $user->getEmail() !== $subject->getLessees()->getValues()[0]->getEmail()) {
+        if ($user !== $subject->getUserRentRelease()) {
             return self::ACCESS_DENIED;
         }
 

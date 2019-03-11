@@ -37,7 +37,6 @@ class RentRelease
      * @ORM\ManyToOne(targetEntity="App\Entity\Lessee", inversedBy="rentReleases")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
-     * @Assert\Type("integer")
      */
     private $rentRelease;
 
@@ -47,6 +46,27 @@ class RentRelease
      * @Assert\DateTime
      */
     private $date;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     */
+    private $propertyName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     */
+    private $lesseeName;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="rentReleases")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     */
+    private $userRentRelease;
 
     public function getId(): ?int
     {
@@ -97,6 +117,42 @@ class RentRelease
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getPropertyName(): ?string
+    {
+        return $this->propertyName;
+    }
+
+    public function setPropertyName(string $propertyName): self
+    {
+        $this->propertyName = $propertyName;
+
+        return $this;
+    }
+
+    public function getLesseeName(): ?string
+    {
+        return $this->lesseeName;
+    }
+
+    public function setLesseeName(string $lesseeName): self
+    {
+        $this->lesseeName = $lesseeName;
+
+        return $this;
+    }
+
+    public function getUserRentRelease(): ?User
+    {
+        return $this->userRentRelease;
+    }
+
+    public function setUserRentRelease(?User $userRentRelease): self
+    {
+        $this->userRentRelease = $userRentRelease;
 
         return $this;
     }
