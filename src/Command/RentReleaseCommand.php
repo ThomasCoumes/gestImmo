@@ -68,7 +68,8 @@ class RentReleaseCommand extends Command
             '',
         ]);
 
-        //TODO generate PDF from each rent release where rentRelease dateTime === current month
+        // TODO generate PDF from each rent release where rentRelease dateTime === current month
+        // TODO pdf filename = propertyName_lesseeName_monthYear.pdf
 
         $output->writeln(['Sending emails to lessees',
             '',
