@@ -48,6 +48,20 @@ class RentRelease
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     */
+    private $propertyName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     */
+    private $lesseeName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -97,6 +111,30 @@ class RentRelease
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getPropertyName(): ?string
+    {
+        return $this->propertyName;
+    }
+
+    public function setPropertyName(string $propertyName): self
+    {
+        $this->propertyName = $propertyName;
+
+        return $this;
+    }
+
+    public function getLesseeName(): ?string
+    {
+        return $this->lesseeName;
+    }
+
+    public function setLesseeName(string $lesseeName): self
+    {
+        $this->lesseeName = $lesseeName;
 
         return $this;
     }

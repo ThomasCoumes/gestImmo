@@ -30,8 +30,11 @@ class RentReleaseInsertion
 
         foreach ($property as $prop) {
             $lessees = $prop->getLessees();
+            $propertyName = $prop->getUniqueName();
 
             foreach ($lessees as $lessee) {
+                $lesseeName = $lessee->getFullName();
+
                 $rentRelease = new RentRelease();
                 $amount = $prop->getRentExcludingCharges() + $prop->getCharges();
 
@@ -39,6 +42,8 @@ class RentReleaseInsertion
                 $rentRelease->setAmount($amount);
                 $rentRelease->setStatus('Paiement en attente');
                 $rentRelease->setDate(new \DateTime());
+                $rentRelease->setPropertyName($propertyName);
+                $rentRelease->setLesseeName($lesseeName);
 
                 $this->manager->persist($rentRelease);
                 $this->manager->flush();

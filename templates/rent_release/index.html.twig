@@ -8,6 +8,8 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Locataire</th>
+                <th>Propriétée</th>
                 <th>Amount</th>
                 <th>Date</th>
                 <th>Status</th>
@@ -17,6 +19,8 @@
         <tbody>
         {% for rent_release in rent_releases %}
             <tr>
+                <td>{{ rent_release.lesseeName }}</td>
+                <td>{{ rent_release.propertyName }}</td>
                 <td>{{ rent_release.Amount }} €</td>
                 <td>{{ rent_release.date ? rent_release.date|date('Y-m-d') : '' }}</td>
                 <td>{{ rent_release.status }}</td>

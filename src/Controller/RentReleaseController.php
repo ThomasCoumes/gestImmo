@@ -38,4 +38,6 @@ class RentReleaseController extends AbstractController
             'rent_release' => $rentRelease,
         ]);
     }
+
+    //TODO EDIT STATUS METHOD
 }

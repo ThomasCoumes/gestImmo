@@ -9,5 +9,5 @@
 9) follow this documentation (https://developers.facebook.com/docs/facebook-login/security#strict_mode) to configure your app on facebook
 10) run sudo apt-get upgrade -y
 11) run (sudo) apt-get install xvfb -y
-12) run (sudo) apt-get install libqt5webkit5
+12) run (sudo) apt-get install libqt5webkit5 -y
 13) enjoy !
