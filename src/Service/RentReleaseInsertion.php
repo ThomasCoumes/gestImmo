@@ -31,6 +31,7 @@ class RentReleaseInsertion
         foreach ($property as $prop) {
             $lessees = $prop->getLessees();
             $propertyName = $prop->getUniqueName();
+            $user = $prop->getUserProperty();
 
             foreach ($lessees as $lessee) {
                 $lesseeName = $lessee->getFullName();
@@ -44,6 +45,7 @@ class RentReleaseInsertion
                 $rentRelease->setDate(new \DateTime());
                 $rentRelease->setPropertyName($propertyName);
                 $rentRelease->setLesseeName($lesseeName);
+                $rentRelease->setUserRentRelease($user);
 
                 $this->manager->persist($rentRelease);
                 $this->manager->flush();

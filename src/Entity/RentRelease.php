@@ -61,6 +61,13 @@ class RentRelease
      */
     private $lesseeName;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="rentReleases")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     */
+    private $userRentRelease;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +141,18 @@ class RentRelease
     public function setLesseeName(string $lesseeName): self
     {
         $this->lesseeName = $lesseeName;
+
+        return $this;
+    }
+
+    public function getUserRentRelease(): ?User
+    {
+        return $this->userRentRelease;
+    }
+
+    public function setUserRentRelease(?User $userRentRelease): self
+    {
+        $this->userRentRelease = $userRentRelease;
 
         return $this;
     }

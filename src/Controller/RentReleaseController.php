@@ -25,7 +25,9 @@ class RentReleaseController extends AbstractController
     public function index(RentReleaseRepository $rentReleaseRepository): Response
     {
         return $this->render('rent_release/index.html.twig', [
-            'rent_releases' => $rentReleaseRepository->findAll(),
+            'rent_releases' => $rentReleaseRepository->findBy(
+                ['userRentRelease' => $this->getUser()]
+            ),
         ]);
     }
 
@@ -36,6 +38,12 @@ class RentReleaseController extends AbstractController
      */
     public function show(RentRelease $rentRelease): Response
     {
+        if (!$this->isGranted('SHOW_RENT_RELEASE', $rentRelease)) {
+            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
+
+            return $this->redirectToRoute('rent_release_index');
+        }
+
         return $this->render('rent_release/show.html.twig', [
             'rent_release' => $rentRelease,
         ]);
@@ -50,6 +58,12 @@ class RentReleaseController extends AbstractController
      */
     public function edit(Request $request, RentRelease $rentRelease): Response
     {
+        if (!$this->isGranted('EDIT_RENT_RELEASE', $rentRelease)) {
+            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
+
+            return $this->redirectToRoute('rent_release_index');
+        }
+
         $form = $this->createForm(RentReleaseType::class, $rentRelease);
         $form->handleRequest($request);
 
