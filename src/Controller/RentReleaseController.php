@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\RentRelease;
+use App\Form\RentReleaseType;
 use App\Repository\RentReleaseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -40,4 +42,27 @@ class RentReleaseController extends AbstractController
     }
 
     //TODO EDIT STATUS METHOD
+    /**
+     * @Route("/{id}/editer", name="rent_release_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param RentRelease $rentRelease
+     * @return Response
+     */
+    public function edit(Request $request, RentRelease $rentRelease): Response
+    {
+        $form = $this->createForm(RentReleaseType::class, $rentRelease);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('rent_release_index', [
+                'id' => $rentRelease->getId(),
+            ]);
+        }
+
+        return $this->render('rent_release/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

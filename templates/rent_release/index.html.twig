@@ -26,6 +26,9 @@
                 <td>{{ rent_release.status }}</td>
                 <td>
                     <a href="{{ path('rent_release_show', {'id': rent_release.id}) }}">Voir</a>
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('rent_release_edit', {'id': rent_release.id}) }}"><i class="fas fa-edit"></i> édition</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

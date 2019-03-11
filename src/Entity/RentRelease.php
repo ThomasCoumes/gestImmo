@@ -37,7 +37,6 @@ class RentRelease
      * @ORM\ManyToOne(targetEntity="App\Entity\Lessee", inversedBy="rentReleases")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
-     * @Assert\Type("integer")
      */
     private $rentRelease;
 
