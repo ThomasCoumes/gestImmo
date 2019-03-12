@@ -51,10 +51,8 @@ class RentReleaseCommand extends Command
             ->setDescription('Rent release management')
 
             // the full command description shown when running the command with the "--help" option
-            ->setHelp('This command insert into rent_release table from DB rent value + status AND send an email to
-            the lessee to say him \'Hey, you have to pay your rent\' with PDF rent release each month AND
-            the owner receive an email too to say him \'Hey, we sent rent release to your lessees, go on 
-            gestImmo rent release page to change status from the rent\'')
+            ->setHelp('This command insert into rent_release table from DB rent value + the owner receive an email 
+            to say him \'Hey, your rent releases have been generated\'')
         ;
     }
 
