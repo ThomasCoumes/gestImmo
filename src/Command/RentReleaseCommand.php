@@ -8,7 +8,6 @@
 
 namespace App\Command;
 
-use App\Service\PdfGenerator;
 use App\Service\RentReleaseInsertion;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,20 +20,13 @@ class RentReleaseCommand extends Command
      */
     private $rentReleaseInsertion;
 
-    /**$
-     * @var PdfGenerator
-     */
-    private $generateRentReleasePdf;
-
     /**
      * RentReleaseCommand constructor.
      * @param RentReleaseInsertion $rentReleaseInsertion
-     * @param PdfGenerator $pdfGenerator
      */
-    public function __construct(RentReleaseInsertion $rentReleaseInsertion, PdfGenerator $pdfGenerator)
+    public function __construct(RentReleaseInsertion $rentReleaseInsertion)
     {
         $this->rentReleaseInsertion = $rentReleaseInsertion;
-        $this->generateRentReleasePdf = $pdfGenerator;
 
         parent::__construct();
     }
@@ -72,23 +64,10 @@ class RentReleaseCommand extends Command
         ]);
         $this->rentReleaseInsertion->settingRentReleaseValues();
 
-        $output->writeln(['Generating PDF',
-            '',
-        ]);
-        $this->generateRentReleasePdf->generateRentReleasePdf();
-
-        $output->writeln(['Sending emails to lessees',
-            '',
-        ]);
-
-        //TODO send emails to each lessee assigned to at least 1 property where rentRelease dateTime === current month
-
         $output->writeln(['Sending email to owner',
             '',
         ]);
 
         //TODO send emails to each owner who as at least 1 lessee assigned to a property where rentRelease dateTime === current month
-
-        //TODO delete all pdf and set PDF values to null in DB
     }
 }

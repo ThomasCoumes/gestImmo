@@ -35,6 +35,3 @@ services:
 
     # rent release insertion service
     App\Service\RentReleaseInsertion:
-
-    # rent release pdf generation service
-    App\Service\PdfGenerator:
