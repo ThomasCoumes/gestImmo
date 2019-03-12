@@ -28,7 +28,9 @@
                     <td>
                         <a href="{{ path('rent_release_show', {'id': rent_release.id}) }}" class="btn text-primary">Voir</a>
                         {% if is_granted('ROLE_USER') %}
-                            <a href="{{ path('rent_release_paid', {'id': rent_release.id}) }}" class="btn text-success"> <i class="fas fa-hand-holding-usd"></i> Payé</a>
+                            {% if rent_release.status != 'Payé' %}
+                                <a href="{{ path('rent_release_paid', {'id': rent_release.id}) }}" class="btn text-success"> <i class="fas fa-hand-holding-usd"></i> Payé</a>
+                            {% endif %}
                         {% endif %}
                     </td>
                 </tr>

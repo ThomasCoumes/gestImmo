@@ -56,6 +56,18 @@ class RentReleaseController extends AbstractController
      */
     public function rentIsPaid(RentRelease $rentRelease): Response
     {
+        if (!$this->isGranted('EDIT_RENT_RELEASE', $rentRelease)) {
+            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
 
+            return $this->redirectToRoute('rent_release_index');
+        }
+
+        $rentRelease->setStatus('Payé');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($rentRelease);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('rent_release_index');
     }
 }
