@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class RentReleaseController extends AbstractController
 {
     /**
-     * @Route("/", name="rent_release_index", methods={"GET"})
+     * @Route(name="rent_release_index", methods={"GET"})
      * @param RentReleaseRepository $rentReleaseRepository
      * @return Response
      */
