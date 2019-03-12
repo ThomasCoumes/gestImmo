@@ -6,6 +6,8 @@
 parameters:
     locale: 'fr'
     brochures_directory: '%kernel.project_dir%/public/uploads/pdf'
+    router.request_context.host: 'gestimmo.lxc'
+    router.request_context.scheme: 'https'
 
 services:
     # default configuration for services in *this* file
