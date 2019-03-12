@@ -8,11 +8,8 @@
 
 namespace App\Service;
 
-use App\Entity\RentRelease;
-use App\Repository\PropertyRepository;
 use App\Repository\RentReleaseRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 
