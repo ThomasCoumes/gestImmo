@@ -10,4 +10,5 @@
 10) run sudo apt-get upgrade -y
 11) run (sudo) apt-get install xvfb -y
 12) run (sudo) apt-get install libqt5webkit5 -y
-13) enjoy !
+13) run (sudo) apt-get install libqt5svg5 -y
+14) enjoy !

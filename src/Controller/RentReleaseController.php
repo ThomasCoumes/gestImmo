@@ -49,7 +49,6 @@ class RentReleaseController extends AbstractController
         ]);
     }
 
-    //TODO EDIT STATUS METHOD
     /**
      * @Route("/{id}/editer", name="rent_release_edit", methods={"GET","POST"})
      * @param Request $request

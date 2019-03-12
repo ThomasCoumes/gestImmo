@@ -1,0 +1,16 @@
+{% extends 'layoutPdf.html.twig' %}
+
+{% block title %}Ma quittance de loyer{% endblock %}
+
+{% block body %}
+    <h1 class="propertyTitle">Quittance de loyer {{ rent_release.date|date('m/Y') }}</h1>
+
+    <div class="container">
+        <p><span class="politeness">Bonjour <strong>{{ rent_release.lesseeName }}</strong>!</span> <br>
+            gestImmo vous rapelle que <strong>{{ rent_release.userRentRelease.name }}
+                {{ rent_release.userRentRelease.lastName }} </strong>attends votre paiement d'un montant de
+            <strong>{{ rent_release.amount }} €</strong> pour le loyer de votre location :
+            <strong>{{ rent_release.propertyName }}</strong>.</p>
+    </div>
+
+{% endblock %}
