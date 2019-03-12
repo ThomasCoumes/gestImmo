@@ -10,6 +10,7 @@ namespace App\Service;
 
 use App\Entity\RentRelease;
 use App\Repository\PropertyRepository;
+use App\Repository\RentReleaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
@@ -17,45 +18,38 @@ use Knp\Snappy\Pdf;
 class PdfGenerator
 {
     /**
-     * @var PropertyRepository
-     */
-    private $propertyRepository;
-
-    /**
      * @var Pdf
      */
     private $knpSnappyPdf;
 
     /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    /**
      * @var \Twig_Environment
      */
     private $twig;
+    /**
+     * @var RentReleaseRepository
+     */
+    private $rentReleaseRepository;
 
     public function __construct(
-        PropertyRepository $propertyRepository,
+        RentReleaseRepository $rentReleaseRepository,
         Pdf $knpSnappyPdf,
-        EntityManagerInterface $em,
         \Twig_Environment $twig
     ) {
-        $this->propertyRepository = $propertyRepository;
         $this->knpSnappyPdf = $knpSnappyPdf;
-        $this->em = $em;
         $this->twig = $twig;
+        $this->rentReleaseRepository = $rentReleaseRepository;
     }
 
     public function generateRentReleasePdf()
     {
-        $rentRelease = $this->em->getRepository(RentRelease::class)->findAll();
+        $rentRelease = $this->rentReleaseRepository->findAll();
 
         foreach ($rentRelease as $release) {
             $date = $release->getDate()->format('m-Y');
             $currentDate = new \DateTime();
             $currentDate = $currentDate->format('m-Y');
+
             if ($date === $currentDate) {
                 $propertyName = $release->getPropertyName();
                 $lesseeName = str_replace(' ', '-', $release->getLesseeName());
@@ -65,14 +59,16 @@ class PdfGenerator
                     'rent_release' => $release,
                 ]);
 
-                return new PdfResponse(
+                new PdfResponse(
                     $this->knpSnappyPdf->generateFromHtml($html, "public/generated/pdf/$fileName" . '.pdf', [
                         'user-style-sheet' => ['./build/app.css'],
                     ])
                 );
-            } else {
-                return null;
+
+                sleep(1);
             }
         }
+
+        return null;
     }
 }
