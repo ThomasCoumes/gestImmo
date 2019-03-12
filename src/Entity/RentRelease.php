@@ -68,6 +68,13 @@ class RentRelease
      */
     private $userRentRelease;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     */
+    private $pdf;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +160,18 @@ class RentRelease
     public function setUserRentRelease(?User $userRentRelease): self
     {
         $this->userRentRelease = $userRentRelease;
+
+        return $this;
+    }
+
+    public function getPdf(): ?string
+    {
+        return $this->pdf;
+    }
+
+    public function setPdf(?string $pdf): self
+    {
+        $this->pdf = $pdf;
 
         return $this;
     }

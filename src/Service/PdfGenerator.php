@@ -11,6 +11,7 @@ namespace App\Service;
 use App\Entity\RentRelease;
 use App\Repository\PropertyRepository;
 use App\Repository\RentReleaseRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
@@ -30,15 +31,21 @@ class PdfGenerator
      * @var RentReleaseRepository
      */
     private $rentReleaseRepository;
+    /**
+     * @var ObjectManager
+     */
+    private $manager;
 
     public function __construct(
         RentReleaseRepository $rentReleaseRepository,
         Pdf $knpSnappyPdf,
-        \Twig_Environment $twig
+        \Twig_Environment $twig,
+        ObjectManager $manager
     ) {
         $this->knpSnappyPdf = $knpSnappyPdf;
         $this->twig = $twig;
         $this->rentReleaseRepository = $rentReleaseRepository;
+        $this->manager = $manager;
     }
 
     public function generateRentReleasePdf()
@@ -53,17 +60,22 @@ class PdfGenerator
             if ($date === $currentDate) {
                 $propertyName = $release->getPropertyName();
                 $lesseeName = str_replace(' ', '-', $release->getLesseeName());
-                $fileName = $propertyName . '_' . $lesseeName . '_' . date("m-Y");
+                $fileName = $propertyName . '_' . $lesseeName . '_' . date("m-Y") . '_';
+                $fileName = $fileName . bin2hex(random_bytes(5)) . '.pdf';
 
                 $html = $this->twig->render('rent_release/pdf.html.twig', [
                     'rent_release' => $release,
                 ]);
 
                 new PdfResponse(
-                    $this->knpSnappyPdf->generateFromHtml($html, "public/generated/pdf/$fileName" . '.pdf', [
+                    $this->knpSnappyPdf->generateFromHtml($html, "public/generated/pdf/$fileName", [
                         'user-style-sheet' => ['./build/app.css'],
                     ])
                 );
+
+                $release->setPdf($fileName);
+                $this->manager->persist($release);
+                $this->manager->flush();
 
                 sleep(1);
             }
