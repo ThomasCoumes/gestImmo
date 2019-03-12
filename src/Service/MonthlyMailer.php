@@ -54,8 +54,7 @@ class MonthlyMailer
     public function notifyOwner()
     {
         $context = $this->router->getContext();
-        $context->setHost('gestimmo.lxc');
-        $context->setScheme('https');
+        // $context elements are defined in services.yaml under parameters:
         $url = sprintf(
             '%s://%s%s',
             $context->getScheme(),
