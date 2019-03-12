@@ -8,6 +8,7 @@
 
 namespace App\Command;
 
+use App\Service\MonthlyMailer;
 use App\Service\RentReleaseInsertion;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,16 +20,22 @@ class RentReleaseCommand extends Command
      * @var RentReleaseInsertion
      */
     private $rentReleaseInsertion;
+    /**
+     * @var MonthlyMailer
+     */
+    private $mailer;
 
     /**
      * RentReleaseCommand constructor.
      * @param RentReleaseInsertion $rentReleaseInsertion
+     * @param MonthlyMailer $mailer
      */
-    public function __construct(RentReleaseInsertion $rentReleaseInsertion)
+    public function __construct(RentReleaseInsertion $rentReleaseInsertion, MonthlyMailer $mailer)
     {
         $this->rentReleaseInsertion = $rentReleaseInsertion;
 
         parent::__construct();
+        $this->mailer = $mailer;
     }
 
     /**
@@ -67,6 +74,7 @@ class RentReleaseCommand extends Command
         $output->writeln(['Sending email to owner',
             '',
         ]);
+        $this->mailer->notifyOwner();
 
         //TODO send emails to each owner who as at least 1 lessee assigned to a property where rentRelease dateTime === current month
     }

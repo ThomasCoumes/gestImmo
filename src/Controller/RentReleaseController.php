@@ -48,34 +48,4 @@ class RentReleaseController extends AbstractController
             'rent_release' => $rentRelease,
         ]);
     }
-
-    /**
-     * @Route("/{id}/editer", name="rent_release_edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param RentRelease $rentRelease
-     * @return Response
-     */
-    public function edit(Request $request, RentRelease $rentRelease): Response
-    {
-        if (!$this->isGranted('EDIT_RENT_RELEASE', $rentRelease)) {
-            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
-
-            return $this->redirectToRoute('rent_release_index');
-        }
-
-        $form = $this->createForm(RentReleaseType::class, $rentRelease);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('rent_release_index', [
-                'id' => $rentRelease->getId(),
-            ]);
-        }
-
-        return $this->render('rent_release/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
 }

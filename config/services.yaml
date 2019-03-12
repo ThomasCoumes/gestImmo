@@ -35,3 +35,6 @@ services:
 
     # rent release insertion service
     App\Service\RentReleaseInsertion:
+
+    # send an email to owner to say him than rent release have been created
+    App\Service\MonthlyMailer:
