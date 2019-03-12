@@ -48,4 +48,14 @@ class RentReleaseController extends AbstractController
             'rent_release' => $rentRelease,
         ]);
     }
+
+    /**
+     * @Route("/{id}/paid", name="rent_release_paid", methods={"GET"})
+     * @param RentRelease $rentRelease
+     * @return Response
+     */
+    public function rentIsPaid(RentRelease $rentRelease): Response
+    {
+
+    }
 }
