@@ -75,7 +75,5 @@ class RentReleaseCommand extends Command
             '',
         ]);
         $this->mailer->notifyOwner();
-
-        //TODO send emails to each owner who as at least 1 lessee assigned to a property where rentRelease dateTime === current month
     }
 }
