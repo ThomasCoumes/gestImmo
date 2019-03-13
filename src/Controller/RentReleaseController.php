@@ -3,10 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\RentRelease;
-use App\Form\RentReleaseType;
 use App\Repository\RentReleaseRepository;
+use App\Service\PdfGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -47,5 +46,34 @@ class RentReleaseController extends AbstractController
         return $this->render('rent_release/show.html.twig', [
             'rent_release' => $rentRelease,
         ]);
+    }
+
+    /**
+     * @Route("/{id}/paid", name="rent_release_paid", methods={"GET"})
+     * @param RentRelease $rentRelease
+     * @param PdfGenerator $pdfGenerator
+     * @return Response
+     */
+    public function rentIsPaid(RentRelease $rentRelease, PdfGenerator $pdfGenerator): Response
+    {
+        if (!$this->isGranted('EDIT_RENT_RELEASE', $rentRelease)) {
+            $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
+
+            return $this->redirectToRoute('rent_release_index');
+        }
+
+        $rentRelease->setStatus('Payé');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($rentRelease);
+        $entityManager->flush();
+
+        $pdfGenerator->generateRentReleasePdf($rentRelease);
+
+        //TODO SEND EMAIL WITH PDF TO LESSEES ASSIGNED TO A PROPERTY
+
+        //TODO DELETE PDF FILE
+
+        return $this->redirectToRoute('rent_release_index');
     }
 }

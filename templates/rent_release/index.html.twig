@@ -24,9 +24,19 @@
                     <td>{{ rent_release.propertyName }}</td>
                     <td>{{ rent_release.Amount }} €</td>
                     <td>{{ rent_release.date ? rent_release.date|date('Y-m-d') : '' }}</td>
-                    <td>{{ rent_release.status }}</td>
+                    <td>{{ rent_release.status }}
+                        {% if rent_release.status == 'Payé' %}
+                            <i class="fas fa-check text-success"></i></td>
+                        {% else %}
+                            <i class="fas fa-times text-danger"></i>
+                        {% endif %}
                     <td>
-                        <a href="{{ path('rent_release_show', {'id': rent_release.id}) }}">Voir</a>
+                        <a href="{{ path('rent_release_show', {'id': rent_release.id}) }}" class="btn text-primary">Voir</a>
+                        {% if is_granted('ROLE_USER') %}
+                            {% if rent_release.status != 'Payé' %}
+                                <a href="{{ path('rent_release_paid', {'id': rent_release.id}) }}" class="btn text-success"> <i class="fas fa-hand-holding-usd"></i> Payé</a>
+                            {% endif %}
+                        {% endif %}
                     </td>
                 </tr>
             {% else %}
