@@ -1,0 +1,27 @@
+{% extends 'layoutPdf.html.twig' %}
+
+{% block title %}Ma quittance de loyer{% endblock %}
+
+{% block body %}
+    <style>
+    .politeness {
+        display: inline-block;
+        padding-bottom: 15px;
+    }
+    .pdfTitle {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    </style>
+
+    <h1 class="pdfTitle">Quittance de loyer toto</h1>
+
+    <div class="container">
+        <p><span class="politeness">Bonjour <strong>toto</strong>!</span> <br>
+            gestImmo vous informe que <strong>toto
+                toto</strong> confirme votre paiement d'un montant de
+            <strong>toto €</strong> le <strong>toto</strong> pour le loyer de votre
+            location: <strong>toto</strong>.</p>
+    </div>
+
+{% endblock %}

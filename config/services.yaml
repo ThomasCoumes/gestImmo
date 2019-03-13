@@ -40,3 +40,6 @@ services:
 
     # send an email to owner to say him than rent release have been created
     App\Service\MonthlyMailer:
+
+    # rent release pdf generator
+    App\Service\PdfGenerator:
