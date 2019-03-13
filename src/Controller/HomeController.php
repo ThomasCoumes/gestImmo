@@ -24,7 +24,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('property_index');
         }
 
-        return $this->render('rent_release/pdf.html.twig', [
+        return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }
