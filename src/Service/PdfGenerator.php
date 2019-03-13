@@ -63,11 +63,8 @@ class PdfGenerator
                     'current_date' => $currentDate,
                 ]);
 
-                new PdfResponse(
-                    $this->knpSnappyPdf->generateFromHtml(
-                        "$html",
-                        "generated/pdf/$fileName")
-                );
+
+                $this->knpSnappyPdf->generateFromHtml("$html", "generated/pdf/$fileName");
 
                 $rentRelease->setPdf($fileName);
                 $this->manager->persist($rentRelease);
