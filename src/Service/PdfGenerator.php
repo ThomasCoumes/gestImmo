@@ -49,26 +49,26 @@ class PdfGenerator
      */
     public function generateRentReleasePdf(RentRelease $rentRelease)
     {
-            $currentDate = new \DateTime();
-            $currentDate = $currentDate->format('m-Y');
+        $currentDate = new \DateTime();
+        $currentDate = $currentDate->format('m-Y');
 
-            if ($rentRelease->getStatus() === 'Payé') {
-                $propertyName = $rentRelease->getPropertyName();
-                $lesseeName = str_replace(' ', '-', $rentRelease->getLesseeName());
-                $fileName = $propertyName . '_' . $lesseeName . '_' . date("m-Y") . '_';
-                $fileName = $fileName . bin2hex(random_bytes(5)) . '.pdf';
+        if ($rentRelease->getStatus() === 'Payé') {
+            $propertyName = $rentRelease->getPropertyName();
+            $lesseeName = str_replace(' ', '-', $rentRelease->getLesseeName());
+            $fileName = $propertyName . '_' . $lesseeName . '_' . date("m-Y") . '_';
+            $fileName = $fileName . bin2hex(random_bytes(5)) . '.pdf';
 
-                $html = $this->twig->render('rent_release/pdf.html.twig', [
-                    'rent_release' => $rentRelease,
-                    'current_date' => $currentDate,
-                ]);
+            $html = $this->twig->render('rent_release/pdf.html.twig', [
+                'rent_release' => $rentRelease,
+                'current_date' => $currentDate,
+            ]);
 
 
-                $this->knpSnappyPdf->generateFromHtml("$html", "generated/pdf/$fileName");
+            $this->knpSnappyPdf->generateFromHtml("$html", "generated/pdf/$fileName");
 
-                $rentRelease->setPdf($fileName);
-                $this->manager->persist($rentRelease);
-                $this->manager->flush();
-            }
+            $rentRelease->setPdf($fileName);
+            $this->manager->persist($rentRelease);
+            $this->manager->flush();
+        }
     }
 }
