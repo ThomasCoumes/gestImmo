@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block header %} {% endblock %}
+
+{% block body %}
+    <h1 class="propertyTitle">Votre quittance de loyer!</h1>
+
+    <div class="container">
+        <p>
+            <span class="politeness">Bonjour {{ name }} </span> <br>
+            {{ owner }} a reçu votre paiement. Veuillez trouver en pièces jointes votre quittance de loyer à {{ property }}
+        </p>
+    </div>
+{% endblock %}
