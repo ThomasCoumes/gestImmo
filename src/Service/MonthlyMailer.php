@@ -90,4 +90,9 @@ class MonthlyMailer
 
         return true;
     }
+
+    public function sendRentReleaseToLessees()
+    {
+
+    }
 }
