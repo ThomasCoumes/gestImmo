@@ -35,7 +35,7 @@
     </div>
 
     {% if rent_release.status != 'Payé' %}
-        <a class="edit btn text-success" href="{{ path('rent_release_index', {'id': rent_release.id}) }}"> <i class="fas fa-hand-holding-usd"></i> Payé</a>
+        <a class="edit btn text-success" href="{{ path('rent_release_paid', {'id': rent_release.id}) }}"> <i class="fas fa-hand-holding-usd"></i> Payé</a>
     {% endif %}
 
 {% endblock %}
