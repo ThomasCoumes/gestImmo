@@ -75,7 +75,7 @@ class RentReleaseController extends AbstractController
 
         $pdfGenerator->generateRentReleasePdf($rentRelease);
 
-        //TODO SEND EMAIL WITH PDF TO LESSEES ASSIGNED TO A PROPERTY
+        $monthlyMailer->sendRentReleaseToLessees($rentRelease);
 
         //TODO DELETE PDF FILE
 
