@@ -7,6 +7,7 @@ use App\Repository\RentReleaseRepository;
 use App\Service\MonthlyMailer;
 use App\Service\PdfGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -74,10 +75,25 @@ class RentReleaseController extends AbstractController
         $entityManager->flush();
 
         $pdfGenerator->generateRentReleasePdf($rentRelease);
-
         $monthlyMailer->sendRentReleaseToLessees($rentRelease);
 
-        //TODO DELETE PDF FILE
+        return $this->redirectToRoute(
+            'rent_release_pdf_delete',
+            ['id' => $rentRelease->getId()]
+        );
+    }
+
+    /**
+     * @Route("/{id}/pdf/delete", name="rent_release_pdf_delete", methods={"GET"})
+     * @param RentRelease $rentRelease
+     * @return Response
+     */
+    public function deletePdf(RentRelease $rentRelease)
+    {
+        $filesystem = new Filesystem();
+
+        $pdfFile = $rentRelease->getPdf();
+        $filesystem->remove("generated/pdf/$pdfFile");
 
         return $this->redirectToRoute('rent_release_index');
     }
