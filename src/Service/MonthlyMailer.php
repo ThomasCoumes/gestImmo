@@ -8,7 +8,9 @@
 
 namespace App\Service;
 
+use App\Entity\RentRelease;
 use App\Repository\LesseeRepository;
+use Swift_Attachment;
 use Swift_Mailer;
 use Symfony\Component\Routing\RouterInterface;
 use Twig_Environment;
@@ -19,18 +21,27 @@ class MonthlyMailer
      * @var LesseeRepository
      */
     private $lesseeRepository;
+
     /**
      * @var Swift_Mailer
      */
     private $mailer;
+
     /**
      * @var Twig_Environment
      */
     private $twig;
+
     /**
      * @var RouterInterface
      */
     private $router;
+
+    /**
+     * set the email you defined in .env.local
+     * @var string
+     */
+    private $sendingEmail = 'thomascoumes3145@gmail.com';
 
     /**
      * MonthlyMailer constructor.
@@ -73,8 +84,7 @@ class MonthlyMailer
 
         foreach ($mailList as $mail) {
             $message = (new \Swift_Message('Nous avons generer vos loyers !'))
-                // set the email you defined in .env.local here
-                ->setFrom('thomascoumes3145@gmail.com')
+                ->setFrom("$this->sendingEmail")
                 ->setTo("$mail")
                 ->setBody(
                     $this->twig->render(
@@ -89,5 +99,36 @@ class MonthlyMailer
         }
 
         return true;
+    }
+
+    public function sendRentReleaseToLessees(RentRelease $rentRelease)
+    {
+        $mail = $rentRelease->getRentRelease()->getEmail();
+
+        $name = $rentRelease->getLesseeName();
+        $owner = $rentRelease->getUserRentRelease()->getName();
+        $owner = $owner . ' ' . $rentRelease->getUserRentRelease()->getLastName();
+        $property = $rentRelease->getPropertyName();
+
+        $pdf = $rentRelease->getPdf();
+
+        $message = (new \Swift_Message('Votre quittance de loyer'))
+            ->setFrom("$this->sendingEmail")
+            ->setTo("$mail")
+            ->setBody(
+                $this->twig->render(
+                    'rent_release/rentReleaseMail.html.twig',
+                    [
+                        'name' => $name,
+                        'owner' => $owner,
+                        'property' => $property,
+                    ]
+                ),
+                'text/html'
+            )
+            ->attach(Swift_Attachment::fromPath("generated/pdf/$pdf")
+            );
+
+        $this->mailer->send($message);
     }
 }

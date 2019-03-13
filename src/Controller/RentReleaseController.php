@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\RentRelease;
 use App\Repository\RentReleaseRepository;
+use App\Service\MonthlyMailer;
 use App\Service\PdfGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,10 +53,14 @@ class RentReleaseController extends AbstractController
      * @Route("/{id}/paid", name="rent_release_paid", methods={"GET"})
      * @param RentRelease $rentRelease
      * @param PdfGenerator $pdfGenerator
+     * @param MonthlyMailer $monthlyMailer
      * @return Response
      */
-    public function rentIsPaid(RentRelease $rentRelease, PdfGenerator $pdfGenerator): Response
-    {
+    public function rentIsPaid(
+        RentRelease $rentRelease,
+        PdfGenerator $pdfGenerator,
+        MonthlyMailer $monthlyMailer
+    ): Response {
         if (!$this->isGranted('EDIT_RENT_RELEASE', $rentRelease)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
 
@@ -70,7 +75,7 @@ class RentReleaseController extends AbstractController
 
         $pdfGenerator->generateRentReleasePdf($rentRelease);
 
-        //TODO SEND EMAIL WITH PDF TO LESSEES ASSIGNED TO A PROPERTY
+        $monthlyMailer->sendRentReleaseToLessees($rentRelease);
 
         //TODO DELETE PDF FILE
 
