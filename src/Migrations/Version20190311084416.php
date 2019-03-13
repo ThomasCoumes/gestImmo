@@ -25,6 +25,7 @@ final class Version20190311084416 extends AbstractMigration
         $this->addSql('ALTER TABLE rent_release ADD user_rent_release_id INT NOT NULL');
         $this->addSql('ALTER TABLE rent_release ADD CONSTRAINT FK_7F6B786D914BA9D FOREIGN KEY (user_rent_release_id) REFERENCES user (id)');
         $this->addSql('CREATE INDEX IDX_7F6B786D914BA9D ON rent_release (user_rent_release_id)');
+        $this->addSql('ALTER TABLE rent_release ADD pdf LONGTEXT DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -35,5 +36,6 @@ final class Version20190311084416 extends AbstractMigration
         $this->addSql('ALTER TABLE rent_release DROP FOREIGN KEY FK_7F6B786D914BA9D');
         $this->addSql('DROP INDEX IDX_7F6B786D914BA9D ON rent_release');
         $this->addSql('ALTER TABLE rent_release DROP user_rent_release_id');
+        $this->addSql('ALTER TABLE rent_release DROP pdf');
     }
 }
