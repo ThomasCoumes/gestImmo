@@ -70,6 +70,10 @@ class RentReleaseController extends AbstractController
 
         $pdfGenerator->generateRentReleasePdf($rentRelease);
 
+        //TODO SEND EMAIL WITH PDF TO LESSEES ASSIGNED TO A PROPERTY
+
+        //TODO DELETE PDF FILE
+
         return $this->redirectToRoute('rent_release_index');
     }
 }

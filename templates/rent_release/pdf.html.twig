@@ -2,6 +2,10 @@
 
 {% block title %}Ma quittance de loyer{% endblock %}
 
+{% block stylesheets %}
+    <link href="{{ pathToPublic }}/build/app.css" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
     <h1 class="propertyTitle">Quittance de loyer {{ rent_release.date|date('m/Y') }}</h1>
 

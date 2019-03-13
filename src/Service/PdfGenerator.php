@@ -64,9 +64,9 @@ class PdfGenerator
                 ]);
 
                 new PdfResponse(
-                    $this->knpSnappyPdf->generateFromHtml($html, "generated/pdf/$fileName", [
-                        'user-style-sheet' => ['./build/app.css'],
-                    ])
+                    $this->knpSnappyPdf->generateFromHtml(
+                        "$html",
+                        "generated/pdf/$fileName")
                 );
 
                 $rentRelease->setPdf($fileName);
