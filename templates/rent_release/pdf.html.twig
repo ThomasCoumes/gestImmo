@@ -17,11 +17,11 @@
     <h1 class="pdfTitle">Quittance de loyer toto</h1>
 
     <div class="container">
-        <p><span class="politeness">Bonjour <strong>toto</strong>!</span> <br>
-            gestImmo vous informe que <strong>toto
-                toto</strong> confirme votre paiement d'un montant de
-            <strong>toto €</strong> le <strong>toto</strong> pour le loyer de votre
-            location: <strong>toto</strong>.</p>
+        <p><span class="politeness">Bonjour <strong>{{ rent_release.lesseeName }}</strong>!</span> <br>
+            gestImmo vous informe que <strong>{{ rent_release.userRentRelease.name }}
+                {{ rent_release.userRentRelease.lastName }}</strong> confirme votre paiement d'un montant de
+            <strong>{{ rent_release.amount }} €</strong> pour le mois <strong>{{ current_date }}</strong> pour le loyer
+            de votre location: <strong>{{ rent_release.propertyName }}</strong>.</p>
     </div>
 
 {% endblock %}
