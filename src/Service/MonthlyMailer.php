@@ -126,8 +126,7 @@ class MonthlyMailer
                 ),
                 'text/html'
             )
-            ->attach(Swift_Attachment::fromPath("generated/pdf/$pdf")
-            );
+            ->attach(Swift_Attachment::fromPath("generated/pdf/$pdf"));
 
         $this->mailer->send($message);
     }
