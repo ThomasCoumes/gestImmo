@@ -27,9 +27,11 @@ class ResumePageController extends AbstractController
             ['userRentRelease' => $this->getUser()]
         );
         $dateList = [];
+        $yearList = [];
 
         foreach ($release as $rentRelease) {
             $date = $rentRelease->getDate()->format('m-Y');
+            $year = $rentRelease->getDate()->format('Y');
 
             if (substr($date, 0, 3) === '01-') {
                 $date = str_replace('01-', 'Janvier ', $date);
@@ -62,10 +64,15 @@ class ResumePageController extends AbstractController
             if (!in_array($date, $dateList, true)) {
                 $dateList[] = $date;
             }
+
+            if (!in_array($year, $yearList, true)) {
+                $yearList[] = $year;
+            }
         }
 
         return $this->render('resume_page/index.html.twig', [
             'date' => $dateList,
+            'year' => $yearList,
         ]);
     }
 }

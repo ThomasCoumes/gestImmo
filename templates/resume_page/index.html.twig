@@ -8,6 +8,12 @@
 
     <div class="container">
         <ul class="datesList">
+            {% for years in year %}
+                <li><a href="#" class="date"><i class="fas fa-glass-cheers year"></i> {{ years }}</a></li>
+            {% endfor %}
+
+            <span class="toto"></span>
+
             {% for dates in date %}
                 <li><a href="#" class="date"><i class="far fa-calendar-alt dateCalendar"></i> {{ dates }}</a></li>
             {% endfor %}
