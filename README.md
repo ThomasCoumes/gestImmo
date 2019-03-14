@@ -11,4 +11,5 @@
 11) run (sudo) apt-get install xvfb -y
 12) run (sudo) apt-get install libqt5webkit5 -y
 13) run (sudo) apt-get install libqt5svg5 -y
+14) run crontab -e then paste '0 3 1 * * /path/to/your/project/bin/console rent:release' without '' to run bin/console rent:release first day of each month at 3 am
 14) enjoy !
