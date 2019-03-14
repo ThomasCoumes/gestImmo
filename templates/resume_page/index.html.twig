@@ -6,4 +6,12 @@
 
     <h1 class="propertyTitle">Récapitulatif de mes revenus</h1>
 
+    <div class="container">
+        <ul class="datesList">
+            {% for dates in date %}
+                <li><a href="#" class="date"><i class="far fa-calendar-alt dateCalendar"></i> {{ dates }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
 {% endblock %}
