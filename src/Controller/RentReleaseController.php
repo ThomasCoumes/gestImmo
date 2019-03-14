@@ -95,6 +95,13 @@ class RentReleaseController extends AbstractController
         $pdfFile = $rentRelease->getPdf();
         $filesystem->remove("generated/pdf/$pdfFile");
 
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $rentRelease->setPdf(null);
+
+        $entityManager->persist($rentRelease);
+        $entityManager->flush();
+
         return $this->redirectToRoute('rent_release_index');
     }
 }

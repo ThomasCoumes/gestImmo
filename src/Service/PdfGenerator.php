@@ -10,9 +10,7 @@ namespace App\Service;
 
 use App\Entity\RentRelease;
 use Doctrine\Common\Persistence\ObjectManager;
-use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
-use Symfony\Component\Filesystem\Filesystem;
 use Twig_Environment;
 
 class PdfGenerator
