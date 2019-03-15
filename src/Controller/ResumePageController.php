@@ -27,6 +27,7 @@ class ResumePageController extends AbstractController
         $release = $rentReleaseRepository->findBy(
             ['userRentRelease' => $this->getUser()]
         );
+
         $dateList = [];
         $yearList = [];
 
@@ -80,16 +81,51 @@ class ResumePageController extends AbstractController
     /**
      * @Route("/month/{date}", name="monthly_resume", methods={"GET"})
      * @param RentReleaseRepository $rentReleaseRepository
+     * @param $date
      * @return Response
      */
-    public function monthlyCalcul(RentReleaseRepository $rentReleaseRepository)
+    public function monthlyCalcul(RentReleaseRepository $rentReleaseRepository, $date)
     {
-        $release = $rentReleaseRepository->findBy(
+
+        if (substr($date, 0, 7) === 'Janvier') {
+            $date = str_replace('Janvier ', '01-', $date);
+        } elseif (substr($date, 0, 7) === 'Février') {
+            $date = str_replace('Février ', '02-', $date);
+        } elseif (substr($date, 0, 4) === 'Mars') {
+            $date = str_replace('Mars ', '03-', $date);
+        } elseif (substr($date, 0, 5) === 'Avril') {
+            $date = str_replace('Avril ', '04-', $date);
+        } elseif (substr($date, 0, 3) === 'Mai') {
+            $date = str_replace('Mai ', '05-', $date);
+        } elseif (substr($date, 0, 4) === 'Juin') {
+            $date = str_replace('Juin ', '06-', $date);
+        } elseif (substr($date, 0, 7) === 'Juillet') {
+            $date = str_replace('Juillet ', '07-', $date);
+        } elseif (substr($date, 0, 4) === 'Août') {
+            $date = str_replace('Août ', '08-', $date);
+        } elseif (substr($date, 0, 9) === 'Septembre') {
+            $date = str_replace('Septembre ', '09-', $date);
+        } elseif (substr($date, 0, 7) === 'Octobre') {
+            $date = str_replace('Octobre ', '10-', $date);
+        } elseif (substr($date, 0, 7) === 'Novembre') {
+            $date = str_replace('Novembre ', '11-', $date);
+        } elseif (substr($date, 0, 8) === 'Décembre') {
+            $date = str_replace('Décembre ', '12-', $date);
+        } else {
+            throw new LogicException('OK ... So ... There is a problem');
+        }
+
+        dump($date);
+
+        $rentRelease = $rentReleaseRepository->findBy(
             [
                 'userRentRelease' => $this->getUser(),
+                //trier par date dans la vue?
             ]
         );
 
-        return $this->render('resume_page/month.html.twig');
+        return $this->render('resume_page/month.html.twig', [
+
+        ]);
     }
 }
