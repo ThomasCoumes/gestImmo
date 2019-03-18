@@ -86,36 +86,34 @@ class ResumePageController extends AbstractController
      */
     public function monthlyCalcul(RentReleaseRepository $rentReleaseRepository, $date)
     {
-
         if (substr($date, 0, 7) === 'Janvier') {
-            $date = str_replace('Janvier ', '01-', $date);
+            $date = str_replace('01-', 'Janvier ', $date);
         } elseif (substr($date, 0, 7) === 'Février') {
-            $date = str_replace('Février ', '02-', $date);
+            $date = str_replace('02-', 'Février ', $date);
         } elseif (substr($date, 0, 4) === 'Mars') {
-            $date = str_replace('Mars ', '03-', $date);
+            $date = str_replace('03-', 'Mars ', $date);
         } elseif (substr($date, 0, 5) === 'Avril') {
-            $date = str_replace('Avril ', '04-', $date);
+            $date = str_replace('04-', 'Avril ', $date);
         } elseif (substr($date, 0, 3) === 'Mai') {
-            $date = str_replace('Mai ', '05-', $date);
+            $date = str_replace('05-', 'Mai ', $date);
         } elseif (substr($date, 0, 4) === 'Juin') {
-            $date = str_replace('Juin ', '06-', $date);
+            $date = str_replace('06-', 'Juin ', $date);
         } elseif (substr($date, 0, 7) === 'Juillet') {
-            $date = str_replace('Juillet ', '07-', $date);
+            $date = str_replace('07-', 'Juillet ', $date);
         } elseif (substr($date, 0, 4) === 'Août') {
-            $date = str_replace('Août ', '08-', $date);
+            $date = str_replace('08-', 'Août ', $date);
         } elseif (substr($date, 0, 9) === 'Septembre') {
-            $date = str_replace('Septembre ', '09-', $date);
+            $date = str_replace('09-', 'Septembre ', $date);
         } elseif (substr($date, 0, 7) === 'Octobre') {
-            $date = str_replace('Octobre ', '10-', $date);
+            $date = str_replace('10-', 'Octobre ', $date);
         } elseif (substr($date, 0, 7) === 'Novembre') {
-            $date = str_replace('Novembre ', '11-', $date);
+            $date = str_replace('110-', 'Novembre ', $date);
         } elseif (substr($date, 0, 8) === 'Décembre') {
-            $date = str_replace('Décembre ', '12-', $date);
+            $date = str_replace('12-', 'Décembre ', $date);
         } else {
             throw new LogicException('OK ... So ... There is a problem');
         }
 
-        dump($date);
 
         $rentRelease = $rentReleaseRepository->findBy(
             [
@@ -125,7 +123,7 @@ class ResumePageController extends AbstractController
         );
 
         return $this->render('resume_page/month.html.twig', [
-
+            'date' => $date
         ]);
     }
 }
