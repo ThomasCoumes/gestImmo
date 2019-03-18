@@ -1,0 +1,37 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Récapitulatif de {{ date }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('resume_page') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
+
+    <h1 class="propertyTitle">Récapitulatif de mes revenus en {{ date }}</h1>
+
+    <div class="container">
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Propiétée</th>
+                <th>Revenu du mois</th>
+            </tr>
+
+            {% for property_name, prop in property %}
+                <tr>
+                    <td>
+                        {{ property_name }}
+                    </td>
+                    <td>
+                        {{ prop }} €
+                    </td>
+                </tr>
+            {% endfor %}
+
+                <tr>
+                    <td class="total">Total</td>
+                    <td class="total">{{ total }} €</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

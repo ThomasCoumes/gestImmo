@@ -39,10 +39,14 @@ class RentReleaseInsertion
                 $rentRelease = new RentRelease();
                 $amount = $prop->getRentExcludingCharges() + $prop->getCharges();
 
+                $date = new \DateTime(); // TODO SET HOURS:MINUTES:SECONDS to 00:00:00 + CHANGE FORMAT TO 01:MM:YYYY
+                $date = $date->format('m-Y');
+                $date = new \DateTime('01-' . $date);
+
                 $rentRelease->setRentRelease($lessee);
                 $rentRelease->setAmount($amount);
                 $rentRelease->setStatus('Paiement en attente');
-                $rentRelease->setDate(new \DateTime());
+                $rentRelease->setDate($date);
                 $rentRelease->setPropertyName($propertyName);
                 $rentRelease->setLesseeName($lesseeName);
                 $rentRelease->setUserRentRelease($user);
