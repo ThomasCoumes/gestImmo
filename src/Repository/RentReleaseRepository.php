@@ -18,4 +18,15 @@ class RentReleaseRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, RentRelease::class);
     }
+
+    public function findByYear($year): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT * FROM rent_release r WHERE YEAR(`date`) = :yearRequested';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['yearRequested' => $year]);
+
+        return $stmt->fetchAll();
+    }
 }
