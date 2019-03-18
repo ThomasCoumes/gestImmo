@@ -145,7 +145,9 @@ class ResumePageController extends AbstractController
         }
 
         return $this->render('resume_page/month.html.twig', [
-            'date' => $displayDate
+            'date' => $displayDate,
+            'property' => $propertyRent,
+            'total' => $totalByMonth,
         ]);
     }
 }
