@@ -41,7 +41,7 @@ class RentReleaseInsertion
 
                 $date = new \DateTime(); // TODO SET HOURS:MINUTES:SECONDS to 00:00:00 + CHANGE FORMAT TO 01:MM:YYYY
                 $date = $date->format('m-Y');
-                $date = new \DateTime('01-' . $date );
+                $date = new \DateTime('01-' . $date);
 
                 $rentRelease->setRentRelease($lessee);
                 $rentRelease->setAmount($amount);

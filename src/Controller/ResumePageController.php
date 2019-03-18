@@ -122,7 +122,7 @@ class ResumePageController extends AbstractController
         $rentRelease = $rentReleaseRepository->findBy(
             [
                 'userRentRelease' => $this->getUser(),
-                'date' => $date, // the problem is here
+                'date' => $date,
             ]
         );
 
