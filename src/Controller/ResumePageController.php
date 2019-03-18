@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\RentReleaseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Exception\LogicException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -86,44 +87,51 @@ class ResumePageController extends AbstractController
      */
     public function monthlyCalcul(RentReleaseRepository $rentReleaseRepository, $date)
     {
+        $displayDate = $date;
+
         if (substr($date, 0, 7) === 'Janvier') {
-            $date = str_replace('01-', 'Janvier ', $date);
+            $date = str_replace('Janvier ', '01-', $date);
         } elseif (substr($date, 0, 7) === 'Février') {
-            $date = str_replace('02-', 'Février ', $date);
+            $date = str_replace('Février ', '02-', $date);
         } elseif (substr($date, 0, 4) === 'Mars') {
-            $date = str_replace('03-', 'Mars ', $date);
+            $date = str_replace('Mars ', '03-', $date);
         } elseif (substr($date, 0, 5) === 'Avril') {
-            $date = str_replace('04-', 'Avril ', $date);
+            $date = str_replace('Avril ', '04-', $date);
         } elseif (substr($date, 0, 3) === 'Mai') {
-            $date = str_replace('05-', 'Mai ', $date);
+            $date = str_replace('Mai ', '05-', $date);
         } elseif (substr($date, 0, 4) === 'Juin') {
-            $date = str_replace('06-', 'Juin ', $date);
+            $date = str_replace('Juin ', '06-', $date);
         } elseif (substr($date, 0, 7) === 'Juillet') {
-            $date = str_replace('07-', 'Juillet ', $date);
+            $date = str_replace('Juillet ', '07-', $date);
         } elseif (substr($date, 0, 4) === 'Août') {
-            $date = str_replace('08-', 'Août ', $date);
+            $date = str_replace('Août ', '08-', $date);
         } elseif (substr($date, 0, 9) === 'Septembre') {
-            $date = str_replace('09-', 'Septembre ', $date);
+            $date = str_replace('Septembre ', '09-', $date);
         } elseif (substr($date, 0, 7) === 'Octobre') {
-            $date = str_replace('10-', 'Octobre ', $date);
+            $date = str_replace('Octobre ', '10-', $date);
         } elseif (substr($date, 0, 7) === 'Novembre') {
-            $date = str_replace('110-', 'Novembre ', $date);
+            $date = str_replace('Novembre ', '11-', $date);
         } elseif (substr($date, 0, 8) === 'Décembre') {
-            $date = str_replace('12-', 'Décembre ', $date);
+            $date = str_replace('Décembre ', '12-', $date);
         } else {
             throw new LogicException('OK ... So ... There is a problem');
         }
 
+        $date = new \DateTime('01-' . $date);
 
         $rentRelease = $rentReleaseRepository->findBy(
             [
                 'userRentRelease' => $this->getUser(),
-                //trier par date dans la vue?
+                'date' => $date, // the problem is here
             ]
         );
 
+        foreach ($rentRelease as $release) {
+            throw new Exception('Let\'s start calcul algorithm');
+        }
+
         return $this->render('resume_page/month.html.twig', [
-            'date' => $date
+            'date' => $displayDate
         ]);
     }
 }
