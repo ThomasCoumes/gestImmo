@@ -126,8 +126,19 @@ class ResumePageController extends AbstractController
             ]
         );
 
+        $propertyRent = [];
+
         foreach ($rentRelease as $release) {
-            throw new Exception('Let\'s start calcul algorithm');
+            $propertyName = $release->getPropertyName();
+            if (array_key_exists($propertyName, $propertyRent)) {
+                $amount = array_shift($propertyRent[$propertyName]) + $release->getAmount();
+            } else {
+                $amount = $propertyRent[] = [$propertyName => $release->getAmount()];
+            }
+
+            $propertyRent[$propertyName] = '';
+
+            $propertyRent[$propertyName] = $amount;
         }
 
         return $this->render('resume_page/month.html.twig', [
