@@ -139,8 +139,9 @@ class ResumePageController extends AbstractController
             $propertyRent[$propertyName] = $amount;
         }
 
-        foreach ($propertyRent as $prop) {
-            dump($prop);
+        $totalByMonth = 0;
+        foreach ($propertyRent as $amount) {
+            $totalByMonth = $totalByMonth + $amount;
         }
 
         return $this->render('resume_page/month.html.twig', [
