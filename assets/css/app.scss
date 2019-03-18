@@ -101,3 +101,31 @@ header {
   display: inline-block;
   padding-bottom: 4vh;
 }
+
+.datesList {
+  list-style: none;
+  text-align: center;
+}
+
+.dateCalendar {
+  margin-right: 0.4vw;
+}
+
+.date {
+  font-size: 20pt;
+  padding-bottom: 5vh;
+  margin-bottom: 5vh;
+}
+
+.year {
+  margin-right: 0.4vw;
+}
+
+.resumeSpace {
+  display: block;
+  margin-bottom: 5vh;
+}
+
+.total {
+  font-weight: bold;
+}

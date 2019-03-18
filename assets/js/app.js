@@ -15,4 +15,4 @@ require('bootstrap');
 
 const logoPath = require('../images/favicon.ico');
 
-var html = `<img src="${logoPath}">`;
+let html = `<img src="${logoPath}">`;

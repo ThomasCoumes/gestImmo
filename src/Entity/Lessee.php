@@ -93,7 +93,7 @@ class Lessee
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
-     * @Assert\Regex("/[0-9]{10}/", message="Veuillez entrer un numéro de telephone valide")
+     * @Assert\Regex("/^[0-9]{10}$/", message="Veuillez entrer un numéro de telephone valide")
      * @var string
      */
     private $phoneNumber;

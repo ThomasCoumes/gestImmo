@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Récapitulatif{% endblock %}
+
+{% block body %}
+
+    <h1 class="propertyTitle">Récapitulatif de mes revenus</h1>
+
+    <div class="container">
+        <ul class="datesList">
+            {% for years in year %}
+                    <li><a href="#" class="date"><i class="fas fa-glass-cheers year"></i> {{ years }}</a></li>
+            {% endfor %}
+
+            <span class="resumeSpace"></span>
+
+            {% for dates in date %}
+                <li><a href="{{ path('monthly_resume', { 'date': dates }) }}" class="date"><i class="far fa-calendar-alt dateCalendar"></i> {{ dates }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
