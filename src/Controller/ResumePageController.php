@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Repository\RentReleaseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Exception\LogicException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
