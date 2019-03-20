@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\RentRelease;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use DoctrineExtensions\Query\Mysql\Year;
 
 /**
  * @method RentRelease|null find($id, $lockMode = null, $lockVersion = null)
@@ -25,20 +26,12 @@ class RentReleaseRepository extends ServiceEntityRepository
      */
     public function findByYear($year): array
     {
-        $conn = $this->getEntityManager()->getConnection();
+        $qb = $this->createQueryBuilder('rr')
+            ->andWhere('YEAR(rr.date) = :year')
+            ->setParameter('year', $year)
+            ->orderBy('rr.date', 'ASC')
+            ->getQuery();
 
-        $sql = 'SELECT * FROM rent_release r WHERE YEAR(`date`) = :yearRequested';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(['yearRequested' => $year]);
-
-        return $stmt->fetchAll();
-
-//        $qb = $this->createQueryBuilder('rr')
-//            ->andWhere('rr.date = :year')
-//            ->setParameter('year', $year)
-//            ->orderBy('rr.date', 'ASC')
-//            ->getQuery();
-//
-//        return $qb->execute();
+        return $qb->execute();
     }
 }

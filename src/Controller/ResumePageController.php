@@ -162,6 +162,7 @@ class ResumePageController extends AbstractController
 
         foreach ($rentRelease as $release) {
             $propertyName = $release->getPropertyName();
+            dump($release);
         }
 
         return $this->render('resume_page/year.html.twig', [
