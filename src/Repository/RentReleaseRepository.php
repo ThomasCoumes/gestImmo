@@ -19,6 +19,10 @@ class RentReleaseRepository extends ServiceEntityRepository
         parent::__construct($registry, RentRelease::class);
     }
 
+    /**
+     * @param $year
+     * @return array
+     */
     public function findByYear($year): array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -28,5 +32,13 @@ class RentReleaseRepository extends ServiceEntityRepository
         $stmt->execute(['yearRequested' => $year]);
 
         return $stmt->fetchAll();
+
+//        $qb = $this->createQueryBuilder('rr')
+//            ->andWhere('rr.date = :year')
+//            ->setParameter('year', $year)
+//            ->orderBy('rr.date', 'ASC')
+//            ->getQuery();
+//
+//        return $qb->execute();
     }
 }
