@@ -160,9 +160,19 @@ class ResumePageController extends AbstractController
     {
         $rentRelease = $rentReleaseRepository->findByYear($year);
 
+        $propertyList = [];
+
         foreach ($rentRelease as $release) {
-            $propertyName = $release->getPropertyName();
-            dump($release);
+//            dump($release);
+            $name = $release->getPropertyName();
+
+            if (array_key_exists($name, $propertyList)) {
+                $amount = $propertyList[$name] + $release->getAmount();
+            } else {
+                $amount = $release->getAmount();
+            }
+
+            $propertyList[$name] = $amount;
         }
 
         return $this->render('resume_page/year.html.twig', [
