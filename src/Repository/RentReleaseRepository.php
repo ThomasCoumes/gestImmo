@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\RentRelease;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use DoctrineExtensions\Query\Mysql\Year;
 
 /**
  * @method RentRelease|null find($id, $lockMode = null, $lockVersion = null)
