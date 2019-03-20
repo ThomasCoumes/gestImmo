@@ -9,7 +9,30 @@
     <h1 class="propertyTitle">Récapitulatif de mes revenus en {{ year }}</h1>
 
     <div class="container">
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Propiétée</th>
+                <th>Revenu annuel</th>
+            </tr>
 
+            {% for property_name, property_rent in property %}
+                <tr>
+                    <td>
+                        {{ property_name }}
+                    </td>
+                    <td>
+                        {{ property_rent }} €
+                    </td>
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td class="total">Total</td>
+                <td class="total">{{ total }} €</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 {% endblock %}

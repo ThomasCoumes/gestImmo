@@ -174,8 +174,15 @@ class ResumePageController extends AbstractController
             $propertyList[$name] = $amount;
         }
 
+        $totalByYear = 0;
+        foreach ($propertyList as $amount) {
+            $totalByYear = $totalByYear + $amount;
+        }
+
         return $this->render('resume_page/year.html.twig', [
             'year' => $year,
+            'property' => $propertyList,
+            'total' => $totalByYear,
         ]);
     }
 }

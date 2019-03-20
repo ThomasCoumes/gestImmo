@@ -15,13 +15,13 @@
                 <th>Revenu du mois</th>
             </tr>
 
-            {% for property_name, prop in property %}
+            {% for property_name, property_rent in property %}
                 <tr>
                     <td>
                         {{ property_name }}
                     </td>
                     <td>
-                        {{ prop }} €
+                        {{ property_rent }} €
                     </td>
                 </tr>
             {% endfor %}
