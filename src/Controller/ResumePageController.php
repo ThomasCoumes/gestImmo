@@ -149,4 +149,40 @@ class ResumePageController extends AbstractController
             'total' => $totalByMonth,
         ]);
     }
+
+    /**
+     * @Route("/{year}", name="year_resume", methods={"GET"})
+     * @param RentReleaseRepository $rentReleaseRepository
+     * @param $year
+     * @return Response
+     */
+    public function yearCalcul(RentReleaseRepository $rentReleaseRepository, $year)
+    {
+        $rentRelease = $rentReleaseRepository->findByYear($year);
+
+        $propertyList = [];
+
+        foreach ($rentRelease as $release) {
+            $name = $release->getPropertyName();
+
+            if (array_key_exists($name, $propertyList)) {
+                $amount = $propertyList[$name] + $release->getAmount();
+            } else {
+                $amount = $release->getAmount();
+            }
+
+            $propertyList[$name] = $amount;
+        }
+
+        $totalByYear = 0;
+        foreach ($propertyList as $amount) {
+            $totalByYear = $totalByYear + $amount;
+        }
+
+        return $this->render('resume_page/year.html.twig', [
+            'year' => $year,
+            'property' => $propertyList,
+            'total' => $totalByYear,
+        ]);
+    }
 }

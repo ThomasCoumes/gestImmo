@@ -39,7 +39,7 @@ class RentReleaseInsertion
                 $rentRelease = new RentRelease();
                 $amount = $prop->getRentExcludingCharges() + $prop->getCharges();
 
-                $date = new \DateTime(); // TODO SET HOURS:MINUTES:SECONDS to 00:00:00 + CHANGE FORMAT TO 01:MM:YYYY
+                $date = new \DateTime();
                 $date = $date->format('m-Y');
                 $date = new \DateTime('01-' . $date);
 
