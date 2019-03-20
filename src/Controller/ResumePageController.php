@@ -163,7 +163,6 @@ class ResumePageController extends AbstractController
         $propertyList = [];
 
         foreach ($rentRelease as $release) {
-//            dump($release);
             $name = $release->getPropertyName();
 
             if (array_key_exists($name, $propertyList)) {
