@@ -10,9 +10,12 @@ require('../css/app.scss');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
-
 require('bootstrap');
+
+const Highcharts = require('highcharts');
+require('highcharts/modules/exporting')(Highcharts);
+Highcharts.chart('container', { /*Highcharts options*/ });
 
 const logoPath = require('../images/favicon.ico');
 
-let html = `<img src="${logoPath}">`;
+const html = `<img src="${logoPath}">`;

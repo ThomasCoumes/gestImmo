@@ -18,6 +18,7 @@
     },
     "dependencies": {
         "bootstrap": "^4.3.1",
-        "bootswatch": "^4.3.1"
+        "bootswatch": "^4.3.1",
+        "highcharts": "^7.0.3"
     }
 }
