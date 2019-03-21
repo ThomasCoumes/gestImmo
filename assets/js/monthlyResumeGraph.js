@@ -3,7 +3,7 @@
  */
 import Chart from 'chart.js'
 
-let ctx = document.getElementById('myChart').getContext('2d');
+let ctx = document.getElementById('rentResumeChart').getContext('2d');
 
 let myChart = new Chart(ctx, {
     type: 'bar',
