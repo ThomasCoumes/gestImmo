@@ -5,7 +5,7 @@ import Chart from 'chart.js'
 
 let ctx = document.getElementById('rentResumeChart').getContext('2d');
 
-let myChart = new Chart(ctx, {
+let rentResumeChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
