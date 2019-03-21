@@ -13,9 +13,6 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-
-
-
 class DeleteLesseeVoter implements VoterInterface
 {
 
@@ -50,6 +47,7 @@ class DeleteLesseeVoter implements VoterInterface
         if ($user !== $subject->getUserLessee()) {
             return self::ACCESS_DENIED;
         }
+
         return self::ACCESS_GRANTED;
     }
 }
