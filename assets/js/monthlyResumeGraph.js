@@ -6,6 +6,8 @@ import Chart from 'chart.js'
 let ctx = document.getElementById('rentResumeChart').getContext('2d');
 
 let rentResumeChart = new Chart(ctx, {
+    responsive: true,
+    maintainAspectRatio: false,
     type: 'bar',
     data: {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
