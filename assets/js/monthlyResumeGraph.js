@@ -49,5 +49,11 @@ let rentResumeChart = new Chart(ctx, {
                 }
             }],
         },
-    }
+        legend: {
+            labels: {
+                fontSize: 40,
+                fontStyle: 'bold',
+            }
+        }
+    },
 });
