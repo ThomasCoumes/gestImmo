@@ -15,4 +15,10 @@ require('bootstrap');
 
 const logoPath = require('../images/favicon.ico');
 
-let html = `<img src="${logoPath}">`;
+const html = `<img src="${logoPath}">`;
+
+import Chart from 'chart.js';
+
+var ctx = document.getElementById('myChart').getContext('2d');
+
+const myChart = new Chart(ctx);

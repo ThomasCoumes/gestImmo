@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'resume_page/index.html.twig' %}
 
 {% block title %}Récapitulatif de {{ date }}{% endblock %}
 
@@ -33,5 +33,7 @@
             </tbody>
         </table>
     </div>
+
+    <canvas id="myChart" width="10" height="10"></canvas>
 
 {% endblock %}
