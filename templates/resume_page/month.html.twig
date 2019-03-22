@@ -1,4 +1,4 @@
-{% extends 'resume_page/index.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Récapitulatif de {{ date }}{% endblock %}
 
@@ -38,4 +38,9 @@
 
     <canvas id="rentResumeChart" class="rentResumeChart"></canvas>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('monthResumeGraph') }}
 {% endblock %}
