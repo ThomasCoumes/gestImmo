@@ -10,21 +10,21 @@
     <div class="container">
         <table class="table">
             <tbody>
-            <tr>
-                <th>Propiétée</th>
-                <th>Revenu du mois</th>
-            </tr>
-
-            {% for property_name, property_rent in property %}
                 <tr>
-                    <td>
-                        {{ property_name }}
-                    </td>
-                    <td>
-                        {{ property_rent }} €
-                    </td>
+                    <th>Propiétée</th>
+                    <th>Revenu du mois</th>
                 </tr>
-            {% endfor %}
+
+                {% for property_name, property_rent in property %}
+                    <tr>
+                        <td class="propertyName">
+                            {{ property_name }}
+                        </td>
+                        <td class="propertyRent">
+                            {{ property_rent }} €
+                        </td>
+                    </tr>
+                {% endfor %}
 
                 <tr>
                     <td class="total">Total</td>

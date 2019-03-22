@@ -5,6 +5,33 @@ import Chart from 'chart.js'
 
 let ctx = document.getElementById('rentResumeChart').getContext('2d');
 
+let propertyName = document.getElementsByClassName('propertyName');
+let propertyRent = document.getElementsByClassName('propertyRent');
+
+let propertyNameList = [];
+let propertyRentList = [];
+let count = -1;
+
+for (let property in propertyName) {
+    count = ++count;
+    if (count in propertyName) {
+        propertyNameList[count] = propertyName.item(count).innerText;
+    }
+}
+console.log(propertyNameList);
+
+count = -1;
+
+for (let property in propertyRent) {
+    count = ++count;
+    if (count in propertyRent) {
+        propertyRentList[count] = propertyRent.item(count).innerText;
+    }
+}
+console.log(propertyRentList);
+
+
+
 let rentResumeChart = new Chart(ctx, {
     responsive: true,
     maintainAspectRatio: false,
@@ -13,7 +40,7 @@ let rentResumeChart = new Chart(ctx, {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
             label: 'Revenus par propriétée en date en €',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [1, 2, 3, 4, 55],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

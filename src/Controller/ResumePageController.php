@@ -180,7 +180,7 @@ class ResumePageController extends AbstractController
         }
 
         return $this->render('resume_page/year.html.twig', [
-            'year' => $year,
+            'date' => $year,
             'property' => $propertyList,
             'total' => $totalByYear,
         ]);
