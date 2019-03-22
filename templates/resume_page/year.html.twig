@@ -1,12 +1,13 @@
-{% extends 'layout.html.twig' %}
+{% extends 'resume_page/index.html.twig' %}
 
-{% block title %}Récapitulatif de {{ year }}{% endblock %}
+{% block title %}Récapitulatif de {{ date }}{% endblock %}
 
 {% block body %}
 
     <a href="{{ path('resume_page') }}"><i class="fas fa-long-arrow-alt-left"></i> Revenir à la liste</a>
 
-    <h1 class="propertyTitle">Récapitulatif de mes revenus en {{ year }}</h1>
+    <h1 class="propertyTitle">Récapitulatif de mes revenus en {{ date }}</h1>
+    <div class="currentDate">{{ date }}</div>
 
     <div class="container">
         <table class="table">
@@ -18,11 +19,11 @@
 
             {% for property_name, property_rent in property %}
                 <tr>
-                    <td>
+                    <td class="propertyName">
                         {{ property_name }}
                     </td>
                     <td>
-                        {{ property_rent }} €
+                        <span class="propertyRent">{{ property_rent }}</span> €
                     </td>
                 </tr>
             {% endfor %}
@@ -34,5 +35,7 @@
             </tbody>
         </table>
     </div>
+
+    <canvas id="rentResumeChart" class="rentResumeChart"></canvas>
 
 {% endblock %}
