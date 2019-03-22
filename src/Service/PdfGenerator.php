@@ -53,6 +53,9 @@ class PdfGenerator
 
         if ($rentRelease->getStatus() === 'Payé') {
             $propertyName = $rentRelease->getPropertyName();
+            $propertyName= str_replace(' ', '_', $propertyName);
+
+
             $lesseeName = str_replace(' ', '-', $rentRelease->getLesseeName());
             $fileName = $propertyName . '_' . $lesseeName . '_' . date("m-Y") . '_';
             $fileName = $fileName . bin2hex(random_bytes(5)) . '.pdf';
