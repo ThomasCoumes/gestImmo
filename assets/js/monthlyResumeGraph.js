@@ -18,18 +18,14 @@ for (let property in propertyName) {
         propertyNameList[count] = propertyName.item(count).innerText;
     }
 }
-console.log(propertyNameList);
 
 count = -1;
-
 for (let property in propertyRent) {
     count = ++count;
     if (count in propertyRent) {
         propertyRentList[count] = propertyRent.item(count).innerText;
     }
 }
-console.log(propertyRentList);
-
 
 
 let rentResumeChart = new Chart(ctx, {
@@ -37,10 +33,10 @@ let rentResumeChart = new Chart(ctx, {
     maintainAspectRatio: false,
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: propertyNameList,
         datasets: [{
             label: 'Revenus par propriétée en date en €',
-            data: [1, 2, 3, 4, 55],
+            data: propertyRentList,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
