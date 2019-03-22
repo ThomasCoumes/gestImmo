@@ -7,6 +7,7 @@ let ctx = document.getElementById('rentResumeChart').getContext('2d');
 
 let propertyName = document.getElementsByClassName('propertyName');
 let propertyRent = document.getElementsByClassName('propertyRent');
+let date = document.getElementsByClassName('currentDate')[0].innerHTML;
 
 let propertyNameList = [];
 let propertyRentList = [];
@@ -46,7 +47,7 @@ let rentResumeChart = new Chart(ctx, {
     data: {
         labels: propertyNameList,
         datasets: [{
-            label: 'Revenus par propriétée en date en €',
+            label: 'Revenus par propriétée en ' .concat(date) .concat(' en €'),
             data: propertyRentList,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
