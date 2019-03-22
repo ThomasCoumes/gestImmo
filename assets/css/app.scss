@@ -129,3 +129,15 @@ header {
 .total {
   font-weight: bold;
 }
+
+.rentResumeChart {
+  height: 70vh!important;
+  width: 70vw!important;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 10vh auto 10vh;
+}
+
+.currentDate {
+  display: none;
+}
