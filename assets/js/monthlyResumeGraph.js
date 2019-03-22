@@ -19,6 +19,9 @@ for (let property in propertyName) {
     }
 }
 
+let totalLabel = propertyNameList.length + 1;
+propertyNameList[totalLabel] = 'Total';
+
 count = -1;
 for (let property in propertyRent) {
     count = ++count;
@@ -27,6 +30,14 @@ for (let property in propertyRent) {
     }
 }
 
+let total = 0;
+for (let i = 0; i<propertyRentList.length; i++) {
+    propertyRentList[i] = parseFloat(propertyRentList[i]);
+    total = total + propertyRentList[i];
+}
+
+let totalIndex = propertyRent.length + 1;
+propertyRentList[totalIndex] = total;
 
 let rentResumeChart = new Chart(ctx, {
     responsive: true,
