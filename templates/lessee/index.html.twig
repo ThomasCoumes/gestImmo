@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            {% if lessee is defined %}
+            {% if lessees is defined %}
                 {% for lessee in lessees %}
                     {% if is_granted('SHOWLESSEE', lessee) %}
                         <tr>
