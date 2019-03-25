@@ -32,43 +32,45 @@ class ResumePageController extends AbstractController
         $yearList = [];
 
         foreach ($release as $rentRelease) {
-            $numericDate = $rentRelease->getDate()->format('m-Y');
-            $year = $rentRelease->getDate()->format('Y');
+            if ($rentRelease->getStatus() === 'Payé') {
+                $numericDate = $rentRelease->getDate()->format('m-Y');
+                $year = $rentRelease->getDate()->format('Y');
 
-            if (substr($numericDate, 0, 3) === '01-') {
-                $date = str_replace('01-', 'Janvier ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '02-') {
-                $date = str_replace('02-', 'Février ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '03-') {
-                $date = str_replace('03-', 'Mars ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '04-') {
-                $date = str_replace('04-', 'Avril ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '05-') {
-                $date = str_replace('05-', 'Mai ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '06-') {
-                $date = str_replace('06-', 'Juin ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '07-') {
-                $date = str_replace('07-', 'Juillet ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '08-') {
-                $date = str_replace('08-', 'Août ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '09-') {
-                $date = str_replace('09-', 'Septembre ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '10-') {
-                $date = str_replace('10-', 'Octobre ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '11-') {
-                $date = str_replace('11-', 'Novembre ', $numericDate);
-            } elseif (substr($numericDate, 0, 3) === '12-') {
-                $date = str_replace('12-', 'Décembre ', $numericDate);
-            } else {
-                throw new LogicException('OK ... So ... There is a problem');
-            }
+                if (substr($numericDate, 0, 3) === '01-') {
+                    $date = str_replace('01-', 'Janvier ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '02-') {
+                    $date = str_replace('02-', 'Février ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '03-') {
+                    $date = str_replace('03-', 'Mars ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '04-') {
+                    $date = str_replace('04-', 'Avril ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '05-') {
+                    $date = str_replace('05-', 'Mai ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '06-') {
+                    $date = str_replace('06-', 'Juin ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '07-') {
+                    $date = str_replace('07-', 'Juillet ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '08-') {
+                    $date = str_replace('08-', 'Août ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '09-') {
+                    $date = str_replace('09-', 'Septembre ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '10-') {
+                    $date = str_replace('10-', 'Octobre ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '11-') {
+                    $date = str_replace('11-', 'Novembre ', $numericDate);
+                } elseif (substr($numericDate, 0, 3) === '12-') {
+                    $date = str_replace('12-', 'Décembre ', $numericDate);
+                } else {
+                    throw new LogicException('OK ... So ... There is a problem');
+                }
 
-            if (!in_array($date, $dateList, true)) {
-                $dateList[] = $date;
-            }
+                if (!in_array($date, $dateList, true)) {
+                    $dateList[] = $date;
+                }
 
-            if (!in_array($year, $yearList, true)) {
-                $yearList[] = $year;
+                if (!in_array($year, $yearList, true)) {
+                    $yearList[] = $year;
+                }
             }
         }
 
@@ -128,14 +130,16 @@ class ResumePageController extends AbstractController
         $propertyRent = [];
 
         foreach ($rentRelease as $release) {
-            $propertyName = $release->getPropertyName();
-            if (array_key_exists($propertyName, $propertyRent)) {
-                $amount = $propertyRent[$propertyName] + $release->getAmount();
-            } else {
-                $amount = $release->getAmount();
-            }
+            if ($release->getStatus() === 'Payé') {
+                $propertyName = $release->getPropertyName();
+                if (array_key_exists($propertyName, $propertyRent)) {
+                    $amount = $propertyRent[$propertyName] + $release->getAmount();
+                } else {
+                    $amount = $release->getAmount();
+                }
 
-            $propertyRent[$propertyName] = $amount;
+                $propertyRent[$propertyName] = $amount;
+            }
         }
 
         $totalByMonth = 0;
@@ -163,15 +167,17 @@ class ResumePageController extends AbstractController
         $propertyList = [];
 
         foreach ($rentRelease as $release) {
-            $name = $release->getPropertyName();
+            if ($release->getStatus() === 'Payé') {
+                $name = $release->getPropertyName();
 
-            if (array_key_exists($name, $propertyList)) {
-                $amount = $propertyList[$name] + $release->getAmount();
-            } else {
-                $amount = $release->getAmount();
+                if (array_key_exists($name, $propertyList)) {
+                    $amount = $propertyList[$name] + $release->getAmount();
+                } else {
+                    $amount = $release->getAmount();
+                }
+
+                $propertyList[$name] = $amount;
             }
-
-            $propertyList[$name] = $amount;
         }
 
         $totalByYear = 0;

@@ -7,7 +7,7 @@
     <h1 class="propertyTitle">Récapitulatif de mes revenus</h1>
 
     <div class="container">
-        {% if years is defined or dates is defined %}
+        {% if year is defined or date is defined %}
                 <ul class="datesList">
                     {% for years in year %}
                             <li><a href="{{ path('year_resume', { 'year': years }) }}" class="date"><i class="fas fa-glass-cheers year"></i> {{ years }}</a></li>
@@ -20,7 +20,7 @@
                     {% endfor %}
                 </ul>
         {% else %}
-        Nous n'avons pas d'informations concernant les revenus passés.
+            Nous n'avons pas d'informations concernant les revenus passés.
         {% endif %}
     </div>
 
