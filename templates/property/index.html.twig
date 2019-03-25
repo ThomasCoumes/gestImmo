@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-            {% if property is defined %}
+            {% if properties is defined %}
                 {% for property in properties %}
 
                         {% set emails = [property.userProperty.email] %}
