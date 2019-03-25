@@ -17,34 +17,34 @@
             </tr>
         </thead>
         <tbody>
-        {% for rent_release in rent_releases %}
             {% if rent_release is defined %}
-                <tr>
-                    <td>{{ rent_release.lesseeName }}</td>
-                    <td>{{ rent_release.propertyName }}</td>
-                    <td>{{ rent_release.Amount }} €</td>
-                    <td>{{ rent_release.date ? rent_release.date|date('Y-m-d') : '' }}</td>
-                    <td>{{ rent_release.status }}
-                        {% if rent_release.status == 'Payé' %}
-                            <i class="fas fa-check text-success"></i></td>
-                        {% else %}
-                            <i class="fas fa-times text-danger"></i>
-                        {% endif %}
-                    <td>
-                        <a href="{{ path('rent_release_show', {'id': rent_release.id}) }}" class="btn text-primary">Voir</a>
-                        {% if is_granted('ROLE_USER') %}
-                            {% if rent_release.status != 'Payé' %}
-                                <a href="{{ path('rent_release_paid', {'id': rent_release.id}) }}" class="btn text-success"> <i class="fas fa-hand-holding-usd"></i> Payé</a>
-                            {% endif %}
-                        {% endif %}
-                    </td>
-                </tr>
+                {% for rent_release in rent_releases %}
+                        <tr>
+                            <td>{{ rent_release.lesseeName }}</td>
+                            <td>{{ rent_release.propertyName }}</td>
+                            <td>{{ rent_release.Amount }} €</td>
+                            <td>{{ rent_release.date ? rent_release.date|date('Y-m-d') : '' }}</td>
+                            <td>{{ rent_release.status }}
+                                {% if rent_release.status == 'Payé' %}
+                                    <i class="fas fa-check text-success"></i></td>
+                                {% else %}
+                                    <i class="fas fa-times text-danger"></i>
+                                {% endif %}
+                            <td>
+                                <a href="{{ path('rent_release_show', {'id': rent_release.id}) }}" class="btn text-primary">Voir</a>
+                                {% if is_granted('ROLE_USER') %}
+                                    {% if rent_release.status != 'Payé' %}
+                                        <a href="{{ path('rent_release_paid', {'id': rent_release.id}) }}" class="btn text-success"> <i class="fas fa-hand-holding-usd"></i> Payé</a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                {% endfor %}
             {% else %}
                 <tr>
                     <td colspan="5">Nous ne vous avons pas encore généré de quittance de loyer</td>
                 </tr>
             {% endif %}
-        {% endfor %}
         </tbody>
     </table>
 {% endblock %}

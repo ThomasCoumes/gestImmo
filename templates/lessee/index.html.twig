@@ -19,8 +19,8 @@
             </tr>
         </thead>
         <tbody>
-            {% for lessee in lessees %}
-                {% if lessee is defined %}
+            {% if lessee is defined %}
+                {% for lessee in lessees %}
                     {% if is_granted('SHOWLESSEE', lessee) %}
                         <tr>
                             <td>{{ lessee.civility }}</td>
@@ -36,12 +36,12 @@
                                 <a class="btn btn-warning" href="{{ path('lessee_invitation', {'lessee_id': lessee.id}) }}"><i class="fas fa-envelope"></i> Inviter</a>                            </td>
                         </tr>
                     {% endif %}
-                {% else %}
-                        <tr>
-                            <td colspan="9">Vous n'avez pas encore de locataires</td>
-                        </tr>
-                {% endif %}
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="9">Vous n'avez pas encore de locataires</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 
