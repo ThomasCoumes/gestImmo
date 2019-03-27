@@ -28,11 +28,14 @@ class PropertyCapitalizeFirstLetter
 
     public function capitalizeFirstLetter($form, $property)
     {
-        $uniqueName = ucfirst($form->getData()->getUniqueName());
-        $city = ucfirst($form->getData()->getCity());
+        $uniqueName = mb_convert_case($form->getData()->getUniqueName(), MB_CASE_TITLE);
+        $city = mb_convert_case($form->getData()->getCity(), MB_CASE_TITLE);
         if ($form->getData()->getDescription() !== null) {
-            $description = ucfirst($form->getData()->getDescription());
-            $property->setDescription($description);
+            $capitalize = mb_convert_case($form->getData()->getDescription(), MB_CASE_TITLE);
+            $firstChar = mb_substr($capitalize, 0, 1);
+            $endOfDescription = mb_substr($form->getData()->getDescription(), 1);
+
+            $property->setDescription($firstChar . $endOfDescription);
         }
 
         $property->setUniqueName($uniqueName);
