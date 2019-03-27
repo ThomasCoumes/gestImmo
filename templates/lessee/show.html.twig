@@ -23,6 +23,10 @@
                     <td>{{ lessee.lastname }}</td>
                 </tr>
                 <tr>
+                    <th>Nom complet</th>
+                    <td>{{ lessee.fullName }}</td>
+                </tr>
+                <tr>
                     <th>Date de naissance</th>
                     <td>{{ lessee.birthday ? lessee.birthday|date('Y-m-d') : '' }}</td>
                 </tr>
