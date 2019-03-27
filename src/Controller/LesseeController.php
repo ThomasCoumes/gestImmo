@@ -159,8 +159,7 @@ class LesseeController extends AbstractController
         $em->flush();
 
         $message = (new \Swift_Message($userIdentity . ' ' . 'vous invite à rejoindre l\'application gestImmo'))
-            //put the email adress you defined in .env.local here
-            ->setFrom('thomascoumes3145@gmail.com')
+            ->setFrom(getenv('MAILER_FROM_ADDRESS'))
             ->setTo($lesseeEmail)
             ->setBody(
                 $this->renderView(

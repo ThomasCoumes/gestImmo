@@ -38,12 +38,6 @@ class MonthlyMailer
     private $router;
 
     /**
-     * set the email you defined in .env.local
-     * @var string
-     */
-    private $sendingEmail = 'thomascoumes3145@gmail.com';
-
-    /**
      * MonthlyMailer constructor.
      * @param LesseeRepository $lesseeRepository
      * @param Swift_Mailer $mailer
@@ -84,7 +78,7 @@ class MonthlyMailer
 
         foreach ($mailList as $mail) {
             $message = (new \Swift_Message('Nous avons generer vos loyers !'))
-                ->setFrom("$this->sendingEmail")
+                ->setFrom(getenv('MAILER_FROM_ADDRESS'))
                 ->setTo("$mail")
                 ->setBody(
                     $this->twig->render(
@@ -113,7 +107,7 @@ class MonthlyMailer
         $pdf = $rentRelease->getPdf();
 
         $message = (new \Swift_Message('Votre quittance de loyer'))
-            ->setFrom("$this->sendingEmail")
+            ->setFrom(getenv('MAILER_FROM_ADDRESS'))
             ->setTo("$mail")
             ->setBody(
                 $this->twig->render(
