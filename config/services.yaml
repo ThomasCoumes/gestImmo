@@ -43,3 +43,9 @@ services:
 
     # rent release pdf generator
     App\Service\PdfGenerator:
+
+    # capitalize first letter from Lessees informations
+    App\Service\LesseeCapitalizeFirstLetter:
+
+    # capitalize first letter from Property informations
+    App\Service\PropertyCapitalizeFirstLetter:
