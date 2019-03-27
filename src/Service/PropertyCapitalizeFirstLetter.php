@@ -31,8 +31,8 @@ class PropertyCapitalizeFirstLetter
         $uniqueName = ucfirst($form->getData()->getUniqueName());
         $city = ucfirst($form->getData()->getCity());
         if ($form->getData()->getDescription() !== null) {
-           $description =  ucfirst($form->getData()->getDescription());
-           $property->setDescription($description);
+            $description = ucfirst($form->getData()->getDescription());
+            $property->setDescription($description);
         }
 
         $property->setUniqueName($uniqueName);
