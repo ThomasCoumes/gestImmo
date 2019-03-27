@@ -6,6 +6,7 @@ use App\Entity\Property;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use App\Service\PdfUploader;
+use App\Service\PropertyCapitalizeFirstLetter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,10 +37,14 @@ class PropertyController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param PdfUploader $pdfUploader
+     * @param PropertyCapitalizeFirstLetter $propertyCapitalizeFirstLetter
      * @return Response
      */
-    public function new(Request $request, PdfUploader $pdfUploader): Response
-    {
+    public function new(
+        Request $request,
+        PdfUploader $pdfUploader,
+        PropertyCapitalizeFirstLetter $propertyCapitalizeFirstLetter
+    ): Response {
         $property = new Property();
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
@@ -59,6 +64,8 @@ class PropertyController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($property);
             $entityManager->flush();
+
+            $propertyCapitalizeFirstLetter->capitalizeFirstLetter($form, $property);
 
             $this->addFlash('success', 'Votre propriétée a été enregistrée');
 
@@ -96,10 +103,15 @@ class PropertyController extends AbstractController
      * @param Request $request
      * @param Property $property
      * @param PdfUploader $pdfUploader
+     * @param PropertyCapitalizeFirstLetter $propertyCapitalizeFirstLetter
      * @return Response
      */
-    public function edit(Request $request, Property $property, PdfUploader $pdfUploader): Response
-    {
+    public function edit(
+        Request $request,
+        Property $property,
+        PdfUploader $pdfUploader,
+        PropertyCapitalizeFirstLetter $propertyCapitalizeFirstLetter
+    ): Response {
         if (!$this->isGranted('EDIT', $property)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
 
@@ -125,6 +137,8 @@ class PropertyController extends AbstractController
             }
 
             $this->getDoctrine()->getManager()->flush();
+
+            $propertyCapitalizeFirstLetter->capitalizeFirstLetter($form, $property);
 
             $this->addFlash('success', 'Votre propriétée a été modifiée');
 
