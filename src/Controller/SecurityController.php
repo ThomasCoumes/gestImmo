@@ -115,8 +115,7 @@ class SecurityController extends AbstractController
                 $em->flush();
 
                 $message = (new \Swift_Message('Reinitialisez votre mot de passe gestImmo'))
-                    //put the email adress you defined in .env.local here
-                    ->setFrom('thomascoumes3145@gmail.com')
+                    ->setFrom(getenv('MAILER_FROM_ADDRESS'))
                     ->setTo($formEmail)
                     ->setBody(
                         $this->renderView(
