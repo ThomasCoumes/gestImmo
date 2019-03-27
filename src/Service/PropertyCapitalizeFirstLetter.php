@@ -28,8 +28,8 @@ class PropertyCapitalizeFirstLetter
 
     public function capitalizeFirstLetter($form, $property)
     {
-        $uniqueName = ucfirst($form->getData()->getUniqueName());
-        $city = ucfirst($form->getData()->getCity());
+        $uniqueName = mb_convert_case($form->getData()->getUniqueName(), MB_CASE_TITLE);
+        $city = mb_convert_case($form->getData()->getCity(), MB_CASE_TITLE);
         if ($form->getData()->getDescription() !== null) {
             $description = ucfirst($form->getData()->getDescription());
             $property->setDescription($description);

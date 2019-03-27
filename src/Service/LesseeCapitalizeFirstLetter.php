@@ -28,10 +28,10 @@ class LesseeCapitalizeFirstLetter
 
     public function capitalizeFirstLetter($form, $lessee)
     {
-        $name = ucfirst($form->getData()->getName());
-        $lastName = ucfirst($form->getData()->getLastName());
+        $name = mb_convert_case($form->getData()->getName(), MB_CASE_TITLE);
+        $lastName = mb_convert_case($form->getData()->getLastName(), MB_CASE_TITLE);
         $fullName = $name . ' ' . $lastName;
-        $placeOfBirth = ucfirst($form->getData()->getPlaceOfBirth());
+        $placeOfBirth = mb_convert_case($form->getData()->getPlaceOfBirth(), MB_CASE_TITLE);
 
         $lessee->setName($lastName);
         $lessee->setLastname($name);
