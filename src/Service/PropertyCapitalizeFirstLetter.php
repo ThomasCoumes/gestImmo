@@ -32,7 +32,7 @@ class PropertyCapitalizeFirstLetter
         $city = mb_convert_case($form->getData()->getCity(), MB_CASE_TITLE);
         if ($form->getData()->getDescription() !== null) {
             $capitalize = mb_strtoupper($form->getData()->getDescription());
-            $firstChar = mb_substr($capitalize,0, 1);
+            $firstChar = mb_substr($capitalize, 0, 1);
             $endOfDescription = mb_substr($form->getData()->getDescription(), 1);
 
             $property->setDescription($firstChar . $endOfDescription);
