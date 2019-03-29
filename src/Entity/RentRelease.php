@@ -35,7 +35,7 @@ class RentRelease
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Lessee", inversedBy="rentReleases")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="rent_release_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\NotBlank
      */
     private $rentRelease;

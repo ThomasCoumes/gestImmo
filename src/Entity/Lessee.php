@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -117,6 +118,7 @@ class Lessee
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RentRelease", mappedBy="rentRelease")
+     * @JoinColumn(name="rent_releases_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $rentReleases;
 
