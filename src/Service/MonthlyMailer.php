@@ -82,7 +82,7 @@ class MonthlyMailer
                 ->setTo("$mail")
                 ->setBody(
                     $this->twig->render(
-                        'rent_release/emailOwner.html.twig',
+                        'emails/emailOwner.html.twig',
                         [
                             'url' => $url,
                         ]
@@ -111,7 +111,7 @@ class MonthlyMailer
             ->setTo("$mail")
             ->setBody(
                 $this->twig->render(
-                    'rent_release/rentReleaseMail.html.twig',
+                    'emails/rentReleaseMail.html.twig',
                     [
                         'name' => $name,
                         'owner' => $owner,
