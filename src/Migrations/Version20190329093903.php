@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190329082327 extends AbstractMigration
+final class Version20190329093903 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -24,7 +24,7 @@ final class Version20190329082327 extends AbstractMigration
 
         $this->addSql('ALTER TABLE rent_release DROP FOREIGN KEY FK_7F6B786D1BC8D612');
         $this->addSql('ALTER TABLE rent_release CHANGE rent_release_id rent_release_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE rent_release ADD CONSTRAINT FK_7F6B786D1BC8D612 FOREIGN KEY (rent_release_id) REFERENCES lessee (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE rent_release ADD CONSTRAINT FK_7F6B786D1BC8D612 FOREIGN KEY (rent_release_id) REFERENCES lessee (id) ON DELETE SET NULL');
     }
 
     public function down(Schema $schema) : void
