@@ -143,6 +143,7 @@ class LesseeController extends AbstractController
      * @param UserInterface $user
      * @param \Swift_Mailer $mailer
      * @return Response
+     * @throws \Exception
      */
     public function inviteLesseeByEmail(Lessee $lessee, UserInterface $user, \Swift_Mailer $mailer): Response
     {
