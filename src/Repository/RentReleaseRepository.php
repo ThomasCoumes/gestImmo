@@ -44,7 +44,7 @@ class RentReleaseRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('rr')
             ->andWhere('rr.userRentRelease = :user')
             ->setParameter('user', $user)
-            ->orderBy('rr.date', 'ASC')
+            ->orderBy('rr.date', 'DESC')
             ->getQuery();
 
         return $qb;
