@@ -36,7 +36,7 @@ class RentReleaseController extends AbstractController
             $rentReleaseRepository->findByUserQuery($this->getUser()),
             $request->query->getInt('page', 1),
             7
-            );
+        );
 
         return $this->render('rent_release/index.html.twig', [
             'rent_releases' => $query,
