@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\RentRelease;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -32,5 +33,20 @@ class RentReleaseRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $qb->execute();
+    }
+
+    /**
+     * @param $user
+     * @return Query
+     */
+    public function findByUserQuery($user): Query
+    {
+        $qb = $this->createQueryBuilder('rr')
+            ->andWhere('rr.userRentRelease = :user')
+            ->setParameter('user', $user)
+            ->orderBy('rr.date', 'ASC')
+            ->getQuery();
+
+        return $qb;
     }
 }

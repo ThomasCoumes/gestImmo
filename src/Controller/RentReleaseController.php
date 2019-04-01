@@ -6,8 +6,10 @@ use App\Entity\RentRelease;
 use App\Repository\RentReleaseRepository;
 use App\Service\MonthlyMailer;
 use App\Service\PdfGenerator;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -21,14 +23,23 @@ class RentReleaseController extends AbstractController
     /**
      * @Route(name="rent_release_index", methods={"GET"})
      * @param RentReleaseRepository $rentReleaseRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
-    public function index(RentReleaseRepository $rentReleaseRepository): Response
-    {
+    public function index(
+        RentReleaseRepository $rentReleaseRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
+        $query = $paginator->paginate(
+            $rentReleaseRepository->findByUserQuery($this->getUser()),
+            $request->query->getInt('page', 1),
+            7
+        );
+
         return $this->render('rent_release/index.html.twig', [
-            'rent_releases' => $rentReleaseRepository->findBy(
-                ['userRentRelease' => $this->getUser()]
-            ),
+            'rent_releases' => $query,
         ]);
     }
 
