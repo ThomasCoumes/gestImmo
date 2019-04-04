@@ -49,9 +49,11 @@ class PdfGenerator
      * @param $string
      * @return string
      */
-    private function removeAccents($string) {
-        if ( !preg_match('/[\x80-\xff]/', $string) )
+    private function removeAccents($string)
+    {
+        if (!preg_match('/[\x80-\xff]/', $string)) {
             return $string;
+        }
 
         $chars = array(
             // Decompositions for Latin-1 Supplement
