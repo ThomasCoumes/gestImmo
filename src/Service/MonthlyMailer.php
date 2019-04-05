@@ -56,7 +56,13 @@ class MonthlyMailer
         $this->router = $router;
     }
 
-    public function notifyOwner()
+    /**
+     * @return bool
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function notifyOwner() :bool
     {
         $context = $this->router->getContext();
         // $context elements are defined in services.yaml under parameters:
@@ -95,6 +101,12 @@ class MonthlyMailer
         return true;
     }
 
+    /**
+     * @param RentRelease $rentRelease
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     public function sendRentReleaseToLessees(RentRelease $rentRelease)
     {
         $mail = $rentRelease->getRentRelease()->getEmail();

@@ -26,6 +26,10 @@ class PropertyCapitalizeFirstLetter
         $this->manager = $manager;
     }
 
+    /**
+     * @param $form
+     * @param $property
+     */
     public function capitalizeFirstLetter($form, $property)
     {
         $uniqueName = mb_convert_case($form->getData()->getUniqueName(), MB_CASE_TITLE);
