@@ -46,23 +46,23 @@ class PdfGenerator
 
     /**
      * Deleting accents from a string
-     * @param string $str
+     * @param string $string
      * @param string $charset
      * @return string
      */
-    private function removeAccents(string $str, $charset='utf-8') :string
+    private function removeAccents(string $string, $charset = 'utf-8') :string
     {
-        $str = htmlentities($str, ENT_NOQUOTES, $charset );
-        $str = preg_replace(
+        $string = htmlentities($string, ENT_NOQUOTES, $charset);
+        $string = preg_replace(
             '#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#',
             '\1',
-            $str
+            $string
         );
-        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str);
-        $str = preg_replace('#&[^;]+;#', '', $str);
-        $str = iconv('UTF-8', 'US-ASCII//TRANSLIT', $str);
+        $string = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $string);
+        $string = preg_replace('#&[^;]+;#', '', $string);
+        $string = iconv('UTF-8', 'US-ASCII//TRANSLIT', $string);
 
-        return $str;
+        return $string;
     }
 
     /**
