@@ -8,6 +8,7 @@
 
 namespace App\Service;
 
+use App\Entity\Lessee;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class LesseeCapitalizeFirstLetter
@@ -30,7 +31,7 @@ class LesseeCapitalizeFirstLetter
      * @param $form
      * @param $lessee
      */
-    public function capitalizeFirstLetter($form, $lessee)
+    public function capitalizeFirstLetter($form, Lessee $lessee)
     {
         $name = mb_convert_case($form->getData()->getName(), MB_CASE_TITLE);
         $lastName = mb_convert_case($form->getData()->getLastName(), MB_CASE_TITLE);

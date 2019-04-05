@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\RentReleaseRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Exception\LogicException;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,8 +86,9 @@ class ResumePageController extends AbstractController
      * @param RentReleaseRepository $rentReleaseRepository
      * @param $date
      * @return Response
+     * @throws \Exception
      */
-    public function monthlyCalcul(RentReleaseRepository $rentReleaseRepository, $date)
+    public function monthlyCalcul(RentReleaseRepository $rentReleaseRepository, string $date)
     {
         $displayDate = $date;
 
@@ -118,7 +120,7 @@ class ResumePageController extends AbstractController
             throw new LogicException('OK ... So ... There is a problem');
         }
 
-        $date = new \DateTime('01-' . $date);
+        $date = new DateTime('01-' . $date);
 
         $rentRelease = $rentReleaseRepository->findBy(
             [
