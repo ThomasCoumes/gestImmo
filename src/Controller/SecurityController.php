@@ -80,7 +80,8 @@ class SecurityController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $emInterface
      * @param \Swift_Mailer $mailer
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @throws \Exception
      */
     public function sendResetPasswordEmail(Request $request, EntityManagerInterface $emInterface, \Swift_Mailer $mailer)
     {
