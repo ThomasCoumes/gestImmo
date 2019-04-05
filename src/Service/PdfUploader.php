@@ -32,7 +32,7 @@ class PdfUploader
      * @param UploadedFile $pdfFile
      * @return string
      */
-    public function uploadPdf(UploadedFile $pdfFile)
+    public function uploadPdf(UploadedFile $pdfFile) :string
     {
         $fileName = md5(uniqid()) . '.' . $pdfFile->guessExtension();
 
