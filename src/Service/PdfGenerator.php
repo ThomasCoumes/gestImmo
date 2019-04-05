@@ -83,8 +83,8 @@ class PdfGenerator
 
             $lesseeName = str_replace(' ', '-', $rentRelease->getLesseeName());
             $fileName = $propertyName . '_' . $lesseeName . '_' . date("m-Y") . '_';
-            $fileName = $this->removeAccents($fileName);
             $fileName = $fileName . bin2hex(random_bytes(5)) . '.pdf';
+            $fileName = $this->removeAccents($fileName);
 
             $html = $this->twig->render('rent_release/pdf.html.twig', [
                 'rent_release' => $rentRelease,

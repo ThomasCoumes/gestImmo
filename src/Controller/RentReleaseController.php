@@ -67,6 +67,9 @@ class RentReleaseController extends AbstractController
      * @param PdfGenerator $pdfGenerator
      * @param MonthlyMailer $monthlyMailer
      * @return Response
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function rentIsPaid(
         RentRelease $rentRelease,
