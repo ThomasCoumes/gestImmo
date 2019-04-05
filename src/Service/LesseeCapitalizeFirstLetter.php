@@ -26,6 +26,10 @@ class LesseeCapitalizeFirstLetter
         $this->manager = $manager;
     }
 
+    /**
+     * @param $form
+     * @param $lessee
+     */
     public function capitalizeFirstLetter($form, $lessee)
     {
         $name = mb_convert_case($form->getData()->getName(), MB_CASE_TITLE);

@@ -10,6 +10,7 @@ namespace App\Service;
 
 use App\Entity\RentRelease;
 use App\Repository\PropertyRepository;
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class RentReleaseInsertion
@@ -23,7 +24,9 @@ class RentReleaseInsertion
         $this->manager = $manager;
     }
 
-
+    /**
+     * @throws \Exception
+     */
     public function settingRentReleaseValues()
     {
         $property = $this->propertyRepository->findAll();
@@ -39,9 +42,9 @@ class RentReleaseInsertion
                 $rentRelease = new RentRelease();
                 $amount = $prop->getRentExcludingCharges() + $prop->getCharges();
 
-                $date = new \DateTime();
+                $date = new DateTime();
                 $date = $date->format('m-Y');
-                $date = new \DateTime('01-' . $date);
+                $date = new DateTime('01-' . $date);
 
                 $rentRelease->setRentRelease($lessee);
                 $rentRelease->setAmount($amount);
