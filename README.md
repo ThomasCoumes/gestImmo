@@ -13,3 +13,23 @@
 13) run (sudo) apt-get install libqt5svg5 -y
 14) run crontab -e then paste '0 3 1 * * /path/to/your/project/bin/console rent:release' without '' and complete the path to run bin/console rent:release first day of each month at 3 am
 14) enjoy !
+
+### Langages
+* HTML 5
+* CSS 3
+* Bootstrap 4
+* JavaScript
+* PHP 7
+
+### Framework
+* Symfony 4 (Doctrine 2 + Twig)
+
+### Versioning
+* Git / Git Workflow
+
+### Outils
+* PhpStorm
+
+### Contributeurs
+
+* Thomas Coumes - [ThomasCms](https://github.com/ThomasCms)
