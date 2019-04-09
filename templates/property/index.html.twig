@@ -22,30 +22,23 @@
         <tbody>
             {% if properties is defined %}
                 {% for property in properties %}
+                    <tr>
+                        <td>{{ property.propertyCategory }}</td>
+                        <td>{{ property.uniqueName }}</td>
+                        <td>{{ property.address }}</td>
+                        <td>{{ property.city }}</td>
+                        <td>{{ property.zipCode }}</td>
+                        <td>{{ property.rentExcludingCharges }} €</td>
+                        <td>{{ property.charges }} €</td>
+                        <td>{{ property.purchasePrice }} €</td>
+                        <td>
+                            <a href="{{ path('property_show', {'id': property.id}) }}">Voir</a>
 
-                        {% set emails = [property.userProperty.email] %}
-                        {% for lessee in property.lessees.values %}
-                            {% set emails = emails|merge([lessee.email]) %}
-                        {% endfor %}
-
-                        {% if app.user.email in emails %}
-                            <tr>
-                                <td>{{ property.propertyCategory }}</td>
-                                <td>{{ property.uniqueName }}</td>
-                                <td>{{ property.address }}</td>
-                                <td>{{ property.city }}</td>
-                                <td>{{ property.zipCode }}</td>
-                                <td>{{ property.rentExcludingCharges }} €</td>
-                                <td>{{ property.charges }} €</td>
-                                <td>{{ property.purchasePrice }} €</td>
-                                <td>
-                                    <a href="{{ path('property_show', {'id': property.id}) }}">Voir</a>
-                                    {% if is_granted('ROLE_USER') %}
-                                        <a href="{{ path('property_edit', {'id': property.id}) }}"><i class="fas fa-edit"></i> édition</a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endif %}
+                            {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('property_edit', {'id': property.id}) }}"><i class="fas fa-edit"></i> édition</a>
+                            {% endif %}
+                        </td>
+                    </tr>
                 {% endfor %}
             {% else %}
                 <tr>
