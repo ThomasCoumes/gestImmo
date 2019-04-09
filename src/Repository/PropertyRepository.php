@@ -27,10 +27,11 @@ class PropertyRepository extends ServiceEntityRepository
     public function findPropertyByUser(User $user): array
     {
         $qb = $this->createQueryBuilder('p')
-            ->andWhere('p.userProperty = :user')
-            ->setParameter('user', $user)
-            ->orderBy('p.id', 'ASC')
             ->innerJoin('p.lessees', 'l')
+            ->andWhere('p.userProperty = :user OR l.email = :userEmail')
+            ->setParameter('user', $user)
+            ->setParameter('userEmail', $user->getEmail())
+            ->orderBy('p.id', 'ASC')
             ->getQuery();
 
         return $qb->execute();
