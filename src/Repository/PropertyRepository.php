@@ -20,19 +20,4 @@ class PropertyRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Property::class);
     }
-
-    /**
-     * @param User $user
-     * @return array
-     */
-    public function findPropertyByUser(User $user): array
-    {
-        $qb = $this->createQueryBuilder('p')
-            ->andWhere('p.userProperty = :user')
-            ->setParameter('user', $user)
-            ->orderBy('p.id', 'ASC')
-            ->getQuery();
-
-        return $qb->execute();
-    }
 }

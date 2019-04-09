@@ -28,7 +28,11 @@ class PropertyController extends AbstractController
     public function index(PropertyRepository $propertyRepository): Response
     {
         return $this->render('property/index.html.twig', [
-            'properties' => $propertyRepository->findPropertyByUser($this->getUser()),
+            'properties' => $propertyRepository->findBy([
+                'userProperty' => $this->getUser(),
+            ], [
+                'id' => 'ASC'
+            ]),
         ]);
     }
 
