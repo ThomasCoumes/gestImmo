@@ -17,11 +17,11 @@
 ### Langages
 * HTML 5
 * CSS 3
-* Bootstrap 4
 * JavaScript
 * PHP 7
 
 ### Framework
+* Bootstrap 4
 * Symfony 4 (Doctrine 2 + Twig)
 
 ### Versioning
