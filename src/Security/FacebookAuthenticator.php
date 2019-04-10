@@ -22,15 +22,33 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
+/**
+ * Class FacebookAuthenticator
+ * @package App\Security
+ */
 class FacebookAuthenticator extends SocialAuthenticator
 {
+    /**
+     * @var ClientRegistry
+     */
     private $clientRegistry;
+
+    /**
+     * @var EntityManagerInterface
+     */
     private $em;
+
     /**
      * @var EncoderFactoryInterface
      */
     private $securityEncoderFactory;
 
+    /**
+     * FacebookAuthenticator constructor.
+     * @param ClientRegistry $clientRegistry
+     * @param EntityManagerInterface $em
+     * @param EncoderFactoryInterface $securityEncoderFactory
+     */
     public function __construct(
         ClientRegistry $clientRegistry,
         EntityManagerInterface $em,
@@ -136,9 +154,8 @@ class FacebookAuthenticator extends SocialAuthenticator
      * @param mixed $credentials
      * @param UserProviderInterface $userProvider
      *
-     * @throws AuthenticationException
-     *
      * @return UserInterface|null
+     * @throws \Exception
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {

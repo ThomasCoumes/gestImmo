@@ -15,6 +15,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * Class LesseeController
+ * @package App\Controller
  * @Route("/locataires")
  * @IsGranted("ROLE_USER")
  */

@@ -13,6 +13,10 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
+/**
+ * Class ShowRentReleaseVoter
+ * @package App\Security
+ */
 class ShowRentReleaseVoter implements VoterInterface
 {
 

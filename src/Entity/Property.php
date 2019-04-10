@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
+ * Class Property
+ * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
  * @ORM\Table(name="property")
  */
@@ -136,11 +138,13 @@ class Property
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Equipment", mappedBy="equipment")
+     * @var ArrayCollection
      */
     private $equipment;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Lessee", mappedBy="lessee")
+     * @var ArrayCollection
      */
     private $lessees;
 
@@ -151,6 +155,7 @@ class Property
      *     mimeTypes = {"application/pdf", "application/x-pdf"},
      *     mimeTypesMessage = "Choisisez un fichier PDF"
      * )
+     * @var string
      */
     private $pdfFile;
 
@@ -446,6 +451,10 @@ class Property
         return $this->equipment;
     }
 
+    /**
+     * @param Equipment $equipment
+     * @return Property
+     */
     public function addEquipment(Equipment $equipment): self
     {
         if (!$this->equipment->contains($equipment)) {
@@ -456,6 +465,10 @@ class Property
         return $this;
     }
 
+    /**
+     * @param Equipment $equipment
+     * @return Property
+     */
     public function removeEquipment(Equipment $equipment): self
     {
         if ($this->equipment->contains($equipment)) {
@@ -474,6 +487,10 @@ class Property
         return $this->lessees;
     }
 
+    /**
+     * @param Lessee $lessee
+     * @return Property
+     */
     public function addLessee(Lessee $lessee): self
     {
         if (!$this->lessees->contains($lessee)) {
@@ -484,6 +501,10 @@ class Property
         return $this;
     }
 
+    /**
+     * @param Lessee $lessee
+     * @return Property
+     */
     public function removeLessee(Lessee $lessee): self
     {
         if ($this->lessees->contains($lessee)) {
@@ -494,11 +515,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPdfFile()
     {
         return $this->pdfFile;
     }
 
+    /**
+     * @param $pdfFile
+     * @return Property
+     */
     public function setPdfFile($pdfFile): self
     {
         $this->pdfFile = $pdfFile;

@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Class Lessee
+ * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\LesseeRepository")
  */
 class Lessee
@@ -100,6 +102,7 @@ class Lessee
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Property", inversedBy="lessees")
+     * @var ArrayCollection
      */
     private $lessee;
 
@@ -117,25 +120,39 @@ class Lessee
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RentRelease", mappedBy="rentRelease")
+     * @var ArrayCollection
      */
     private $rentReleases;
 
+    /**
+     * Lessee constructor.
+     */
     public function __construct()
     {
         $this->lessee = new ArrayCollection();
         $this->rentReleases = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCivility(): ?string
     {
         return $this->civility;
     }
 
+    /**
+     * @param string $civility
+     * @return Lessee
+     */
     public function setCivility(string $civility): self
     {
         $this->civility = $civility;
@@ -143,11 +160,18 @@ class Lessee
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return Lessee
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -155,11 +179,18 @@ class Lessee
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
+    /**
+     * @param string $lastname
+     * @return Lessee
+     */
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
@@ -183,11 +214,18 @@ class Lessee
         $this->fullName = $fullName;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getBirthday(): ?\DateTimeInterface
     {
         return $this->birthday;
     }
 
+    /**
+     * @param \DateTimeInterface $birthday
+     * @return Lessee
+     */
     public function setBirthday(\DateTimeInterface $birthday): self
     {
         $this->birthday = $birthday;
@@ -195,11 +233,18 @@ class Lessee
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPlaceOfBirth(): ?string
     {
         return $this->placeOfBirth;
     }
 
+    /**
+     * @param string $placeOfBirth
+     * @return Lessee
+     */
     public function setPlaceOfBirth(string $placeOfBirth): self
     {
         $this->placeOfBirth = $placeOfBirth;
@@ -207,11 +252,18 @@ class Lessee
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return Lessee
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -219,11 +271,18 @@ class Lessee
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
 
+    /**
+     * @param string $phoneNumber
+     * @return Lessee
+     */
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
@@ -239,6 +298,10 @@ class Lessee
         return $this->lessee;
     }
 
+    /**
+     * @param Property $lessee
+     * @return Lessee
+     */
     public function addLessee(Property $lessee): self
     {
         if (!$this->lessee->contains($lessee)) {
@@ -248,6 +311,10 @@ class Lessee
         return $this;
     }
 
+    /**
+     * @param Property $lessee
+     * @return Lessee
+     */
     public function removeLessee(Property $lessee): self
     {
         if ($this->lessee->contains($lessee)) {
@@ -257,11 +324,18 @@ class Lessee
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUserLessee(): ?User
     {
         return $this->userLessee;
     }
 
+    /**
+     * @param User|null $userLessee
+     * @return Lessee
+     */
     public function setUserLessee(?User $userLessee): self
     {
         $this->userLessee = $userLessee;
@@ -293,6 +367,10 @@ class Lessee
         return $this->rentReleases;
     }
 
+    /**
+     * @param RentRelease $rentRelease
+     * @return Lessee
+     */
     public function addRentRelease(RentRelease $rentRelease): self
     {
         if (!$this->rentReleases->contains($rentRelease)) {
@@ -303,6 +381,10 @@ class Lessee
         return $this;
     }
 
+    /**
+     * @param RentRelease $rentRelease
+     * @return Lessee
+     */
     public function removeRentRelease(RentRelease $rentRelease): self
     {
         if ($this->rentReleases->contains($rentRelease)) {

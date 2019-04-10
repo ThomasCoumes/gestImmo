@@ -14,6 +14,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Snappy\Pdf;
 use Twig_Environment;
 
+/**
+ * Class PdfGenerator
+ * @package App\Service
+ */
 class PdfGenerator
 {
     /**

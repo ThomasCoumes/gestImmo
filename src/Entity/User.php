@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * Class User
+ * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("email")
  */
@@ -117,11 +119,13 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Property", mappedBy="userProperty")
+     * @var ArrayCollection
      */
     private $properties;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Lessee", mappedBy="userLessee")
+     * @var ArrayCollection
      */
     private $lessees;
 
@@ -138,6 +142,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RentRelease", mappedBy="userRentRelease")
      * @Assert\NotBlank
+     * @var ArrayCollection
      */
     private $rentReleases;
 
@@ -364,6 +369,10 @@ class User implements UserInterface
         return $this->lessees;
     }
 
+    /**
+     * @param Lessee $lessee
+     * @return User
+     */
     public function addLessee(Lessee $lessee): self
     {
         if (!$this->lessees->contains($lessee)) {
@@ -374,6 +383,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Lessee $lessee
+     * @return User
+     */
     public function removeLessee(Lessee $lessee): self
     {
         if ($this->lessees->contains($lessee)) {
@@ -387,11 +400,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getToken(): ?string
     {
         return $this->token;
     }
 
+    /**
+     * @param string|null $token
+     * @return User
+     */
     public function setToken(?string $token): self
     {
         $this->token = $token;
@@ -407,6 +427,10 @@ class User implements UserInterface
         return $this->rentReleases;
     }
 
+    /**
+     * @param RentRelease $rentRelease
+     * @return User
+     */
     public function addRentRelease(RentRelease $rentRelease): self
     {
         if (!$this->rentReleases->contains($rentRelease)) {
@@ -417,6 +441,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param RentRelease $rentRelease
+     * @return User
+     */
     public function removeRentRelease(RentRelease $rentRelease): self
     {
         if ($this->rentReleases->contains($rentRelease)) {
