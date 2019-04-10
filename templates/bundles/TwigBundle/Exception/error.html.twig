@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Ooops, there is a problem</h1>
+
+        <p class="httpError">
+            Avez vous tenté de faire quelque chose d'interdit ? Si ce n'est pas le cas, c'est que nous avons un problème,
+            contactez nous pour nous en informer.<br />
+            <span class="backToHomePage"><a href="{{ path('home') }}">retourner sur la page d'accueil</a></span>
+        </p>
+    </div>
+{% endblock %}

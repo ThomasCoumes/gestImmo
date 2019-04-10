@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Error403: Forbidden</h1>
+
+        <p class="httpError">
+            Vous n'êtes pas authorisé à acceder à cette URL. <br />
+            <span class="backToHomePage"><a href="{{ path('home') }}">retourner sur la page d'accueil</a></span>
+        </p>
+    </div>
+{% endblock %}
