@@ -7,6 +7,7 @@ use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use App\Service\PdfUploader;
 use App\Service\PropertyCapitalizeFirstLetter;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,12 +24,22 @@ class PropertyController extends AbstractController
      * @Route("/", name="property_index", methods={"GET"})
      * @IsGranted("ROLE_LESSEE")
      * @param PropertyRepository $propertyRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
-    public function index(PropertyRepository $propertyRepository): Response
-    {
+    public function index(
+        PropertyRepository $propertyRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
+        $query = $paginator->paginate($propertyRepository->findPropertyByUserQuery($this->getUser()),
+            $request->query->getInt('page', 1),
+            7
+        );
+
         return $this->render('property/index.html.twig', [
-            'properties' => $propertyRepository->findPropertyByUser($this->getUser()),
+            'properties' => $query,
         ]);
     }
 

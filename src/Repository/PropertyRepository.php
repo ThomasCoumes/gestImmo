@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Property;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -24,7 +25,7 @@ class PropertyRepository extends ServiceEntityRepository
      * @param User $user
      * @return array
      */
-    public function findPropertyByUser(User $user): array
+    public function findPropertyByUserQuery(User $user): Query
     {
         $qb = $this->createQueryBuilder('p')
             ->innerJoin('p.lessees', 'l')
@@ -34,6 +35,6 @@ class PropertyRepository extends ServiceEntityRepository
             ->orderBy('p.id', 'ASC')
             ->getQuery();
 
-        return $qb->execute();
+        return $qb;
     }
 }
