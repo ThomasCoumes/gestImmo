@@ -12,6 +12,10 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+/**
+ * Class PdfUploader
+ * @package App\Service
+ */
 class PdfUploader
 {
     /**

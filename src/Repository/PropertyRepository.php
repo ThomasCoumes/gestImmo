@@ -13,9 +13,15 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Property|null findOneBy(array $criteria, array $orderBy = null)
  * @method Property[]    findAll()
  * @method Property[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class PropertyRepository
+ * @package App\Repository
  */
 class PropertyRepository extends ServiceEntityRepository
 {
+    /**
+     * PropertyRepository constructor.
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Property::class);

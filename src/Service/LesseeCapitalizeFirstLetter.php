@@ -11,6 +11,10 @@ namespace App\Service;
 use App\Entity\Lessee;
 use Doctrine\Common\Persistence\ObjectManager;
 
+/**
+ * Class LesseeCapitalizeFirstLetter
+ * @package App\Service
+ */
 class LesseeCapitalizeFirstLetter
 {
     /**

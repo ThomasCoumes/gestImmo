@@ -13,9 +13,15 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method RentRelease|null findOneBy(array $criteria, array $orderBy = null)
  * @method RentRelease[]    findAll()
  * @method RentRelease[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class RentReleaseRepository
+ * @package App\Repository
  */
 class RentReleaseRepository extends ServiceEntityRepository
 {
+    /**
+     * RentReleaseRepository constructor.
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, RentRelease::class);

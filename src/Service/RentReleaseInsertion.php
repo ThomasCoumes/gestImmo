@@ -13,11 +13,27 @@ use App\Repository\PropertyRepository;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 
+/**
+ * Class RentReleaseInsertion
+ * @package App\Service
+ */
 class RentReleaseInsertion
 {
+    /**
+     * @var PropertyRepository
+     */
     private $propertyRepository;
+
+    /**
+     * @var ObjectManager
+     */
     private $manager;
 
+    /**
+     * RentReleaseInsertion constructor.
+     * @param PropertyRepository $propertyRepository
+     * @param ObjectManager $manager
+     */
     public function __construct(PropertyRepository $propertyRepository, ObjectManager $manager)
     {
         $this->propertyRepository = $propertyRepository;

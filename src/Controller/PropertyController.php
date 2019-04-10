@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
+ * Class PropertyController
+ * @package App\Controller
  * @Route("/proprietees")
  */
 class PropertyController extends AbstractController

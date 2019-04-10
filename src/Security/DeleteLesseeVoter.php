@@ -13,6 +13,10 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
+/**
+ * Class DeleteLesseeVoter
+ * @package App\Security
+ */
 class DeleteLesseeVoter implements VoterInterface
 {
 
