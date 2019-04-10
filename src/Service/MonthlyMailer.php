@@ -15,6 +15,10 @@ use Swift_Mailer;
 use Symfony\Component\Routing\RouterInterface;
 use Twig_Environment;
 
+/**
+ * Class MonthlyMailer
+ * @package App\Service
+ */
 class MonthlyMailer
 {
     /**

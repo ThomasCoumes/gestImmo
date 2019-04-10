@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Class LostUser
+ * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\LostUserRepository")
  */
 class LostUser
@@ -14,6 +16,7 @@ class LostUser
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
@@ -50,16 +53,26 @@ class LostUser
      */
     private $newPlainPassword;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return LostUser
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -67,11 +80,18 @@ class LostUser
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getNewPlainPassword(): ?string
     {
         return $this->newPlainPassword;
     }
 
+    /**
+     * @param string|null $newPlainPassword
+     * @return LostUser
+     */
     public function setNewPlainPassword(?string $newPlainPassword): self
     {
         $this->newPlainPassword = $newPlainPassword;

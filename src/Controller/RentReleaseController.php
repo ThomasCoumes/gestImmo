@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
+ * Class RentReleaseController
+ * @package App\Controller
  * @Route("/loyers")
  * @IsGranted("ROLE_USER")
  */

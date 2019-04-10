@@ -8,15 +8,24 @@ use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 /**
+ * Class Version20190308134408
+ * @package DoctrineMigrations
  * Auto-generated Migration: Please modify to your needs!
  */
 final class Version20190308134408 extends AbstractMigration
 {
+    /**
+     * @return string
+     */
     public function getDescription() : string
     {
         return '';
     }
 
+    /**
+     * @param Schema $schema
+     * @throws \Doctrine\DBAL\DBALException
+     */
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
@@ -28,7 +37,10 @@ final class Version20190308134408 extends AbstractMigration
         $this->addSql('ALTER TABLE rent_release ADD property_name VARCHAR(255) NOT NULL, ADD lessee_name VARCHAR(255) NOT NULL');
     }
 
-
+    /**
+     * @param Schema $schema
+     * @throws \Doctrine\DBAL\DBALException
+     */
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs

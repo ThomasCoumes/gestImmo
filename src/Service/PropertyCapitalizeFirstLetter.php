@@ -11,6 +11,10 @@ namespace App\Service;
 use App\Entity\Property;
 use Doctrine\Common\Persistence\ObjectManager;
 
+/**
+ * Class PropertyCapitalizeFirstLetter
+ * @package App\Service
+ */
 class PropertyCapitalizeFirstLetter
 {
     /**

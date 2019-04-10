@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
+ * Class HomeController
+ * @package App\Controller
  * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 class HomeController extends AbstractController
