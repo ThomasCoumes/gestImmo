@@ -23,7 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class PropertyController extends AbstractController
 {
     /**
-     * @Route("/", name="property_index", methods={"GET"})
+     * @Route(name="property_index", methods={"GET"})
      * @IsGranted("ROLE_LESSEE")
      * @param PropertyRepository $propertyRepository
      * @param PaginatorInterface $paginator

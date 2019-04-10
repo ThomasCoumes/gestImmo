@@ -6,6 +6,7 @@ use App\Entity\Lessee;
 use App\Form\LesseeType;
 use App\Repository\LesseeRepository;
 use App\Service\LesseeCapitalizeFirstLetter;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,14 +24,22 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class LesseeController extends AbstractController
 {
     /**
-     * @Route("/", name="lessee_index", methods={"GET"})
+     * @Route(name="lessee_index", methods={"GET"})
      * @param LesseeRepository $lesseeRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
-    public function index(LesseeRepository $lesseeRepository): Response
+    public function index(LesseeRepository $lesseeRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $query = $paginator->paginate(
+            $lesseeRepository->findLesseeByUserQuery($this->getUser()),
+            $request->query->getInt('page', 1),
+            7
+        );
+
         return $this->render('lessee/index.html.twig', [
-            'lessees' => $lesseeRepository->findAll(),
+            'lessees' => $query,
         ]);
     }
 

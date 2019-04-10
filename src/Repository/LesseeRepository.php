@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Lessee;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -23,5 +25,19 @@ class LesseeRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Lessee::class);
+    }
+
+    /**
+     * @param User $user
+     * @return Query
+     */
+    public function findLesseeByUserQuery(User $user): Query
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->andWhere('l.userLessee = :user')
+            ->setParameter('user', $user)
+            ->orderBy('l.id', 'ASC');
+
+        return $qb->getQuery();
     }
 }
