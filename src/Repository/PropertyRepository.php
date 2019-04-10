@@ -23,7 +23,7 @@ class PropertyRepository extends ServiceEntityRepository
 
     /**
      * @param User $user
-     * @return array
+     * @return Query
      */
     public function findPropertyByUserQuery(User $user): Query
     {
@@ -32,9 +32,8 @@ class PropertyRepository extends ServiceEntityRepository
             ->andWhere('p.userProperty = :user OR l.email = :userEmail')
             ->setParameter('user', $user)
             ->setParameter('userEmail', $user->getEmail())
-            ->orderBy('p.id', 'ASC')
-            ->getQuery();
+            ->orderBy('p.id', 'ASC');
 
-        return $qb;
+        return $qb->getQuery();
     }
 }
