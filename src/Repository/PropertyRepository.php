@@ -28,8 +28,9 @@ class PropertyRepository extends ServiceEntityRepository
     public function findPropertyByUserQuery(User $user): Query
     {
         $qb = $this->createQueryBuilder('p')
-            ->innerJoin('p.lessees', 'l')
-            ->andWhere('p.userProperty = :user OR l.email = :userEmail')
+            ->leftJoin('p.lessees', 'l')
+            ->andWhere('p.userProperty = :user')
+            ->orWhere('l.email = :userEmail')
             ->setParameter('user', $user)
             ->setParameter('userEmail', $user->getEmail())
             ->orderBy('p.id', 'ASC');
