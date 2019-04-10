@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Property;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -22,18 +23,18 @@ class PropertyRepository extends ServiceEntityRepository
 
     /**
      * @param User $user
-     * @return array
+     * @return Query
      */
-    public function findPropertyByUser(User $user): array
+    public function findPropertyByUserQuery(User $user): Query
     {
         $qb = $this->createQueryBuilder('p')
-            ->innerJoin('p.lessees', 'l')
-            ->andWhere('p.userProperty = :user OR l.email = :userEmail')
+            ->leftJoin('p.lessees', 'l')
+            ->andWhere('p.userProperty = :user')
+            ->orWhere('l.email = :userEmail')
             ->setParameter('user', $user)
             ->setParameter('userEmail', $user->getEmail())
-            ->orderBy('p.id', 'ASC')
-            ->getQuery();
+            ->orderBy('p.id', 'ASC');
 
-        return $qb->execute();
+        return $qb->getQuery();
     }
 }

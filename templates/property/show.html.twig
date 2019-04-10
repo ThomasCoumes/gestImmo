@@ -49,14 +49,19 @@
                 </tr>
             {% else %}
             {% endif %}
-            <tr>
-                <th>Equipement</th>
-                    <td>
-                        {% for equipment in property.equipment %}
-                            <span class="equipmentName">{{ equipment.name }}</span>
-                        {% endfor %}
-                    </td>
-            </tr>
+
+            {% if property.equipment is not empty %}
+                <tr>
+                    <th>Equipement</th>
+                        <td>
+                            {% for equipment in property.equipment %}
+                                <span class="equipmentName">{{ equipment.name }}</span>
+                            {% endfor %}
+                        </td>
+                </tr>
+            {% else %}
+            {% endif %}
+
             <tr>
                 <th>Type de location</th>
                 <td>{{ property.rentalCategory }}</td>
