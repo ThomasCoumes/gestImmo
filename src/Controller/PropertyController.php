@@ -33,7 +33,8 @@ class PropertyController extends AbstractController
         PaginatorInterface $paginator,
         Request $request
     ): Response {
-        $query = $paginator->paginate($propertyRepository->findPropertyByUserQuery($this->getUser()),
+        $query = $paginator->paginate(
+            $propertyRepository->findPropertyByUserQuery($this->getUser()),
             $request->query->getInt('page', 1),
             7
         );
