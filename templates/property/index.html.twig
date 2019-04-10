@@ -34,8 +34,10 @@
                         <td>
                             <a href="{{ path('property_show', {'id': property.id}) }}">Voir</a>
 
-                            {% if is_granted('ROLE_USER') %}
+                            {% if property.userProperty == app.user %}
                                 <a href="{{ path('property_edit', {'id': property.id}) }}"><i class="fas fa-edit"></i> édition</a>
+                            {% else %}
+                                <span class="lesseeStatus">Locataire</span>
                             {% endif %}
                         </td>
                     </tr>
