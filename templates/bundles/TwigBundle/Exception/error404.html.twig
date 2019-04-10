@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Error404: Page not found</h1>
+
+        <p class="httpError">
+            Nous n'avons pas trouvé la page demandée, avez vous fais une erreur dans l'URL ? <br />
+            <span class="backToHomePage"><a href="{{ path('home') }}">retourner sur la page d'accueil</a></span>
+        </p>
+    </div>
+{% endblock %}
