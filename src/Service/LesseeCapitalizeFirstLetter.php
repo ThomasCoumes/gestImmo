@@ -33,8 +33,8 @@ class LesseeCapitalizeFirstLetter
     }
 
     /**
-     * @param $form
-     * @param $lessee
+     * @param Form $form
+     * @param Lessee $lessee
      */
     public function capitalizeFirstLetter(Form $form, Lessee $lessee)
     {

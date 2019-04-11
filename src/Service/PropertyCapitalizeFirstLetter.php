@@ -33,8 +33,8 @@ class PropertyCapitalizeFirstLetter
     }
 
     /**
-     * @param $form
-     * @param $property
+     * @param Form $form
+     * @param Property $property
      */
     public function capitalizeFirstLetter(Form $form, Property $property)
     {
