@@ -4,7 +4,7 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
 $black: #000000;
-$facebook: #5146AF;
+$facebook: #29487d;
 $white: #ffffff;
 
 * {
@@ -57,7 +57,7 @@ header {
   text-align: center;
 }
 
-.register {
+.register, .centerButton, .ostrich {
   display: block;
   margin : auto;
 }
@@ -90,11 +90,6 @@ header {
 
 .facebookLogo {
   margin-right: 0.4vw;
-}
-
-.centerButton {
-  display: block;
-  margin: auto;
 }
 
 .politeness {
@@ -166,9 +161,4 @@ ul {
 .backToHomePage {
   display: block;
   margin-top: 4vh;
-}
-
-.ostrich {
-  display: block;
-  margin: auto;
 }
