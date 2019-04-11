@@ -159,7 +159,7 @@ class ResumePageController extends AbstractController
     /**
      * @Route("/{year}", name="year_resume", methods={"GET"})
      * @param RentReleaseRepository $rentReleaseRepository
-     * @param $year
+     * @param int $year
      * @return Response
      */
     public function yearCalcul(RentReleaseRepository $rentReleaseRepository, int $year)
