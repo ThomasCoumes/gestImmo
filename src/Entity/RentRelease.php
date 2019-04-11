@@ -30,7 +30,7 @@ class RentRelease
     private $Amount;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=19)
      * @Assert\NotBlank
      * @Assert\Type("string")
      * @Assert\Choice({"Paiement en attente", "Payé"})
@@ -62,7 +62,7 @@ class RentRelease
     private $propertyName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=511)
      * @Assert\NotBlank
      * @Assert\Type("string")
      * @var string

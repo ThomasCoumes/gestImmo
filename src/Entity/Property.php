@@ -26,7 +26,7 @@ class Property
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=11)
      * @Assert\NotBlank
      * @Assert\Choice({"Appartement", "Maison", "Garage", "Bureau", "Château", "Commerce"})
      * @var string
@@ -79,7 +79,7 @@ class Property
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
      * @Assert\Type("integer")
-     * @var string
+     * @var int
      */
     private $surfaceInSquareMeter;
 
@@ -99,7 +99,7 @@ class Property
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=10)
      * @Assert\NotBlank
      * @Assert\Choice({"Meublé", "Non meublé"})
      * @var string
