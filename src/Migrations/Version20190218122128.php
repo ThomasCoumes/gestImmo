@@ -34,7 +34,7 @@ final class Version20190218122128 extends AbstractMigration
         $this->addSql('CREATE TABLE lessee_property (lessee_id INT NOT NULL, property_id INT NOT NULL, INDEX IDX_D9FAF5B450499E36 (lessee_id), INDEX IDX_D9FAF5B4549213EC (property_id), PRIMARY KEY(lessee_id, property_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE lessee_property ADD CONSTRAINT FK_D9FAF5B450499E36 FOREIGN KEY (lessee_id) REFERENCES lessee (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE lessee_property ADD CONSTRAINT FK_D9FAF5B4549213EC FOREIGN KEY (property_id) REFERENCES property (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE lessee ADD full_name VARCHAR(510) NOT NULL');
+        $this->addSql('ALTER TABLE lessee ADD full_name VARCHAR(511) NOT NULL');
     }
 
     /**

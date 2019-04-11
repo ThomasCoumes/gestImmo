@@ -68,6 +68,11 @@ class User implements UserInterface
      *      min = 8,
      *      minMessage = "Votre mot de passe doit faire au moins 8 caracteres",
      * )
+     * @Assert\Regex(
+     *     pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/",
+     *     message = "Votre mot de passe doit faire minimum 8 caractères et contenir au moins une
+      minuscule une majuscule et un chiffre"
+     * )
      * @Assert\EqualTo(
      *     propertyPath="confirm_password",
      *     message="Vous avez mal ré-entré ce mot de passe dans le champ de confirmation"
@@ -95,6 +100,7 @@ class User implements UserInterface
      *      minMessage = "Votre prénom est trop court",
      *      maxMessage = "Votre prénom est trop long"
      * )
+     * @Assert\Regex("/^[- 'a-zA-ZÀ-ÖØ-öø-ÿ]{0,255}$/")
      * @var string
      */
     private $name;
@@ -113,6 +119,7 @@ class User implements UserInterface
      *      minMessage = "Votre nom est trop court",
      *      maxMessage = "Votre nom est trop long"
      * )
+     * @Assert\Regex("/^[- 'a-zA-ZÀ-ÖØ-öø-ÿ]{0,255}$/")
      * @var string
      */
     private $lastName;

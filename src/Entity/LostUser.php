@@ -16,6 +16,7 @@ class LostUser
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Assert\Type(type="integer")
      * @var int
      */
     private $id;
@@ -48,6 +49,11 @@ class LostUser
      * @Assert\Length(
      *      min = 8,
      *      minMessage = "Votre mot de passe doit faire au moins 8 caracteres",
+     * )
+     * @Assert\Regex(
+     *     pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/",
+     *     message = "Votre mot de passe doit faire minimum 8 caractères et contenir au moins une
+    minuscule une majuscule et un chiffre"
      * )
      * @var string
      */

@@ -24,7 +24,7 @@ class Lessee
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=4)
      * @Assert\Type("string")
      * @Assert\Choice(choices={"Mr", "Mme", "Mlle"},
      *      message="Veuillez choisir votre civilité")
@@ -37,6 +37,7 @@ class Lessee
      * @ORM\Column(type="string", length=255)
      * @Assert\Type("string")
      * @Assert\NotBlank
+     * @Assert\Regex("/^[- 'a-zA-ZÀ-ÖØ-öø-ÿ]{0,255}$/")
      * @var string
      */
     private $name;
@@ -45,14 +46,15 @@ class Lessee
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
+     * @Assert\Regex("/^[- 'a-zA-ZÀ-ÖØ-öø-ÿ]{0,255}$/")
      * @var string
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=510)
+     * @ORM\Column(type="string", length=511)
      * @Assert\Type("string")
-     * @var string
+     * @Assert\Regex("/^[- 'a-zA-ZÀ-ÖØ-öø-ÿ]{0,511}$/")
      * @var string
      */
     private $fullName;
@@ -82,7 +84,7 @@ class Lessee
      *     checkMX = true
      * )
      * @Assert\Length(
-     *      min = 5,
+     *      min = 6,
      *      max = 255,
      *      minMessage = "Votre email est trop court",
      *      maxMessage = "Votre email est trop long"
@@ -92,7 +94,7 @@ class Lessee
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=10)
      * @Assert\NotBlank
      * @Assert\Type("string")
      * @Assert\Regex("/^[0-9]{10}$/", message="Veuillez entrer un numéro de telephone valide")

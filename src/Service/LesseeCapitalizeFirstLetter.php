@@ -42,8 +42,8 @@ class LesseeCapitalizeFirstLetter
         $fullName = $name . ' ' . $lastName;
         $placeOfBirth = mb_convert_case($form->getData()->getPlaceOfBirth(), MB_CASE_TITLE);
 
-        $lessee->setName($lastName);
-        $lessee->setLastname($name);
+        $lessee->setName($name);
+        $lessee->setLastname($lastName);
         $lessee->setFullName($fullName);
         $lessee->setPlaceOfBirth($placeOfBirth);
 
