@@ -28,10 +28,10 @@ class RentReleaseRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $year
+     * @param int $year
      * @return array
      */
-    public function findByYear($year): array
+    public function findByYear(int $year): array
     {
         $qb = $this->createQueryBuilder('rr')
             ->andWhere('YEAR(rr.date) = :year')

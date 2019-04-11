@@ -162,7 +162,7 @@ class ResumePageController extends AbstractController
      * @param $year
      * @return Response
      */
-    public function yearCalcul(RentReleaseRepository $rentReleaseRepository, $year)
+    public function yearCalcul(RentReleaseRepository $rentReleaseRepository, int $year)
     {
         $rentRelease = $rentReleaseRepository->findByYear($year);
 
