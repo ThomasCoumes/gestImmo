@@ -10,6 +10,7 @@ namespace App\Service;
 
 use App\Entity\Property;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\Form;
 
 /**
  * Class PropertyCapitalizeFirstLetter
@@ -32,10 +33,10 @@ class PropertyCapitalizeFirstLetter
     }
 
     /**
-     * @param $form
-     * @param $property
+     * @param Form $form
+     * @param Property $property
      */
-    public function capitalizeFirstLetter($form, Property $property)
+    public function capitalizeFirstLetter(Form $form, Property $property)
     {
         $uniqueName = mb_convert_case($form->getData()->getUniqueName(), MB_CASE_TITLE);
         $city = mb_convert_case($form->getData()->getCity(), MB_CASE_TITLE);
