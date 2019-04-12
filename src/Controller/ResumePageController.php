@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\RentRelease;
 use App\Repository\RentReleaseRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +34,7 @@ class ResumePageController extends AbstractController
         $yearList = [];
 
         foreach ($release as $rentRelease) {
-            if ($rentRelease->getStatus() === 'Payé') {
+            if ($rentRelease->getStatus() === RentRelease::STATUS_PAID) {
                 $numericDate = $rentRelease->getDate()->format('m-Y');
                 $year = $rentRelease->getDate()->format('Y');
 
@@ -132,7 +133,7 @@ class ResumePageController extends AbstractController
         $propertyRent = [];
 
         foreach ($rentRelease as $release) {
-            if ($release->getStatus() === 'Payé') {
+            if ($release->getStatus() === RentRelease::STATUS_PAID) {
                 $propertyName = $release->getPropertyName();
                 if (array_key_exists($propertyName, $propertyRent)) {
                     $amount = $propertyRent[$propertyName] + $release->getAmount();
@@ -169,7 +170,7 @@ class ResumePageController extends AbstractController
         $propertyList = [];
 
         foreach ($rentRelease as $release) {
-            if ($release->getStatus() === 'Payé') {
+            if ($release->getStatus() === RentRelease::STATUS_PAID) {
                 $name = $release->getPropertyName();
 
                 if (array_key_exists($name, $propertyList)) {

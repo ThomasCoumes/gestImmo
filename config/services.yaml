@@ -50,3 +50,6 @@ services:
 
     # capitalize first letter from Property informations
     App\Service\PropertyCapitalizeFirstLetter:
+
+    #Delete the rent release pdf
+    App\Service\DeletePdf:
