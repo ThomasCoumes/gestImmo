@@ -103,7 +103,7 @@ class RentReleaseController extends AbstractController
     /**
      * @Route("/{id}/pdf/delete", name="rent_release_pdf_delete", methods={"GET"})
      * @param RentRelease $rentRelease
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deletePdf(RentRelease $rentRelease)
     {
