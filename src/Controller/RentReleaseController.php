@@ -88,7 +88,7 @@ class RentReleaseController extends AbstractController
             return $this->redirectToRoute('rent_release_index');
         }
 
-        $rentRelease->setStatus('Payé');
+        $rentRelease->setStatus(RentRelease::STATUS_PAID);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($rentRelease);

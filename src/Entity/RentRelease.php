@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class RentRelease
 {
+    const STATUS_PAID = 'Payé';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
