@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\RentRelease;
 use App\Repository\RentReleaseRepository;
+use App\Service\DeletePdf;
 use App\Service\MonthlyMailer;
 use App\Service\PdfGenerator;
 use Knp\Component\Pager\PaginatorInterface;
@@ -69,6 +70,7 @@ class RentReleaseController extends AbstractController
      * @param RentRelease $rentRelease
      * @param PdfGenerator $pdfGenerator
      * @param MonthlyMailer $monthlyMailer
+     * @param DeletePdf $deletePdf
      * @return Response
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -77,7 +79,8 @@ class RentReleaseController extends AbstractController
     public function rentIsPaid(
         RentRelease $rentRelease,
         PdfGenerator $pdfGenerator,
-        MonthlyMailer $monthlyMailer
+        MonthlyMailer $monthlyMailer,
+        DeletePdf $deletePdf
     ): Response {
         if (!$this->isGranted('EDIT_RENT_RELEASE', $rentRelease)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
@@ -89,21 +92,11 @@ class RentReleaseController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($rentRelease);
-        $entityManager->flush();
 
         $pdfGenerator->generateRentReleasePdf($rentRelease);
         $monthlyMailer->sendRentReleaseToLessees($rentRelease);
+        $deletePdf->deletePdf($rentRelease);
 
-        $filesystem = new Filesystem();
-
-        $pdfFile = $rentRelease->getPdf();
-        $filesystem->remove("generated/pdf/$pdfFile");
-
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $rentRelease->setPdf(null);
-
-        $entityManager->persist($rentRelease);
         $entityManager->flush();
 
         return $this->redirectToRoute('rent_release_index');
