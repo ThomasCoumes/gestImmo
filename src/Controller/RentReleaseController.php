@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -106,18 +107,22 @@ class RentReleaseController extends AbstractController
      */
     public function deletePdf(RentRelease $rentRelease)
     {
-        $filesystem = new Filesystem();
+        if ($rentRelease->getUserRentRelease() === $this->getUser()) {
+            $filesystem = new Filesystem();
 
-        $pdfFile = $rentRelease->getPdf();
-        $filesystem->remove("generated/pdf/$pdfFile");
+            $pdfFile = $rentRelease->getPdf();
+            $filesystem->remove("generated/pdf/$pdfFile");
 
-        $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->getDoctrine()->getManager();
 
-        $rentRelease->setPdf(null);
+            $rentRelease->setPdf(null);
 
-        $entityManager->persist($rentRelease);
-        $entityManager->flush();
+            $entityManager->persist($rentRelease);
+            $entityManager->flush();
 
-        return $this->redirectToRoute('rent_release_index');
+            return $this->redirectToRoute('rent_release_index');
+        } else {
+            throw new AccessDeniedHttpException;
+        }
     }
 }
