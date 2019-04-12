@@ -94,35 +94,18 @@ class RentReleaseController extends AbstractController
         $pdfGenerator->generateRentReleasePdf($rentRelease);
         $monthlyMailer->sendRentReleaseToLessees($rentRelease);
 
-        return $this->redirectToRoute(
-            'rent_release_pdf_delete',
-            ['id' => $rentRelease->getId()]
-        );
-    }
+        $filesystem = new Filesystem();
 
-    /**
-     * @Route("/{id}/pdf/delete", name="rent_release_pdf_delete", methods={"GET"})
-     * @param RentRelease $rentRelease
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function deletePdf(RentRelease $rentRelease)
-    {
-        if ($rentRelease->getUserRentRelease() === $this->getUser()) {
-            $filesystem = new Filesystem();
+        $pdfFile = $rentRelease->getPdf();
+        $filesystem->remove("generated/pdf/$pdfFile");
 
-            $pdfFile = $rentRelease->getPdf();
-            $filesystem->remove("generated/pdf/$pdfFile");
+        $entityManager = $this->getDoctrine()->getManager();
 
-            $entityManager = $this->getDoctrine()->getManager();
+        $rentRelease->setPdf(null);
 
-            $rentRelease->setPdf(null);
+        $entityManager->persist($rentRelease);
+        $entityManager->flush();
 
-            $entityManager->persist($rentRelease);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('rent_release_index');
-        } else {
-            throw new AccessDeniedHttpException;
-        }
+        return $this->redirectToRoute('rent_release_index');
     }
 }
