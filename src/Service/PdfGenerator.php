@@ -81,7 +81,7 @@ class PdfGenerator
         $currentDate = new DateTime();
         $currentDate = $currentDate->format('m-Y');
 
-        if ($rentRelease->getStatus() === 'Payé') {
+        if ($rentRelease->getStatus() === RentRelease::STATUS_PAID) {
             $propertyName = $rentRelease->getPropertyName();
             $propertyName= str_replace(' ', '_', $propertyName);
 
@@ -99,7 +99,6 @@ class PdfGenerator
 
             $rentRelease->setPdf($fileName);
             $this->manager->persist($rentRelease);
-            $this->manager->flush();
         }
     }
 }

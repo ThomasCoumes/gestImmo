@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\RentRelease;
 use App\Repository\RentReleaseRepository;
+use App\Service\DeletePdf;
 use App\Service\MonthlyMailer;
 use App\Service\PdfGenerator;
 use Knp\Component\Pager\PaginatorInterface;
@@ -11,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -68,6 +70,7 @@ class RentReleaseController extends AbstractController
      * @param RentRelease $rentRelease
      * @param PdfGenerator $pdfGenerator
      * @param MonthlyMailer $monthlyMailer
+     * @param DeletePdf $deletePdf
      * @return Response
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -76,7 +79,8 @@ class RentReleaseController extends AbstractController
     public function rentIsPaid(
         RentRelease $rentRelease,
         PdfGenerator $pdfGenerator,
-        MonthlyMailer $monthlyMailer
+        MonthlyMailer $monthlyMailer,
+        DeletePdf $deletePdf
     ): Response {
         if (!$this->isGranted('EDIT_RENT_RELEASE', $rentRelease)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
@@ -84,38 +88,15 @@ class RentReleaseController extends AbstractController
             return $this->redirectToRoute('rent_release_index');
         }
 
-        $rentRelease->setStatus('Payé');
+        $rentRelease->setStatus(RentRelease::STATUS_PAID);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($rentRelease);
-        $entityManager->flush();
 
         $pdfGenerator->generateRentReleasePdf($rentRelease);
         $monthlyMailer->sendRentReleaseToLessees($rentRelease);
+        $deletePdf->deletePdf($rentRelease);
 
-        return $this->redirectToRoute(
-            'rent_release_pdf_delete',
-            ['id' => $rentRelease->getId()]
-        );
-    }
-
-    /**
-     * @Route("/{id}/pdf/delete", name="rent_release_pdf_delete", methods={"GET"})
-     * @param RentRelease $rentRelease
-     * @return Response
-     */
-    public function deletePdf(RentRelease $rentRelease)
-    {
-        $filesystem = new Filesystem();
-
-        $pdfFile = $rentRelease->getPdf();
-        $filesystem->remove("generated/pdf/$pdfFile");
-
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $rentRelease->setPdf(null);
-
-        $entityManager->persist($rentRelease);
         $entityManager->flush();
 
         return $this->redirectToRoute('rent_release_index');
