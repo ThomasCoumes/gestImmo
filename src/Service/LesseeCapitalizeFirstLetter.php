@@ -10,7 +10,7 @@ namespace App\Service;
 
 use App\Entity\Lessee;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class LesseeCapitalizeFirstLetter
@@ -33,10 +33,10 @@ class LesseeCapitalizeFirstLetter
     }
 
     /**
-     * @param Form $form
+     * @param FormInterface $form
      * @param Lessee $lessee
      */
-    public function capitalizeFirstLetter(Form $form, Lessee $lessee)
+    public function capitalizeFirstLetter(FormInterface $form, Lessee $lessee)
     {
         $name = mb_convert_case($form->getData()->getName(), MB_CASE_TITLE);
         $lastName = mb_convert_case($form->getData()->getLastName(), MB_CASE_TITLE);
