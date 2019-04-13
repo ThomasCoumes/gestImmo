@@ -49,6 +49,5 @@ class LesseeCapitalizeFirstLetter
         $lessee->setPlaceOfBirth($placeOfBirth);
 
         $this->manager->persist($lessee);
-        $this->manager->flush();
     }
 }

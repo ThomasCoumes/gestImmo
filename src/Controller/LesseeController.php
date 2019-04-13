@@ -60,6 +60,8 @@ class LesseeController extends AbstractController
 
             $lesseeCapitalizeFirstLetter->capitalizeFirstLetter($form, $lessee);
 
+            $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('lessee_index');
         }
 
@@ -109,9 +111,10 @@ class LesseeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
             $lesseeCapitalizeFirstLetter->capitalizeFirstLetter($form, $lessee);
+
+            $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('lessee_index', [
                 'id' => $lessee->getId(),

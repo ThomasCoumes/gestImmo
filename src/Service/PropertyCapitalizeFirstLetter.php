@@ -52,6 +52,5 @@ class PropertyCapitalizeFirstLetter
         $property->setCity($city);
 
         $this->manager->persist($property);
-        $this->manager->flush();
     }
 }

@@ -77,9 +77,10 @@ class PropertyController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($property);
-            $entityManager->flush();
 
             $propertyCapitalizeFirstLetter->capitalizeFirstLetter($form, $property);
+
+            $entityManager->flush();
 
             $this->addFlash('success', 'Votre propriétée a été enregistrée');
 
@@ -150,9 +151,9 @@ class PropertyController extends AbstractController
                 $property->setPdfFile($fileName);
             }
 
-            $this->getDoctrine()->getManager()->flush();
-
             $propertyCapitalizeFirstLetter->capitalizeFirstLetter($form, $property);
+
+            $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Votre propriétée a été modifiée');
 
