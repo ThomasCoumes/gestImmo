@@ -111,7 +111,6 @@ class LesseeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $lesseeCapitalizeFirstLetter->capitalizeFirstLetter($form, $lessee);
 
             $this->getDoctrine()->getManager()->flush();
