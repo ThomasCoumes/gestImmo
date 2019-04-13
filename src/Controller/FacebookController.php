@@ -43,7 +43,7 @@ class FacebookController extends AbstractController
         if (!$this->getUser()) {
             return new JsonResponse(array('status' => false, 'message' => "User not found!"));
         } else {
-            return $this->redirectToRoute('default');
+            return $this->redirectToRoute('home');
         }
     }
 }
