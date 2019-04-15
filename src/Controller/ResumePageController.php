@@ -41,7 +41,7 @@ class ResumePageController extends AbstractController
                 if (substr($numericDate, 0, 3) === '01-') {
                     $date = str_replace('01-', 'Janvier ', $numericDate);
                 } elseif (substr($numericDate, 0, 3) === '02-') {
-                    $date = str_replace('02-', 'Février ', $numericDate);
+                    $date = str_replace('02-', 'Fevrier ', $numericDate);
                 } elseif (substr($numericDate, 0, 3) === '03-') {
                     $date = str_replace('03-', 'Mars ', $numericDate);
                 } elseif (substr($numericDate, 0, 3) === '04-') {
@@ -61,7 +61,7 @@ class ResumePageController extends AbstractController
                 } elseif (substr($numericDate, 0, 3) === '11-') {
                     $date = str_replace('11-', 'Novembre ', $numericDate);
                 } elseif (substr($numericDate, 0, 3) === '12-') {
-                    $date = str_replace('12-', 'Décembre ', $numericDate);
+                    $date = str_replace('12-', 'Decembre ', $numericDate);
                 } else {
                     throw new LogicException();
                 }
@@ -95,8 +95,8 @@ class ResumePageController extends AbstractController
 
         if (substr($date, 0, 7) === 'Janvier') {
             $date = str_replace('Janvier ', '01-', $date);
-        } elseif (substr($date, 0, 7) === 'Février') {
-            $date = str_replace('Février ', '02-', $date);
+        } elseif (substr($date, 0, 7) === 'Fevrier') {
+            $date = str_replace('Fevrier ', '02-', $date);
         } elseif (substr($date, 0, 4) === 'Mars') {
             $date = str_replace('Mars ', '03-', $date);
         } elseif (substr($date, 0, 5) === 'Avril') {
@@ -115,8 +115,8 @@ class ResumePageController extends AbstractController
             $date = str_replace('Octobre ', '10-', $date);
         } elseif (substr($date, 0, 7) === 'Novembre') {
             $date = str_replace('Novembre ', '11-', $date);
-        } elseif (substr($date, 0, 8) === 'Décembre') {
-            $date = str_replace('Décembre ', '12-', $date);
+        } elseif (substr($date, 0, 8) === 'Decembre') {
+            $date = str_replace('Decembre ', '12-', $date);
         } else {
             throw new LogicException();
         }
