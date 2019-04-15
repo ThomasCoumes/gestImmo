@@ -53,3 +53,7 @@ services:
 
     #Delete the rent release pdf
     App\Service\DeletePdf:
+
+    App\Form\PropertyType:
+        arguments: ['@security.token_storage']
+        tags: [form.type]
