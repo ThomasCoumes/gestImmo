@@ -90,7 +90,7 @@ class LesseeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/editer", name="lessee_edit", methods={"GET","POST"})
+     * @Route("/editer/{id}", name="lessee_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Lessee $lessee
      * @param LesseeCapitalizeFirstLetter $lesseeCapitalizeFirstLetter

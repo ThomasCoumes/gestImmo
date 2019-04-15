@@ -113,7 +113,7 @@ class PropertyController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/editer", name="property_edit", methods={"GET","POST"})
+     * @Route("/editer/{id}", name="property_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param Property $property

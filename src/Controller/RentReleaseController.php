@@ -64,7 +64,7 @@ class RentReleaseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/paid", name="rent_release_paid", methods={"GET"})
+     * @Route("/paid/{id}", name="rent_release_paid", methods={"GET"})
      * @param RentRelease $rentRelease
      * @param PdfGenerator $pdfGenerator
      * @param MonthlyMailer $monthlyMailer
