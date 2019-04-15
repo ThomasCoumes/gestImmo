@@ -74,6 +74,8 @@ header {
 
 .navbar {
   width: 100vw;
+  min-width: 100vw;
+  max-width: 100vw;
 }
 
 .changePassword {
@@ -161,4 +163,25 @@ ul {
 .backToHomePage {
   display: block;
   margin-top: 4vh;
+}
+
+.hide-big-string {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  width: 10vw;
+}
+
+.table thead th {
+  border-bottom: none;
+  border-top: none;
+}
+
+.table th, .table td {
+  border-top: none;
+}
+
+.envelope {
+  margin-left: 1vw;
 }
