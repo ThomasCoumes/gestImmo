@@ -9,11 +9,11 @@
         <thead>
             <tr>
                 <th>Civilité</th>
-                <th>Prénom</th>
-                <th>Nom</th>
+                <th class="hide-big-string">Prénom</th>
+                <th class="hide-big-string">Nom</th>
                 <th>Date de naissance</th>
-                <th>Lieu de naissance</th>
-                <th>Email</th>
+                <th class="hide-big-string">Lieu de naissance</th>
+                <th class="hide-big-string">Email</th>
                 <th>Telephone</th>
                 <th>actions</th>
             </tr>
@@ -24,16 +24,19 @@
                     {% if is_granted('SHOWLESSEE', lessee) %}
                         <tr>
                             <td>{{ lessee.civility }}</td>
-                            <td>{{ lessee.name }}</td>
-                            <td>{{ lessee.lastname }}</td>
+                            <td class="hide-big-string">{{ lessee.name }}</td>
+                            <td class="hide-big-string">{{ lessee.lastname }}</td>
                             <td>{{ lessee.birthday ? lessee.birthday|date('d-m-Y')}}</td>
-                            <td>{{ lessee.placeOfBirth }}</td>
-                            <td>{{ lessee.email }}</td>
+                            <td class="hide-big-string">{{ lessee.placeOfBirth }}</td>
+                            <td class="hide-big-string">{{ lessee.email }}</td>
                             <td>{{ lessee.phoneNumber }}</td>
                             <td>
                                 <a href="{{ path('lessee_show', {'id': lessee.id}) }}">Voir</a>
                                 <a href="{{ path('lessee_edit', {'id': lessee.id}) }}"><i class="fas fa-edit"></i> édition</a>
-                                <a class="btn btn-warning" href="{{ path('lessee_invitation', {'lessee_id': lessee.id}) }}"><i class="fas fa-envelope"></i> Inviter</a>                            </td>
+                                <a class="btn btn-warning envelope" href="{{ path('lessee_invitation', {'lessee_id': lessee.id}) }}">
+                                    <i class="fas fa-envelope"></i> Inviter
+                                </a>
+                            </td>
                         </tr>
                     {% endif %}
                 {% endfor %}
