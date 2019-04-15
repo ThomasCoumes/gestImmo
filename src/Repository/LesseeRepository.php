@@ -6,6 +6,7 @@ use App\Entity\Lessee;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -39,5 +40,17 @@ class LesseeRepository extends ServiceEntityRepository
             ->orderBy('l.id', 'ASC');
 
         return $qb->getQuery();
+    }
+
+    /**
+     * @param User $user
+     * @return QueryBuilder
+     */
+    public function findLessesByUser(User $user): QueryBuilder
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.userLessee = :user')
+            ->setParameter('user', $user)
+            ->orderBy('l.id', 'ASC');
     }
 }

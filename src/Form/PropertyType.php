@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Equipment;
 use App\Entity\Lessee;
 use App\Entity\Property;
+use App\Repository\LesseeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class PropertyType
@@ -22,6 +24,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class PropertyType extends AbstractType
 {
+    /**
+     * @var TokenStorageInterface
+     */
+    private $token;
+
+    /**
+     * PropertyType constructor.
+     * @param TokenStorageInterface $token
+     */
+    public function __construct(TokenStorageInterface $token)
+    {
+        $this->token = $token;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -83,6 +99,10 @@ class PropertyType extends AbstractType
                 'expanded' => true,
                 'by_reference' => false,
                 'choice_label' => 'fullName',
+                'query_builder' => function (LesseeRepository $propertyRepository) {
+                    $user = $this->token->getToken()->getUser();
+                    return $propertyRepository->findLessesByUser($user);
+                },
             ])
             ->add('pdfFile', FileType::class, [
                 'label' => 'Fichiers PDF',
