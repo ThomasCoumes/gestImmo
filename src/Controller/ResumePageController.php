@@ -63,7 +63,7 @@ class ResumePageController extends AbstractController
                 } elseif (substr($numericDate, 0, 3) === '12-') {
                     $date = str_replace('12-', 'Décembre ', $numericDate);
                 } else {
-                    throw new LogicException('OK ... So ... There is a problem');
+                    throw new LogicException();
                 }
 
                 if (!in_array($date, $dateList, true)) {
@@ -118,10 +118,15 @@ class ResumePageController extends AbstractController
         } elseif (substr($date, 0, 8) === 'Décembre') {
             $date = str_replace('Décembre ', '12-', $date);
         } else {
-            throw new LogicException('OK ... So ... There is a problem');
+            throw new LogicException();
         }
 
         $date = new DateTime('01-' . $date);
+        $currentDate = new DateTime();
+
+        if ($date > $currentDate) {
+            throw new LogicException();
+        }
 
         $rentRelease = $rentReleaseRepository->findBy(
             [
@@ -165,6 +170,11 @@ class ResumePageController extends AbstractController
      */
     public function yearCalcul(RentReleaseRepository $rentReleaseRepository, int $year)
     {
+        $currentYear = date('Y');
+        if ($year > intval($currentYear)) {
+            throw new LogicException();
+        }
+
         $rentRelease = $rentReleaseRepository->findByYear($year);
 
         $propertyList = [];
