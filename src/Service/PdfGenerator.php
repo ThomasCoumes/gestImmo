@@ -12,7 +12,7 @@ use App\Entity\RentRelease;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Snappy\Pdf;
-use Twig_Environment;
+use Twig\Environment;
 
 /**
  * Class PdfGenerator
@@ -26,26 +26,26 @@ class PdfGenerator
     private $knpSnappyPdf;
 
     /**
-     * @var Twig_Environment
-     */
-    private $twig;
-
-    /**
      * @var ObjectManager
      */
     private $manager;
 
     /**
+     * @var Environment
+     */
+    private $environment;
+
+    /**
      * PdfGenerator constructor.
      * @param Pdf $knpSnappyPdf
-     * @param Twig_Environment $twig
+     * @param Environment $environment
      * @param ObjectManager $manager
      */
-    public function __construct(Pdf $knpSnappyPdf, Twig_Environment $twig, ObjectManager $manager)
+    public function __construct(Pdf $knpSnappyPdf, Environment $environment, ObjectManager $manager)
     {
         $this->knpSnappyPdf = $knpSnappyPdf;
-        $this->twig = $twig;
         $this->manager = $manager;
+        $this->environment = $environment;
     }
 
     /**
@@ -71,9 +71,6 @@ class PdfGenerator
 
     /**
      * @param RentRelease $rentRelease
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
      * @throws \Exception
      */
     public function generateRentReleasePdf(RentRelease $rentRelease)
@@ -90,7 +87,7 @@ class PdfGenerator
             $fileName = $fileName . bin2hex(random_bytes(5)) . '.pdf';
             $fileName = $this->removeAccents($fileName);
 
-            $html = $this->twig->render('rent_release/pdf.html.twig', [
+            $html = $this->environment->render('rent_release/pdf.html.twig', [
                 'rent_release' => $rentRelease,
                 'current_date' => $currentDate,
             ]);
