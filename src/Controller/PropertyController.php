@@ -151,6 +151,7 @@ class PropertyController extends AbstractController
                 $property->setPdfFile($fileName);
             }
 
+            dump($this);
             $propertyCapitalizeFirstLetter->capitalizeFirstLetter($form, $property);
 
             $this->getDoctrine()->getManager()->flush();
