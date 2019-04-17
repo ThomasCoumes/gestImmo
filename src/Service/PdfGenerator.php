@@ -54,7 +54,7 @@ class PdfGenerator
      * @param string $charset
      * @return string
      */
-    private function removeAccents(string $string, $charset = 'utf-8') :string
+    private function removeAccents(string $string, $charset = 'utf-8'): string
     {
         $string = htmlentities($string, ENT_NOQUOTES, $charset);
         $string = preg_replace(
@@ -71,6 +71,9 @@ class PdfGenerator
 
     /**
      * @param RentRelease $rentRelease
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      * @throws \Exception
      */
     public function generateRentReleasePdf(RentRelease $rentRelease)

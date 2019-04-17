@@ -84,11 +84,14 @@ class SecurityController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $emInterface
      * @param \Swift_Mailer $mailer
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return Response
      * @throws \Exception
      */
-    public function sendResetPasswordEmail(Request $request, EntityManagerInterface $emInterface, \Swift_Mailer $mailer)
-    {
+    public function sendResetPasswordEmail(
+        Request $request,
+        EntityManagerInterface $emInterface,
+        \Swift_Mailer $mailer
+    ): Response {
         $form = $this->createForm(EmailCheckingType::class);
 
         $form->handleRequest($request);
@@ -155,7 +158,7 @@ class SecurityController extends AbstractController
         Request $request,
         UserPasswordEncoderInterface $encoder,
         EntityManagerInterface $emInterface
-    ) {
+    ): Response {
         $em = $this->getDoctrine()->getManager();
 
         $token = str_replace('/changer-mot-de-passe/', '', $request->getPathInfo());
@@ -193,9 +196,9 @@ class SecurityController extends AbstractController
      * @Route("/change-password", name="password-change")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function change(Request $request, UserPasswordEncoderInterface $encoder)
+    public function change(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();

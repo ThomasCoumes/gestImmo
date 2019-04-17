@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -15,10 +16,9 @@ class HomeController extends AbstractController
 {
     /**
      * @Route("/accueil", name="home")
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @internal param User $user
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         $user = $this->getUser();
 
