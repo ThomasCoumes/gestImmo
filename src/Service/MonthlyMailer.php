@@ -13,7 +13,7 @@ use App\Repository\LesseeRepository;
 use Swift_Attachment;
 use Swift_Mailer;
 use Symfony\Component\Routing\RouterInterface;
-use Twig_Environment;
+use Twig\Environment;
 
 /**
  * Class MonthlyMailer
@@ -32,32 +32,32 @@ class MonthlyMailer
     private $mailer;
 
     /**
-     * @var Twig_Environment
-     */
-    private $twig;
-
-    /**
      * @var RouterInterface
      */
     private $router;
 
     /**
+     * @var Environment
+     */
+    private $environment;
+
+    /**
      * MonthlyMailer constructor.
      * @param LesseeRepository $lesseeRepository
      * @param Swift_Mailer $mailer
-     * @param Twig_Environment $twig
+     * @param Environment $environment
      * @param RouterInterface $router
      */
     public function __construct(
         LesseeRepository $lesseeRepository,
         Swift_Mailer $mailer,
-        Twig_Environment $twig,
+        Environment $environment,
         RouterInterface $router
     ) {
         $this->lesseeRepository = $lesseeRepository;
         $this->mailer = $mailer;
-        $this->twig = $twig;
         $this->router = $router;
+        $this->environment = $environment;
     }
 
     /**
@@ -91,7 +91,7 @@ class MonthlyMailer
                 ->setFrom(getenv('MAILER_FROM_ADDRESS'))
                 ->setTo("$mail")
                 ->setBody(
-                    $this->twig->render(
+                    $this->environment->render(
                         'emails/emailOwner.html.twig',
                         [
                             'url' => $url,
@@ -126,7 +126,7 @@ class MonthlyMailer
             ->setFrom(getenv('MAILER_FROM_ADDRESS'))
             ->setTo("$mail")
             ->setBody(
-                $this->twig->render(
+                $this->environment->render(
                     'emails/rentReleaseMail.html.twig',
                     [
                         'name' => $name,
