@@ -5,6 +5,7 @@ namespace App\Controller;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,9 +20,9 @@ class FacebookController extends AbstractController
      *
      * @Route("/connect/facebook", name="connect_facebook_start")
      * @param ClientRegistry $clientRegistry
-     * @return Response
+     * @return RedirectResponse
      */
-    public function connectAction(ClientRegistry $clientRegistry): Response
+    public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
     {
         return $clientRegistry
             ->getClient('facebook_main') // key used in config/packages/knpu_oauth2_client.yaml

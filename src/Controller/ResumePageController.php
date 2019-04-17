@@ -22,7 +22,7 @@ class ResumePageController extends AbstractController
     /**
      * @Route(name="resume_page")
      * @param RentReleaseRepository $rentReleaseRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function index(RentReleaseRepository $rentReleaseRepository): Response
     {
