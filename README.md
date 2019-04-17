@@ -1,5 +1,12 @@
 ### gestImmo
+A real estate and tenant manage
 
+**Minimum requirements :**
+* composer (global install)
+* PHP 7.2.17 (or more)
+* HTTPS
+
+**Setup on ubuntu :**
 * 1) create a .env.local file, then copy .env content and paste it in .env.local. Set your database, mailer login infos, mailer address and developers.facebook acces
 * 2) run composer install
 * 3) run yarn install
@@ -20,7 +27,7 @@
 * HTML 5
 * CSS 3
 * JavaScript
-* PHP 7
+* PHP 7.2
 
 ### Frameworks
 * Bootstrap 4
@@ -32,6 +39,7 @@
 ### Outils
 * PhpStorm
 * LXC
+* Travis CI
 
 ### Contributeurs
 
