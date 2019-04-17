@@ -22,9 +22,9 @@ class ResumePageController extends AbstractController
     /**
      * @Route(name="resume_page")
      * @param RentReleaseRepository $rentReleaseRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function index(RentReleaseRepository $rentReleaseRepository)
+    public function index(RentReleaseRepository $rentReleaseRepository): Response
     {
         $release = $rentReleaseRepository->findBy(
             ['userRentRelease' => $this->getUser()]
@@ -89,7 +89,7 @@ class ResumePageController extends AbstractController
      * @return Response
      * @throws \Exception
      */
-    public function monthlyCalcul(RentReleaseRepository $rentReleaseRepository, string $date)
+    public function monthlyCalcul(RentReleaseRepository $rentReleaseRepository, string $date): Response
     {
         $displayDate = $date;
 
@@ -168,7 +168,7 @@ class ResumePageController extends AbstractController
      * @param int $year
      * @return Response
      */
-    public function yearCalcul(RentReleaseRepository $rentReleaseRepository, int $year)
+    public function yearCalcul(RentReleaseRepository $rentReleaseRepository, int $year): Response
     {
         $currentYear = date('Y');
         if ($year > intval($currentYear)) {
