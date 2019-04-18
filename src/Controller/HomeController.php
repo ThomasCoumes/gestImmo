@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * Class HomeController
  * @package App\Controller
- * @IsGranted("IS_AUTHENTICATED_FULLY")
+ * @IsGranted("ROLE_LESSEE")
  */
 class HomeController extends AbstractController
 {
