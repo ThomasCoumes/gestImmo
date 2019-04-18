@@ -148,7 +148,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/changer-mot-de-passe/{token}", name="resetPassword")
+     * @Route("/reset-password/{token}", name="resetPassword")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @param EntityManagerInterface $emInterface
@@ -200,6 +200,13 @@ class SecurityController extends AbstractController
      */
     public function change(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $error = 'Veuillez vous déconnecter puis vous reconnecter pour changer votre mot de passe';
+            $this->addFlash('danger', $error);
+
+            return $this->redirectToRoute('home');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $form = $this->createForm(ChangePasswordType::class);
