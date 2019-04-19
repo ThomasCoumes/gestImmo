@@ -96,7 +96,13 @@
                 <tr>
                     <th>Documents PDF</th>
                     <td>
-                        <a target="_blank" href="{{ asset('uploads/pdf/' ~ property.pdfFile) }}">Voir les pdf</a>
+                        {% for file in property.pdfFile %}
+                            {% if not loop.first %}
+                                <br />
+                            {% endif %}
+
+                            <a target="_blank" href="{{ asset('uploads/pdf/' ~ file) }}">Voir le pdf</a>
+                        {% endfor %}
                     </td>
                 </tr>
             {% endif %}
