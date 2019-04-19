@@ -94,6 +94,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * @param Request $request
      * @return array|mixed
+     * @throws \Exception
      */
     public function getCredentials(Request $request)
     {
@@ -137,6 +138,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @param mixed $credentials
      * @param UserInterface $user
      * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
