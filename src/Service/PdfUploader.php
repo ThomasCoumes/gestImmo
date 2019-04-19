@@ -36,21 +36,26 @@ class PdfUploader
      * @param UploadedFile $pdfFile
      * @return string
      */
-    public function uploadPdf(UploadedFile $pdfFile) :string
+    public function uploadPdf($pdfFile)
     {
-        $fileName = md5(uniqid()) . '.' . $pdfFile->guessExtension();
+        $names = [];
 
-        try {
-            $pdfFile->move($this->getTargetDirectory(), $fileName);
-        } catch (FileException $e) {
-            new HttpException(
-                500,
-                'Nous ne parvenons pas à traiter votre fichier, veuillez ré essayer plus tard ou uploader 
+        foreach ($pdfFile as $file) {
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+            try {
+                $file->move($this->getTargetDirectory(), $fileName);
+            } catch (FileException $e) {
+                new HttpException(
+                    500,
+                    'Nous ne parvenons pas à traiter votre fichier, veuillez ré essayer plus tard ou uploader 
                 un autre fichier au format .pdf'
-            );
+                );
+            }
+            $names[] = $fileName;
         }
 
-        return $fileName;
+        return $names;
     }
 
     /**

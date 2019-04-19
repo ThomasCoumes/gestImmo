@@ -108,6 +108,7 @@ class PropertyType extends AbstractType
                 'label' => 'Fichiers PDF',
                 'required' => false,
                 'data_class' => null,
+                'multiple' => true,
             ])
         ;
     }
