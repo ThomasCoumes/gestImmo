@@ -30,6 +30,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('monthResumeGraph', './assets/js/monthlyResumeGraph.js')
+    .addEntry('pdfField', './assets/js/pdfField.js')
     //.addEntry('page2', './assets/js/page2.js')
 
     // will require an extra script tag for runtime.js
