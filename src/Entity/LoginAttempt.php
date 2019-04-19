@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LoginAttemptRepository")
@@ -14,21 +15,28 @@ class LoginAttempt
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Assert\Type("integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Ip
      */
     private $ipAddress;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Assert\NotBlank
+     * @Assert\DateTime
      */
     private $date;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Email
      */
     private $username;
 
