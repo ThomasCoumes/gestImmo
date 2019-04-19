@@ -189,7 +189,9 @@ class PropertyController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
 
-            $fileSystem->remove('uploads/pdf/' . $pdfFile);
+            foreach ($pdfFile as $file) {
+                $fileSystem->remove('uploads/pdf/' . $file);
+            }
 
             $entityManager->remove($property);
             $entityManager->flush();
