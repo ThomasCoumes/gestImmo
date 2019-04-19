@@ -109,6 +109,10 @@ class PropertyType extends AbstractType
                 'required' => false,
                 'data_class' => null,
                 'multiple' => true,
+                'attr' => [
+                    'accept' => 'application/pdf',
+//                    'multiple' => 'multiple',
+                ],
             ])
         ;
     }

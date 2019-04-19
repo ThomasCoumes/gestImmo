@@ -148,13 +148,15 @@ class Property
      */
     private $lessees;
 
-    //     * @Assert\File(
-//     *     maxSize = "2000k",
-//     *     mimeTypes = {"application/pdf", "application/x-pdf"},
-//     *     mimeTypesMessage = "Choisisez un fichier PDF"
-//     * )
     /**
      * @ORM\Column(type="array", length=255, nullable=true)
+     * @Assert\All({
+     *     @Assert\File(
+     *     maxSize = "2000k",
+     *     mimeTypes = {"application/pdf", "application/x-pdf"},
+     *     mimeTypesMessage = "Choisisez un fichier PDF"
+     * )
+     * })
      * @var string
      */
     private $pdfFile;

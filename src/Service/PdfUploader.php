@@ -33,10 +33,10 @@ class PdfUploader
     }
 
     /**
-     * @param UploadedFile $pdfFile
-     * @return string
+     * @param array $pdfFile
+     * @return array
      */
-    public function uploadPdf($pdfFile)
+    public function uploadPdf(array $pdfFile): array
     {
         $names = [];
 
