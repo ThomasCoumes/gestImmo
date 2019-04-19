@@ -16,13 +16,26 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class LoginAttemptRepository extends ServiceEntityRepository
 {
+    /**
+     * delay to wait before new login try
+     * @var int
+     */
     const DELAY_IN_MINUTES = 10;
 
+    /**
+     * LoginAttemptRepository constructor.
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, LoginAttempt::class);
     }
 
+    /**
+     * @param string $username
+     * @return int
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function countRecentLoginAttempts(string $username): int
     {
         $timeAgo = new \DateTimeImmutable(sprintf('-%d minutes', self::DELAY_IN_MINUTES));
