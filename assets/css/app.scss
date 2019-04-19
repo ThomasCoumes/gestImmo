@@ -185,3 +185,15 @@ ul {
 .envelope {
   margin-left: 1vw;
 }
+
+.fontawesome-placeholder::before {
+  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+  color: $success;
+  font-weight: 900;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  content: '\f14a';
+}
