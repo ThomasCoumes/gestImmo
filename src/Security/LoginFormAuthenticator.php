@@ -2,7 +2,9 @@
 
 namespace App\Security;
 
+use App\Entity\LoginAttempt;
 use App\Entity\User;
+use App\Repository\LoginAttemptRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +30,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     use TargetPathTrait;
 
     /**
+     * max login attempts
+     * @var int
+     */
+    const MAX_ATTEMPTS = 5;
+
+    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
@@ -48,22 +56,30 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private $passwordEncoder;
 
     /**
+     * @var LoginAttemptRepository
+     */
+    private $loginAttemptRepository;
+
+    /**
      * LoginFormAuthenticator constructor.
      * @param EntityManagerInterface $entityManager
      * @param UrlGeneratorInterface $urlGenerator
      * @param CsrfTokenManagerInterface $csrfTokenManager
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param LoginAttemptRepository $loginAttemptRepository
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
-        UserPasswordEncoderInterface $passwordEncoder
+        UserPasswordEncoderInterface $passwordEncoder,
+        LoginAttemptRepository $loginAttemptRepository
     ) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->loginAttemptRepository = $loginAttemptRepository;
     }
 
     /**
@@ -72,13 +88,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function supports(Request $request)
     {
-        return 'app_login' === $request->attributes->get('_route')
-            && $request->isMethod('POST');
+        return 'app_login' === $request->attributes->get('_route') && $request->isMethod('POST');
     }
 
     /**
      * @param Request $request
-     * @return array
+     * @return array|mixed
      */
     public function getCredentials(Request $request)
     {
@@ -87,10 +102,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
-        $request->getSession()->set(
-            Security::LAST_USERNAME,
-            $credentials['email']
-        );
+        $request->getSession()->set(Security::LAST_USERNAME, $credentials['email']);
+
+        $newLoginAttempt = new LoginAttempt($request->getClientIp(), $credentials['email']);
+        $this->entityManager->persist($newLoginAttempt);
+        $this->entityManager->flush();
 
         return $credentials;
     }
@@ -98,7 +114,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * @param mixed $credentials
      * @param UserProviderInterface $userProvider
-     * @return User|null|object
+     * @return User|object|UserInterface|null
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
@@ -124,6 +140,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
+        if ($this->loginAttemptRepository->countRecentLoginAttempts($credentials['email']) > self::MAX_ATTEMPTS) {
+            throw new CustomUserMessageAuthenticationException('Vous avez essayé de vous connecter avec un mot'
+                .' de passe incorrect de trop nombreuses fois. Veuillez patienter svp avant de ré-essayer.');
+        }
+
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
@@ -131,7 +152,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @param Request $request
      * @param TokenInterface $token
      * @param string $providerKey
-     * @return RedirectResponse
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response|null
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
