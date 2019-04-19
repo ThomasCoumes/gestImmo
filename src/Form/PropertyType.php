@@ -111,7 +111,6 @@ class PropertyType extends AbstractType
                 'multiple' => true,
                 'attr' => [
                     'accept' => 'application/pdf',
-//                    'multiple' => 'multiple',
                 ],
             ])
         ;
