@@ -96,7 +96,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @return array|mixed
      * @throws \Exception
      */
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
         $credentials = [
             'email' => $request->request->get('email'),
@@ -161,6 +161,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+
+        $user = $token->getUser();
+        $this->loginAttemptRepository->deleteLoginAttemptFromIp($request->getClientIp(), $user->getEmail());
 
         return new RedirectResponse($this->urlGenerator->generate('home'));
     }
