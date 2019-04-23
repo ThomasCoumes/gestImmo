@@ -166,7 +166,6 @@ class Property
      */
     public function __construct()
     {
-        $this->equipments = new ArrayCollection();
         $this->equipment = new ArrayCollection();
         $this->lessees = new ArrayCollection();
     }
