@@ -50,4 +50,24 @@ class LoginAttemptRepository extends ServiceEntityRepository
             ])
             ->getSingleScalarResult();
     }
+
+    /**
+     * @param string $ip
+     * @param string $email
+     * @return bool
+     */
+    public function deleteLoginAttemptFromIp(string $ip, string $email): bool
+    {
+        $qb = $this->createQueryBuilder('la')
+            ->delete()
+            ->where('la.ipAddress = :ip')
+            ->andWhere('la.username = :email')
+            ->setParameters([
+                'ip' => $ip,
+                'email' => $email,
+            ])
+            ->getQuery();
+
+        return $qb->execute();
+    }
 }
