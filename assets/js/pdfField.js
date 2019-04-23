@@ -3,13 +3,16 @@
  */
 let pdfField = document.getElementById('property_pdfFile');
 let pdfLabel = document.getElementsByClassName('custom-file-label')[0];
-
-pdfField.onchange=function(e) {
-    pdfLabel.classList.add('fontawesome-placeholder');
-};
-
 let pdfFile = document.getElementsByClassName('pdf-file')[0];
 
 if (pdfFile !== undefined) {
     pdfLabel.classList.add('fontawesome-placeholder');
+} else {
+    pdfField.onchange = function(e) {
+        if (pdfField.value !== '') {
+            pdfLabel.classList.add('fontawesome-placeholder');
+        } else {
+            pdfLabel.classList.remove('fontawesome-placeholder');
+        }
+    };
 }
