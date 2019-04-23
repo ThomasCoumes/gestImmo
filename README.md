@@ -44,9 +44,9 @@ A real estate and tenant manage
 * Travis CI
 * Guardrails
 
-### Contributeurs
+### Contributors
 * Thomas Coumes - [ThomasCms](https://github.com/ThomasCms)
 
-### Dependences
+### Dependencies
 * [composer.json](composer.json)
 * [package.json](package.json)
