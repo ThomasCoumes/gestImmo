@@ -20,6 +20,7 @@ class RentReleaseCommand extends Command
      * @var RentReleaseInsertion
      */
     private $rentReleaseInsertion;
+
     /**
      * @var MonthlyMailer
      */
@@ -56,6 +57,14 @@ class RentReleaseCommand extends Command
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|void|null
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln([
