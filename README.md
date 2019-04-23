@@ -45,5 +45,8 @@ A real estate and tenant manage
 * Guardrails
 
 ### Contributeurs
-
 * Thomas Coumes - [ThomasCms](https://github.com/ThomasCms)
+
+### Dependences
+* [composer.json](composer.json)
+* [package.json](package.json)
