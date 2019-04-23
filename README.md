@@ -39,7 +39,10 @@ A real estate and tenant manage
 ### Outils
 * PhpStorm
 * LXC
+
+### CI
 * Travis CI
+* Guardrails
 
 ### Contributeurs
 
