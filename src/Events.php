@@ -8,6 +8,7 @@
 
 namespace App;
 
-final class Events {
+final class Events
+{
     const EMAIL_SENT = 'email.sent';
 }
