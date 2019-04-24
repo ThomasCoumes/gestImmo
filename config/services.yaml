@@ -51,10 +51,9 @@ services:
     # capitalize first letter from Property informations
     App\Service\PropertyCapitalizeFirstLetter:
 
-    #Delete the rent release pdf
-    App\Service\DeletePdf:
-
     #get user in PropertyType
     App\Form\PropertyType:
         arguments: ['@security.token_storage']
         tags: [form.type]
+
+    App\EventSubscriber\EmailingListener:
