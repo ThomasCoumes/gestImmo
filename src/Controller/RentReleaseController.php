@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\RentRelease;
+use App\Events;
+use App\EventSubscriber\EmailingEvent;
 use App\Repository\RentReleaseRepository;
-use App\Service\DeletePdf;
-use App\Service\MonthlyMailer;
+use App\Service\Mailer;
 use App\Service\PdfGenerator;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -67,8 +69,8 @@ class RentReleaseController extends AbstractController
      * @Route("/paid/{id}", name="rent_release_paid", methods={"GET"})
      * @param RentRelease $rentRelease
      * @param PdfGenerator $pdfGenerator
-     * @param MonthlyMailer $monthlyMailer
-     * @param DeletePdf $deletePdf
+     * @param Mailer $mailer
+     * @param EventDispatcherInterface $eventDispatcher
      * @return Response
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -77,8 +79,8 @@ class RentReleaseController extends AbstractController
     public function rentIsPaid(
         RentRelease $rentRelease,
         PdfGenerator $pdfGenerator,
-        MonthlyMailer $monthlyMailer,
-        DeletePdf $deletePdf
+        Mailer $mailer,
+        EventDispatcherInterface $eventDispatcher
     ): Response {
         if (!$this->isGranted('EDIT_RENT_RELEASE', $rentRelease)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
@@ -92,8 +94,11 @@ class RentReleaseController extends AbstractController
         $entityManager->persist($rentRelease);
 
         $pdfGenerator->generateRentReleasePdf($rentRelease);
-        $monthlyMailer->sendRentReleaseToLessees($rentRelease);
-        $deletePdf->deletePdf($rentRelease);
+        $mailer->sendRentReleaseToLessees($rentRelease);
+
+        $event = new EmailingEvent($rentRelease);
+
+        $eventDispatcher->dispatch(Events::EMAIL_SENT, $event);
 
         $entityManager->flush();
 

@@ -40,21 +40,17 @@ services:
     App\Service\RentReleaseInsertion:
 
     # send an email to owner to say him than rent release have been created
-    App\Service\MonthlyMailer:
+    App\Service\Mailer:
 
     # rent release pdf generator
     App\Service\PdfGenerator:
 
-    # capitalize first letter from Lessees informations
-    App\Service\LesseeCapitalizeFirstLetter:
-
-    # capitalize first letter from Property informations
-    App\Service\PropertyCapitalizeFirstLetter:
-
-    #Delete the rent release pdf
-    App\Service\DeletePdf:
+    # capitalize first letters from Lessees and Properties informations
+    App\Service\CapitalizeFirstLetter:
 
     #get user in PropertyType
     App\Form\PropertyType:
         arguments: ['@security.token_storage']
         tags: [form.type]
+
+    App\EventSubscriber\EmailingListener:

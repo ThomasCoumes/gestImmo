@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Property;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
+use App\Service\CapitalizeFirstLetter;
 use App\Service\PdfUploader;
-use App\Service\PropertyCapitalizeFirstLetter;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
@@ -51,13 +51,13 @@ class PropertyController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param PdfUploader $pdfUploader
-     * @param PropertyCapitalizeFirstLetter $propertyCapitalizeFirstLetter
+     * @param CapitalizeFirstLetter $capitalizeFirstLetter
      * @return Response
      */
     public function new(
         Request $request,
         PdfUploader $pdfUploader,
-        PropertyCapitalizeFirstLetter $propertyCapitalizeFirstLetter
+        CapitalizeFirstLetter $capitalizeFirstLetter
     ): Response {
         $property = new Property();
         $form = $this->createForm(PropertyType::class, $property);
@@ -78,7 +78,7 @@ class PropertyController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($property);
 
-            $propertyCapitalizeFirstLetter->capitalizeFirstLetter($form, $property);
+            $capitalizeFirstLetter->capitalizePropertyFirstLetter($form, $property);
 
             $entityManager->flush();
 
@@ -118,14 +118,14 @@ class PropertyController extends AbstractController
      * @param Request $request
      * @param Property $property
      * @param PdfUploader $pdfUploader
-     * @param PropertyCapitalizeFirstLetter $propertyCapitalizeFirstLetter
+     * @param CapitalizeFirstLetter $capitalizeFirstLetter
      * @return Response
      */
     public function edit(
         Request $request,
         Property $property,
         PdfUploader $pdfUploader,
-        PropertyCapitalizeFirstLetter $propertyCapitalizeFirstLetter
+        CapitalizeFirstLetter $capitalizeFirstLetter
     ): Response {
         if (!$this->isGranted('EDIT', $property)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
@@ -151,7 +151,7 @@ class PropertyController extends AbstractController
                 $property->setPdfFile($fileName);
             }
 
-            $propertyCapitalizeFirstLetter->capitalizeFirstLetter($form, $property);
+            $capitalizeFirstLetter->capitalizePropertyFirstLetter($form, $property);
 
             $this->getDoctrine()->getManager()->flush();
 
