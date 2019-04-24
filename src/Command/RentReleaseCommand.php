@@ -8,7 +8,7 @@
 
 namespace App\Command;
 
-use App\Service\MonthlyMailer;
+use App\Service\Mailer;
 use App\Service\RentReleaseInsertion;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,16 +22,16 @@ class RentReleaseCommand extends Command
     private $rentReleaseInsertion;
 
     /**
-     * @var MonthlyMailer
+     * @var Mailer
      */
     private $mailer;
 
     /**
      * RentReleaseCommand constructor.
      * @param RentReleaseInsertion $rentReleaseInsertion
-     * @param MonthlyMailer $mailer
+     * @param Mailer $mailer
      */
-    public function __construct(RentReleaseInsertion $rentReleaseInsertion, MonthlyMailer $mailer)
+    public function __construct(RentReleaseInsertion $rentReleaseInsertion, Mailer $mailer)
     {
         $this->rentReleaseInsertion = $rentReleaseInsertion;
 

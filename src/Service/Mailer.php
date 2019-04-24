@@ -16,10 +16,10 @@ use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
 /**
- * Class MonthlyMailer
+ * Class Mailer
  * @package App\Service
  */
-class MonthlyMailer
+class Mailer
 {
     /**
      * @var LesseeRepository
@@ -42,7 +42,7 @@ class MonthlyMailer
     private $environment;
 
     /**
-     * MonthlyMailer constructor.
+     * Mailer constructor.
      * @param LesseeRepository $lesseeRepository
      * @param Swift_Mailer $mailer
      * @param Environment $environment

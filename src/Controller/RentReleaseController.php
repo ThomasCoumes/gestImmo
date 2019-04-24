@@ -6,7 +6,7 @@ use App\Entity\RentRelease;
 use App\Events;
 use App\EventSubscriber\EmailingEvent;
 use App\Repository\RentReleaseRepository;
-use App\Service\MonthlyMailer;
+use App\Service\Mailer;
 use App\Service\PdfGenerator;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,7 +69,7 @@ class RentReleaseController extends AbstractController
      * @Route("/paid/{id}", name="rent_release_paid", methods={"GET"})
      * @param RentRelease $rentRelease
      * @param PdfGenerator $pdfGenerator
-     * @param MonthlyMailer $monthlyMailer
+     * @param Mailer $mailer
      * @param EventDispatcherInterface $eventDispatcher
      * @return Response
      * @throws \Twig\Error\LoaderError
@@ -79,7 +79,7 @@ class RentReleaseController extends AbstractController
     public function rentIsPaid(
         RentRelease $rentRelease,
         PdfGenerator $pdfGenerator,
-        MonthlyMailer $monthlyMailer,
+        Mailer $mailer,
         EventDispatcherInterface $eventDispatcher
     ): Response {
         if (!$this->isGranted('EDIT_RENT_RELEASE', $rentRelease)) {
@@ -94,7 +94,7 @@ class RentReleaseController extends AbstractController
         $entityManager->persist($rentRelease);
 
         $pdfGenerator->generateRentReleasePdf($rentRelease);
-        $monthlyMailer->sendRentReleaseToLessees($rentRelease);
+        $mailer->sendRentReleaseToLessees($rentRelease);
 
         $event = new EmailingEvent($rentRelease);
 
