@@ -45,11 +45,8 @@ services:
     # rent release pdf generator
     App\Service\PdfGenerator:
 
-    # capitalize first letter from Lessees informations
-    App\Service\LesseeCapitalizeFirstLetter:
-
-    # capitalize first letter from Property informations
-    App\Service\PropertyCapitalizeFirstLetter:
+    # capitalize first letters from Lessees and Properties informations
+    App\Service\CapitalizeFirstLetter:
 
     #get user in PropertyType
     App\Form\PropertyType:

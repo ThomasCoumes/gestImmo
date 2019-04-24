@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Lessee;
 use App\Form\LesseeType;
 use App\Repository\LesseeRepository;
-use App\Service\LesseeCapitalizeFirstLetter;
+use App\Service\CapitalizeFirstLetter;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,10 +46,10 @@ class LesseeController extends AbstractController
     /**
      * @Route("/ajouter", name="lessee_new", methods={"GET","POST"})
      * @param Request $request
-     * @param LesseeCapitalizeFirstLetter $lesseeCapitalizeFirstLetter
+     * @param CapitalizeFirstLetter $capitalizeFirstLetter
      * @return Response
      */
-    public function new(Request $request, LesseeCapitalizeFirstLetter $lesseeCapitalizeFirstLetter): Response
+    public function new(Request $request, CapitalizeFirstLetter $capitalizeFirstLetter): Response
     {
         $lessee = new Lessee();
         $form = $this->createForm(LesseeType::class, $lessee);
@@ -58,7 +58,7 @@ class LesseeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $lessee->setUserLessee($this->getUser());
 
-            $lesseeCapitalizeFirstLetter->capitalizeFirstLetter($form, $lessee);
+            $capitalizeFirstLetter->capitalizeLesseeFirstLetter($form, $lessee);
 
             $this->getDoctrine()->getManager()->flush();
 
@@ -93,13 +93,13 @@ class LesseeController extends AbstractController
      * @Route("/editer/{id}", name="lessee_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Lessee $lessee
-     * @param LesseeCapitalizeFirstLetter $lesseeCapitalizeFirstLetter
+     * @param CapitalizeFirstLetter $capitalizeFirstLetter
      * @return Response
      */
     public function edit(
         Request $request,
         Lessee $lessee,
-        LesseeCapitalizeFirstLetter $lesseeCapitalizeFirstLetter
+        CapitalizeFirstLetter $capitalizeFirstLetter
     ): Response {
         if (!$this->isGranted('EDITLESEE', $lessee)) {
             $this->addFlash('danger', 'Vous n\'etes pas autorisé à effectuer cette action.');
@@ -111,7 +111,7 @@ class LesseeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $lesseeCapitalizeFirstLetter->capitalizeFirstLetter($form, $lessee);
+            $capitalizeFirstLetter->capitalizeLesseeFirstLetter($form, $lessee);
 
             $this->getDoctrine()->getManager()->flush();
 
