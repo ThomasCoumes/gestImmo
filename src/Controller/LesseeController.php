@@ -167,6 +167,7 @@ class LesseeController extends AbstractController
         // generate a random 200 char token and set him to lessee
         $invitationToken =  bin2hex(random_bytes(100));
         $lessee->setInvitationToken($invitationToken);
+        $lessee->setTokenCreatedAt(new \DateTime());
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($lessee);

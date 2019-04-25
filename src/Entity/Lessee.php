@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Lessee
 {
+    const MAX_TOKEN_DAYS = 7;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -125,6 +127,13 @@ class Lessee
      * @var ArrayCollection
      */
     private $rentReleases;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    private $tokenCreatedAt;
 
     /**
      * Lessee constructor.
@@ -396,6 +405,18 @@ class Lessee
                 $rentRelease->setRentRelease(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTokenCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->tokenCreatedAt;
+    }
+
+    public function setTokenCreatedAt(?\DateTimeInterface $tokenCreatedAt): self
+    {
+        $this->tokenCreatedAt = $tokenCreatedAt;
 
         return $this;
     }
