@@ -8,6 +8,7 @@ use App\Form\ChangePasswordType;
 use App\Form\EmailCheckingType;
 use App\Form\RegistrationType;
 use App\Form\ResetPasswordType;
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -198,7 +199,7 @@ class SecurityController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function change(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function changePassword(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $error = 'Veuillez vous déconnecter puis vous reconnecter pour changer votre mot de passe';
@@ -244,6 +245,7 @@ class SecurityController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @param EntityManagerInterface $emInterface
      * @return Response
+     * @throws \Exception
      */
     public function lesseeRegistration(
         Request $request,
@@ -258,32 +260,44 @@ class SecurityController extends AbstractController
         $lessee = $emInterface->getRepository(Lessee::class);
         $registringLessee = $lessee->findOneBy(['invitationToken' => $invitationToken]);
 
-        $email = $registringLessee->getEmail();
-        $name = $registringLessee->getName();
-        $lastName = $registringLessee->getLastName();
+        $currentDateTime = new DateTime();
 
-        $user->setEmail($email);
-        $user->setName($name);
-        $user->setLastName($lastName);
+        $invitationTokenDateTime = $registringLessee->getTokenCreatedAt();
+        $maximumValidTokenDateTime = clone $invitationTokenDateTime;
+        $maximumValidTokenDateTime->modify('+'. 7 .'days');
 
-        $form = $this->createForm(RegistrationType::class, $user);
+        if ($currentDateTime <= $maximumValidTokenDateTime) {
+            $email = $registringLessee->getEmail();
+            $name = $registringLessee->getName();
+            $lastName = $registringLessee->getLastName();
 
-        $form->handleRequest($request);
+            $user->setEmail($email);
+            $user->setName($name);
+            $user->setLastName($lastName);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
+            $form = $this->createForm(RegistrationType::class, $user);
 
-            $user->setPassword($hash);
+            $form->handleRequest($request);
 
-            $user->setRoles(["ROLE_LESSEE"]);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $hash = $encoder->encodePassword($user, $user->getPassword());
 
-            $registringLessee->setInvitationToken(null);
+                $user->setPassword($hash);
 
-            $objectManager->persist($registringLessee);
-            $objectManager->persist($user);
-            $objectManager->flush();
+                $user->setRoles(["ROLE_LESSEE"]);
 
-            $this->addFlash('success', 'Votre compte a été enregistré, vous pouvez vous connecter');
+                $registringLessee->setInvitationToken(null);
+
+                $objectManager->persist($registringLessee);
+                $objectManager->persist($user);
+                $objectManager->flush();
+
+                $this->addFlash('success', 'Votre compte a été enregistré, vous pouvez vous connecter');
+
+                return $this->redirectToRoute('app_login');
+            }
+        } else {
+            $this->addFlash('danger', 'L\'invitation a expirée, redemandez en une à votre bailleur');
 
             return $this->redirectToRoute('app_login');
         }
