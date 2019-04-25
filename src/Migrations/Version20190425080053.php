@@ -30,6 +30,7 @@ final class Version20190425080053 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE lessee ADD token_created_at DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE user ADD created_at_token DATETIME DEFAULT NULL');
     }
 
     /**
@@ -42,5 +43,6 @@ final class Version20190425080053 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE lessee DROP token_created_at');
+        $this->addSql('ALTER TABLE user DROP created_at_token');
     }
 }

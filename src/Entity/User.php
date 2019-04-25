@@ -154,6 +154,13 @@ class User implements UserInterface
     private $rentReleases;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    private $createdAtToken;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -461,6 +468,18 @@ class User implements UserInterface
                 $rentRelease->setUserRentRelease(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAtToken(): ?\DateTimeInterface
+    {
+        return $this->createdAtToken;
+    }
+
+    public function setCreatedAtToken(?\DateTimeInterface $createdAtToken): self
+    {
+        $this->createdAtToken = $createdAtToken;
 
         return $this;
     }
