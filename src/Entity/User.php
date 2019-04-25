@@ -17,6 +17,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class User implements UserInterface
 {
+    const VALID_TOKEN_MINUTES = 20;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

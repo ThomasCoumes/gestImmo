@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Lessee
 {
+    const MAX_TOKEN_DAYS = 7;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

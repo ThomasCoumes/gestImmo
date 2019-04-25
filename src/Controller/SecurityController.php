@@ -119,6 +119,7 @@ class SecurityController extends AbstractController
 
                 $token = bin2hex(random_bytes(80));
                 $potentialUser->setToken($token);
+                $potentialUser->setCreatedAtToken(new DateTime());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($potentialUser);
                 $em->flush();
@@ -155,6 +156,7 @@ class SecurityController extends AbstractController
      * @param EntityManagerInterface $emInterface
      * @param $token
      * @return Response
+     * @throws \Exception
      */
     public function resetPassword(
         Request $request,
@@ -167,23 +169,34 @@ class SecurityController extends AbstractController
         $user = $emInterface->getRepository(User::class);
         $confirmedUser = $user->findOneBy(['token' => $token]);
 
-        $form = $this->createForm(ResetPasswordType::class);
+        $currentDateTime = new DateTime();
 
-        $form->handleRequest($request);
+        $maximumValidTokenDateTime = $confirmedUser->getCreatedAtToken();
+        $maximumValidTokenDateTime->modify('+' . User::VALID_TOKEN_MINUTES . 'minutes');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $formPassword = $data->getNewPlainPassword();
+        if ($currentDateTime <= $maximumValidTokenDateTime) {
+            $form = $this->createForm(ResetPasswordType::class);
 
-            $newEncodedPassword = $encoder->encodePassword($confirmedUser, $formPassword);
-            $confirmedUser->setPassword($newEncodedPassword);
+            $form->handleRequest($request);
 
-            $confirmedUser->setToken(null);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
+                $formPassword = $data->getNewPlainPassword();
 
-            $em->persist($confirmedUser);
-            $em->flush();
+                $newEncodedPassword = $encoder->encodePassword($confirmedUser, $formPassword);
+                $confirmedUser->setPassword($newEncodedPassword);
 
-            $this->addFlash('success', 'Votre mot de passe a bien été enregistré');
+                $confirmedUser->setToken(null);
+
+                $em->persist($confirmedUser);
+                $em->flush();
+
+                $this->addFlash('success', 'Votre mot de passe a bien été enregistré');
+
+                return $this->redirectToRoute('app_login');
+            }
+        } else {
+            $this->addFlash('danger', 'Le lien a expiré, refaites une demande');
 
             return $this->redirectToRoute('app_login');
         }
@@ -263,7 +276,7 @@ class SecurityController extends AbstractController
         $currentDateTime = new DateTime();
 
         $maximumValidTokenDateTime = $registringLessee->getTokenCreatedAt();
-        $maximumValidTokenDateTime->modify('+'. 7 .'days');
+        $maximumValidTokenDateTime->modify('+' . Lessee::MAX_TOKEN_DAYS . 'days');
 
         if ($currentDateTime <= $maximumValidTokenDateTime) {
             $email = $registringLessee->getEmail();
