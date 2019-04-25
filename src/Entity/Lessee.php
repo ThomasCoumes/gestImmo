@@ -127,6 +127,13 @@ class Lessee
     private $rentReleases;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    private $tokenCreatedAt;
+
+    /**
      * Lessee constructor.
      */
     public function __construct()
@@ -396,6 +403,18 @@ class Lessee
                 $rentRelease->setRentRelease(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTokenCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->tokenCreatedAt;
+    }
+
+    public function setTokenCreatedAt(?\DateTimeInterface $tokenCreatedAt): self
+    {
+        $this->tokenCreatedAt = $tokenCreatedAt;
 
         return $this;
     }
