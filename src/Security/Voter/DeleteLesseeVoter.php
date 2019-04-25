@@ -3,10 +3,10 @@
  * Created by PhpStorm.
  * User: thocou
  * Date: 18/02/19
- * Time: 16:10
+ * Time: 16:24
  */
 
-namespace App\Security;
+namespace App\Security\Voter;
 
 use App\Entity\Lessee;
 use App\Entity\User;
@@ -14,10 +14,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
- * Class EditLesseeVoter
+ * Class DeleteLesseeVoter
  * @package App\Security
  */
-class EditLesseeVoter implements VoterInterface
+class DeleteLesseeVoter implements VoterInterface
 {
 
     /**
@@ -38,7 +38,7 @@ class EditLesseeVoter implements VoterInterface
             self::ACCESS_ABSTAIN;
         }
 
-        if (!in_array('EDITLESEE', $attributes)) {
+        if (!in_array('DELETELESEE', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }
 

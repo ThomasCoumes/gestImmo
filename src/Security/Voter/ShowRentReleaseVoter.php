@@ -2,22 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: thocou
- * Date: 18/02/19
- * Time: 16:25
+ * Date: 11/03/19
+ * Time: 09:56
  */
 
-namespace App\Security;
+namespace App\Security\Voter;
 
-use App\Entity\Lessee;
+use App\Entity\RentRelease;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
- * Class ShowLesseeVoter
+ * Class ShowRentReleaseVoter
  * @package App\Security
  */
-class ShowLesseeVoter implements VoterInterface
+class ShowRentReleaseVoter implements VoterInterface
 {
 
     /**
@@ -29,16 +29,16 @@ class ShowLesseeVoter implements VoterInterface
      * @param TokenInterface $token A TokenInterface instance
      * @param mixed $subject The subject to secure
      * @param array $attributes An array of attributes associated with the method being invoked
-     *
      * @return int either ACCESS_GRANTED, ACCESS_ABSTAIN, or ACCESS_DENIED
+     * @throws \Exception
      */
     public function vote(TokenInterface $token, $subject, array $attributes)
     {
-        if (!$subject instanceof Lessee) {
-            self::ACCESS_ABSTAIN;
+        if (!$subject instanceof RentRelease) {
+            return self::ACCESS_ABSTAIN;
         }
 
-        if (!in_array('SHOWLESSEE', $attributes)) {
+        if (!in_array('SHOW_RENT_RELEASE', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }
 
@@ -48,7 +48,7 @@ class ShowLesseeVoter implements VoterInterface
             return self::ACCESS_DENIED;
         }
 
-        if ($user !== $subject->getUserLessee()) {
+        if ($user !== $subject->getUserRentRelease()) {
             return self::ACCESS_DENIED;
         }
 
