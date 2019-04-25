@@ -262,8 +262,7 @@ class SecurityController extends AbstractController
 
         $currentDateTime = new DateTime();
 
-        $invitationTokenDateTime = $registringLessee->getTokenCreatedAt();
-        $maximumValidTokenDateTime = clone $invitationTokenDateTime;
+        $maximumValidTokenDateTime = $registringLessee->getTokenCreatedAt();
         $maximumValidTokenDateTime->modify('+'. 7 .'days');
 
         if ($currentDateTime <= $maximumValidTokenDateTime) {
