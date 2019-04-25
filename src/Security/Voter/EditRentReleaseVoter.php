@@ -3,10 +3,10 @@
  * Created by PhpStorm.
  * User: thocou
  * Date: 11/03/19
- * Time: 09:56
+ * Time: 09:39
  */
 
-namespace App\Security;
+namespace App\Security\Voter;
 
 use App\Entity\RentRelease;
 use App\Entity\User;
@@ -14,10 +14,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
- * Class ShowRentReleaseVoter
+ * Class EditRentReleaseVoter
  * @package App\Security
  */
-class ShowRentReleaseVoter implements VoterInterface
+class EditRentReleaseVoter implements VoterInterface
 {
 
     /**
@@ -29,8 +29,8 @@ class ShowRentReleaseVoter implements VoterInterface
      * @param TokenInterface $token A TokenInterface instance
      * @param mixed $subject The subject to secure
      * @param array $attributes An array of attributes associated with the method being invoked
+     *
      * @return int either ACCESS_GRANTED, ACCESS_ABSTAIN, or ACCESS_DENIED
-     * @throws \Exception
      */
     public function vote(TokenInterface $token, $subject, array $attributes)
     {
@@ -38,7 +38,7 @@ class ShowRentReleaseVoter implements VoterInterface
             return self::ACCESS_ABSTAIN;
         }
 
-        if (!in_array('SHOW_RENT_RELEASE', $attributes)) {
+        if (!in_array('EDIT_RENT_RELEASE', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }
 
