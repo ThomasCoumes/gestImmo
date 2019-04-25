@@ -3,10 +3,10 @@
  * Created by PhpStorm.
  * User: thocou
  * Date: 14/02/19
- * Time: 20:29
+ * Time: 13:51
  */
 
-namespace App\Security;
+namespace App\Security\Voter;
 
 use App\Entity\Property;
 use App\Entity\User;
@@ -14,10 +14,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
- * Class DeletePropertyVoter
+ * Class EditPropertyVoter
  * @package App\Security
  */
-class DeletePropertyVoter implements VoterInterface
+class EditPropertyVoter implements VoterInterface
 {
 
     /**
@@ -38,7 +38,7 @@ class DeletePropertyVoter implements VoterInterface
             return self::ACCESS_ABSTAIN;
         }
 
-        if (!in_array('DELETE', $attributes)) {
+        if (!in_array('EDIT', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }
 

@@ -2,22 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: thocou
- * Date: 14/02/19
- * Time: 13:51
+ * Date: 18/02/19
+ * Time: 16:25
  */
 
-namespace App\Security;
+namespace App\Security\Voter;
 
-use App\Entity\Property;
+use App\Entity\Lessee;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
- * Class EditPropertyVoter
+ * Class ShowLesseeVoter
  * @package App\Security
  */
-class EditPropertyVoter implements VoterInterface
+class ShowLesseeVoter implements VoterInterface
 {
 
     /**
@@ -34,11 +34,11 @@ class EditPropertyVoter implements VoterInterface
      */
     public function vote(TokenInterface $token, $subject, array $attributes)
     {
-        if (!$subject instanceof Property) {
-            return self::ACCESS_ABSTAIN;
+        if (!$subject instanceof Lessee) {
+            self::ACCESS_ABSTAIN;
         }
 
-        if (!in_array('EDIT', $attributes)) {
+        if (!in_array('SHOWLESSEE', $attributes)) {
             return self::ACCESS_ABSTAIN;
         }
 
@@ -48,7 +48,7 @@ class EditPropertyVoter implements VoterInterface
             return self::ACCESS_DENIED;
         }
 
-        if ($user !== $subject->getUserProperty()) {
+        if ($user !== $subject->getUserLessee()) {
             return self::ACCESS_DENIED;
         }
 
