@@ -31,22 +31,14 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    # all Services are defined as Service.
+    App\Service\:
+        resource: '../src/Service'
+
     # pdf upload service
     App\Service\PdfUploader:
             arguments:
                 $targetDirectory: '%brochures_directory%'
-
-    # rent release insertion service
-    App\Service\RentReleaseInsertion:
-
-    # send an email to owner to say him than rent release have been created
-    App\Service\Mailer:
-
-    # rent release pdf generator
-    App\Service\PdfGenerator:
-
-    # capitalize first letters from Lessees and Properties informations
-    App\Service\CapitalizeFirstLetter:
 
     #get user in PropertyType
     App\Form\PropertyType:
